@@ -1,0 +1,15 @@
+= partial :float_aside, :locals => {:post => @post}
+#menu_area
+  = partial 'post/post', :locals => {:post => @post, :show_detail => true}
+  %p
+#content
+  %p
+
+  - if logged_in?
+
+    %p
+    = partial 'comment/new', :locals => { :hash => @post.hash }
+
+  %p
+
+  = partial 'comment/replies', :locals => {:replies => @post.replies.sort_by(:score, :order => 'desc')}

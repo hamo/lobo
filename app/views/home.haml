@@ -1,0 +1,17 @@
+- if defined? @user
+  = partial :float_aside, :locals => { :user => @user }
+- elsif defined? @category
+  = partial :float_aside, :locals => { :category => @category }
+- else
+  = partial :float_aside
+
+#content
+  - i = 0
+  - @posts.each do |post|
+    - i += 1
+    .link
+      .rank= i + (@posts.page - 1) * @posts.per_page
+      = partial 'post/post', :locals => {:post => post}
+      .clearleft
+
+  = partial 'post/pagination', :locals => {:items => @posts, :show_detail => false}

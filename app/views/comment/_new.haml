@@ -1,0 +1,11 @@
+%form.form-horizontal.comment-form.cloneable(action="/comment/new/#{hash}" method='post' autocomplete='off')
+  .field-set.new_comment
+    %textarea.span5.md_preview(name='comment_content' rows='4' style='width: 500px;' placeholder='请输入文字内容')
+    %br
+    .comment_buttons
+      %p
+      %button.comment_submit.btn.btn-mini(type='submit') 发表回复
+      %button.comment_preview.btn.btn-mini(type='button' onclick='md_preview(event);') 预览
+      %button.comment_cancel.btn.btn-mini(type='button' style='display: none') 取消
+      %img.loading(src='/images/loading.gif' alt='Loading' style='display: none')/
+      %button.pull-right.btn.btn-mini(type='button' onclick='format_help(event);') 格式说明

@@ -1,0 +1,46 @@
+%h2
+  账户设置
+
+%hr
+
+.tabbable.tabs-left
+  %ul.nav.nav-tabs
+    %li.active
+      %a(href='#pass_email_form' data-toggle='tab') 邮箱/密码
+    %li
+      %a(href='#tab2' data-toggle='tab') place for next
+  .tab-content
+    .tab-pane.active#pass_email_form
+      %form.form-horizontal.validate-form(action='/settings' method='post')
+        .fieldset
+          .control-group
+            %label.control-label(for="present_password") 当前密码
+            .controls
+              %input.input-large(type="password" name="present_password")/
+
+        .fieldset
+          .control-group
+            %label.control-label(for="new_password") 新密码
+            .controls
+              %input.input-large(type="password" name="new_password")/
+
+        .fieldset
+          .control-group
+            %label.control-label(for="new_password_confirm") 确认新密码
+            .controls
+              %input.input-large(type="password" name="new_password_confirm")/
+
+          .control-group
+            %label.control-label(for="email") 电子邮箱
+            .controls
+              %input.input-large(type="email" id='email' name="email" )/
+
+          %input(type='hidden' name='operation' value='pass_email')
+
+          .form-actions
+            %button.btn.btn-danger.btn-large#reset_passwd_button(type="submit") 
+              %i.icon-exclamation-sign
+              修改密码
+    .tab-pane#tab2
+      %p
+        Howdy, I'm in Section 2.

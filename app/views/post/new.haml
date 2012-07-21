@@ -1,0 +1,51 @@
+-#= partial :float_aside
+
+%form.form-horizontal.validate-form(action='/post/new' method='post')
+  .field-set
+    .control-group
+      %label.control-label(for='title') 标题
+      .controls
+        %textarea.validate-input.span5(id='title' name='title' rows="2")
+
+    .control-group
+      %label.control-label(for='content_type') 内容
+      .controls
+        %label.radio.inline
+          %input#radio_url(type='radio' name='type' value='url' checked)/
+          网址
+        %label.radio.inline
+          %input#radio_content(type='radio' name='type' value='content')/
+          文字内容
+        %p
+        %input.validate-input.span5(name='url' id='url' placeholder='请输入来源网址')/
+        %textarea.validate-input.span5(name='content' id='content' rows='5' style='display:none' placeholder='请输入文字内容')
+
+    .control-group
+      %label.control-label(for='category') 类别
+      .controls
+        %input.validate-input.span5.typeahead.category(type='text' name='category' id='category' data-provide='typeahead' autocomplete='off' value="#{ @category ? @category.display_name : ''}")
+        %p
+        - hot_categories.each do |c|
+          %label.inline-block
+            %span(class="#{category_label_class c}")
+              %a( href='javascript:void(0);' onclick="$('#category').val('#{c.display_name}');" )= c.display_name
+          .horizontal-space
+
+    .form-actions
+      %button.btn.btn-large.btn-primary(type='submit')
+        %i.icon-white.icon-ok
+        发表
+      %a.btn.btn-large(href='/')
+        %i.icon-remove
+        取消
+
+:javascript
+  $(document).ready(function() {
+    $("input[name='type']:radio").change(function() {
+      var checked = $("input[name='type']:radio:checked").val();
+      var unchecked = $("input[name='type']:radio:unchecked").val();
+      $("#"+unchecked).hide();
+      $("#"+checked).show();
+      $(".validate-form").validate().form();
+    });
+  });

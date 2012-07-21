@@ -1,0 +1,43 @@
+!!! 5
+%html
+  %head
+    %title= title
+    %meta{:"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}/
+    -#for bootstrap's response page to display correctly
+    %meta{:name => 'viewport', :content => "width=device-width, initial-scale=1.0"}
+    %meta{:name => 'robots', :content => 'all'}
+
+    :javascript
+      var logged="#{current_user.name if logged_in?}";
+
+    != stylesheet_link_tag '/css/main.css', :media => 'screen'
+
+    != javascript_script_tag '/js/jquery-1.7.2.min.js'
+    != javascript_script_tag '/js/libs.min.js'
+    - if ENV['RACK_ENV'] == 'development'
+      != javascript_script_tag '/js/application.js'
+    - else
+      != javascript_script_tag '/js/application.min.js'
+
+    /[if lte IE 8]
+      != stylesheet_link_tag '/css/pie.css', :media => 'screen'
+      != javascript_script_tag '/js/ie9.min.js'
+
+  %body
+    /[if lte IE 6]
+      != javascript_script_tag '/js/ie6-warning.min.js'
+      :javascript
+        window.onload=function(){e("/images/ie6/")}
+
+    .container-fluid
+      = partial :header
+
+      = partial :notice
+
+      != yield
+
+      = partial :footer
+
+      - if ENV['RACK_ENV'] == 'development'
+        %p= "params: #{params.inspect}"
+        %p= "session: #{session.inspect}"

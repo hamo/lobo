@@ -1,0 +1,26 @@
+- history.each do |hash|
+  - post = Post[hash]
+  - next unless post and post.visible? current_user
+  .link
+    %div(class="post_detail #{post.id_hash}")
+      .voting.display-inline.no-margin
+        - if logged_in? and current_user.upvoted?(post)
+          .arrow.upmod{:onclick => "vote('#{hash}',event);"}
+          .arrow.down{:onclick => "vote('#{hash}',event);"}
+        - elsif logged_in? and current_user.downvoted?(post)
+          .arrow.up{:onclick => "vote('#{hash}',event);"}
+          .arrow.downmod{:onclick => "vote('#{hash}',event);"}
+        - else
+          .arrow.up{:onclick => "vote('#{hash}',event);"}
+          .arrow.down{:onclick => "vote('#{hash}',event);"}
+
+      .entry
+        .title
+          = link_to post.title, ( post.url || post_path(post) )
+
+        .tagline
+          %span.karma= post.karma
+          点功德
+          |
+          = link_to "#{post.reply_count}条评论", post_path(post)
+    .clearleft

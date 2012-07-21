@@ -1,0 +1,38 @@
+1. 用户可访问的URL
+  /login  登录界面
+  /register 注册页面
+  /logout 登出界面
+
+  /category/new 新建类别
+  /post/new 新帖子
+
+  /               按热度排列的post列表
+  /latest         按发帖时间排列的post列表
+  /controversial  按最具争议排列的post列表
+  /top            按karma值排序的post列表
+
+  /p/:hash  post地址
+  /l/:name  分类地址
+  /u/:name  用户地址
+  /d/:domain  同域名post
+
+2. ajax请求使用的URL
+
+  /comment/new/:parent_hash  发评论
+  /comment/get/:hash 获取评论
+  /comment/edit/:hash 编辑评论
+
+  /post/get/:hash 获取帖子
+  /post/edit/:hash 编辑帖子
+  /post/delete/:hash 删除帖子
+
+  /category/get 获取分类
+  /category/subscribe/:category 加入/离开分类
+
+  /session/add_history post加入历史
+
+  /do/vote         投票
+  /do/sanction     砍一个post或者comment
+  /do/report       举报一个违规帖子
+
+3. api使用的URL

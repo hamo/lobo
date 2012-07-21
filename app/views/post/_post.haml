@@ -1,0 +1,62 @@
+%div(class="post_detail #{post.id_hash}" onclick="read('#{post.hash}', event);")
+  .voting.display-inline
+    - if logged_in? and current_user.upvoted?(post)
+      .arrow.upmod{:onclick => "vote('#{post.hash}',event);"}
+      %span.karma= post.karma
+      .arrow.down{:onclick => "vote('#{post.hash}',event);"}
+    - elsif logged_in? and current_user.downvoted?(post)
+      .arrow.up{:onclick => "vote('#{post.hash}',event);"}
+      %span.karma= post.karma
+      .arrow.downmod{:onclick => "vote('#{post.hash}',event);"}
+    - else
+      .arrow.up{:onclick => "vote('#{post.hash}',event);"}
+      %span.karma= post.karma
+      .arrow.down{:onclick => "vote('#{post.hash}',event);"}
+
+  .entry
+
+    .title
+      - brand_icons(post).each do |icon|
+        %i.vertical-middle(class="#{icon}")
+
+      - if logged_in?
+        = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable', :title => ( post.url || post.title ), :target => '_blank'
+      - else
+        = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable', :title => ( post.url || post.title )
+
+      %span.domain (#{link_to post.domain, domain_path(post)})
+
+    .tagline
+      = category_label post.category
+      |
+      = link_to "#{post.reply_count}条评论", post_path(post), :class => 'trackable'
+
+      在#{relative_time(post.created_at)}由 #{link_to post.author.name, user_path(post.author)} 发布
+
+      - if logged_in? and post.author == current_user and post.content
+
+        |
+        %a{:onclick => "post_edit('#{post.hash}', event);", :href => 'javascript:void(0);'} 编辑
+
+      - if logged_in? and post.author == current_user
+
+        |
+        %a{:onclick => "post_delete('#{post.hash}', event);", :href => 'javascript:void(0);'} 删除
+      
+      - if logged_in? and current_user.able_to_sanction?
+        - unless post.sanctioned_by
+          |
+          %a{:onclick => "sanction('#{post.hash}', event);", :href => 'javascript:void(0);'} 处罚
+
+      - if logged_in?
+        %a{:onclick => "report('#{post.hash}', event);", :href => 'javascript:void(0);'} 举报
+    
+    - if defined?(show_detail) and show_detail and post.has_content?
+      %pre.md!= post.rendered_content
+
+    - if logged_in? and post.author == current_user and post.content
+      %form.form-horizontal.post-form.validate-form(class="#{post.id_hash}" action="/post/edit/#{post.hash}" method='post' style='display:none' autocomplete='off')
+        %textarea.validate-input.span5.md_preview(name='post_content' rows='5')
+        %button.btn.post_submit(type="submit") 修改
+        %button.btn(type='button' onclick='md_preview(event);') 预览
+        %button.btn(type='button' onclick="$('.post-form.#{post.id_hash}').hide();") 取消

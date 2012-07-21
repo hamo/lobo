@@ -1,0 +1,84 @@
+-#http://twitter.github.com/bootstrap/components.html#navs
+%header
+  #category_nav.align-center
+    = link_to '首页', '/'
+    .horizontal-space
+
+    = link_to '全部', '/l/all'
+    .horizontal-space
+
+    = link_to '随机', '/l/random'
+    .horizontal-space
+
+    |
+
+    .horizontal-space
+
+    - if logged_in? and not current_user.subscriptions.empty?
+      - subs = current_user.subscriptions.to_a
+      - n_sub = subs.size
+      - if n_sub >= 10
+        - subs[0..9].each do |s|
+          = category_label(s)
+          .horizontal-space
+      - else
+        - subs.each do |s|
+          = category_label(s)
+          .horizontal-space
+        |
+        .horizontal-space
+        - hot_categories[0..(10 - n_sub - 1)].each do |c|
+          = category_label(c)
+          .horizontal-space
+    - else
+      - hot_categories.each do |c|
+        = category_label(c)
+        .horizontal-space
+
+  .navbar
+    .navbar-inner
+      .container{:style => 'width:auto;'}
+        %a.btn.btn-navbar{:'data-toggle' => 'collapse', :'data-target' => '.nav-collapse'}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+
+        .brand-items
+          .brand-content= link_to(logo, '/')
+          .brand-content.brand{:style => 'margin: 0;'}= link_to '萝卜', '/'
+
+        .nav-collapse
+          %ul.nav
+            %li(class="#{"active" if current_path == '/'}"             )= link_to '热门', '/'
+            %li(class="#{"active" if current_path == '/latest'}"       )= link_to '最新', '/latest'
+            %li(class="#{"active" if current_path == '/controversial'}")= link_to '最具争议', '/controversial'
+            %li(class="#{"active" if current_path == '/top'}"          )= link_to '分数最高', '/top'
+            %li.divider-vertical/
+            - if ['/', '/top', '/controversial'].include? current_path
+              %li.dropdown
+                %a.dropdown-toggle(href='#' data-toggle='dropdown')
+                  - case params[:t]
+                  - when 'day';
+                    一天
+                  - when 'week';
+                    一周
+                  - when 'month';
+                    一个月
+                  - when 'all';
+                    全部
+                  - else;
+                    一周
+                  %span.caret/
+                %ul.dropdown-menu
+                  %li= link_to '一天'   , "#{current_path}?t=day"
+                  %li= link_to '一周'   , "#{current_path}?t=week"
+                  %li= link_to '一个月' , "#{current_path}?t=month"
+                  %li= link_to '所有'   , "#{current_path}?t=all"
+
+          %ul.nav.pull-right
+            - unless logged_in?
+              %li= link_to '登录|注册', '/login'
+            - else
+              %li.active= link_to current_user.name, user_path(current_user)
+              %li= link_to '个人设置', '/settings'
+              %li= link_to '退出登录', '/logout'

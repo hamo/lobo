@@ -1,0 +1,285 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree . 
+ */
+@import 'base'
+
+$aside_width: 350px
+$arrow_width: 20px
+
+@mixin improve-text-rendering 
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing: antialiased
+
+*  
+  //@include box-sizing(border-box)
+  padding: 0 
+
+a,a:hover
+  text-decoration: none 
+
+body 
+  background: url("/images/background-texture.jpg") repeat scroll 0 0 #999
+  text-shadow: 0 1px 0 #FFFFFF 
+  //font-size: 12px 
+  //font-size: 14px/150%
+  //fix height diff of ch/en
+  line-height: 1.2
+  font-family: "Lucida Grande","Lucida Sans Unicode","Microsoft YaHei",sans-serif
+
+header 
+  margin: 0
+  text-shadow: none
+  //border: 1px solid $color3
+  z-index: 50
+  @include border-radius(6px)
+
+#category_nav
+  margin-bottom: 5px
+
+#logo:hover
+  @include simple-transform(1.5,-10deg)
+
+.brand-items
+  padding: 0 20px
+  margin-left: -20px
+
+.brand-content
+  display: block
+  float: left
+
+.no-margin
+  margin: 0
+
+aside 
+  float: right
+  width: $aside_width
+  margin: 10px 0 10px 10px
+  border: 3px solid rgba($grayLight, 0.1)
+  @include border-radius(6px)
+
+  form.aside_login
+    margin: 0
+
+    input[type='text'], input[type='password']
+      //border: 1px solid $color9
+      background: none repeat scroll 0 0 #EEEEEE
+      height: 17px
+      margin: 5px
+      top: 5px
+      width: ( $aside_width - 100px )* 0.45
+
+.side-box
+  padding: 4px 5px
+
+.side-ruler
+  border-top: 2px solid rgba($grayLight, 0.1)
+
+.inline-block
+  float: none
+  display: inline-block
+
+#post_vote_detail
+  background: rgba($blue,0.2)
+  
+#user_karma_detail
+  background: rgba($purple,0.2)
+
+#category_subscription_detail
+  background: rgba($red,0.2)
+
+.post_author
+  background: rgba($green,0.15)
+
+.karma_detail
+  font-size: 1.5em
+  text-align: center
+
+  p
+    font-weight: bold
+  *
+    vertical-align: baseline
+  i
+    margin-left: 15px
+  span
+    font-size: 14px
+
+.horizontal-space
+  width: 1em
+  display: inline-block
+
+//for inline displaying
+.display-inline
+  float: left
+  display: inline
+  word-break: break-all
+  word-wrap: break-word
+  overflow: hidden
+
+.clearleft
+  clear: left
+
+.entry
+  margin-left: 8px
+  padding: 0 3px
+  overflow: hidden
+  @include border-radius(5px)
+  @include transition-property(background)
+  &:hover
+    background: rgba($grayLight, 0.2)
+
+aside .entry
+  margin-left: 30px
+
+.aside_button_note
+  width: $aside_width - 150px
+  padding-left: 5px
+  vertical-align: middle
+
+footer 
+  text-align: center
+
+//menu before content
+#menu_area 
+  overflow: hidden
+  //border-bottom: 1px dotted $color3
+  margin: 5px
+  padding: 5px 10px
+  font-size: medium
+
+//content area
+//#content 
+
+.link 
+  margin: 0 0 3px
+  padding-left: 2px
+
+  .rank 
+    @include border-radius(22px)
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06) inset, 0 1px 0 #FFFFFF
+    Background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07)
+    width: 44px
+    height: 20px
+    overflow: hidden
+    float: left
+    padding: 11px 0
+    font-size: 14px
+    vertical-align: middle
+    margin: 0
+    text-align: center
+    color: SlateGrey
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1)
+  
+.post_detail
+  .title 
+    font-size: 1.5em
+  .domain 
+    margin-left: 1ex
+    font-size: small
+    a
+      color: $grayLight
+    a:hover
+      text-decoration: underline
+
+.tagline 
+  //color: grey
+  font-size: small
+  margin: inherit
+  margin: 0
+  color: $grayLight
+  line-height: 1.4
+
+.vertical-middle
+  vertical-align: middle
+
+.label
+  padding: 2px 4px
+  a
+    color: #FFFFFF
+  a:hover
+    text-decoration: none
+
+.voting 
+  float: left
+  margin: 0 4px
+  overflow: hidden
+  text-align: center
+
+  .karma
+    font-size: small
+    font-weight: bold
+    color: $grayLight
+
+.arrow
+  background-repeat: no-repeat
+  cursor: pointer
+  display: block
+  height: 14px
+  width: $arrow_width
+
+.arrow.up 
+  background: url('/images/up.png') no-repeat transparent
+  margin-bottom: 1px
+
+.arrow.upmod 
+  background: url('/images/upmod.png') no-repeat transparent
+  margin-bottom: 1px
+
+.arrow.down 
+  background: url('/images/down.png') no-repeat transparent
+  margin-top: 1px
+
+.arrow.downmod 
+  background: url('/images/downmod.png') no-repeat transparent
+  margin-top: 1px
+
+.md
+  margin: 5px 0
+  max-width: 70em
+  padding: 5px
+  @include border-radius(4px)
+  font-family: "Lucida Grande","Lucida Sans Unicode",Simsun,serif
+  *
+    font-family: inherit
+
+.comment
+  .comment_detail
+    vertical-align: text-top
+  .comment_actions
+    a
+      cursor: pointer
+  .child
+    border-left: 1px dotted LightGray
+    margin-top: 5px
+  .entry
+    background: none
+    padding: 0 3px 0
+
+.column_left
+  width: 49%
+  display: inline-block
+  //border-right: 1px solid $color3
+
+.column_right
+  display: inline-block
+  width: 50%
+
+.align-center
+  text-align: center
+
+.new_comment
+  overflow: hidden
+
+.comment_buttons
+  width: 500px
+
+.format_help
+  text-align: center
+  width: 450px
+  margin-top: 10px
+
+.md-helper
+  width: 450px

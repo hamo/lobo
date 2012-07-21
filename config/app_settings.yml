@@ -1,0 +1,12 @@
+# classes to be used to generate icons
+:brand_icons:
+  :picture: icon-picture
+  :video:   icon-facetime-video
+  :hot:     icon-fire
+
+:domain: www.lobo.com
+
+# these two values should be made as low as possible to allow dickheads to be
+# really punished
+:post_karma_barrier: -10
+:comment_karma_barrier: -10

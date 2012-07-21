@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+# coding: utf-8
+#Description: 
+
+Mail.defaults do
+  delivery_method   :sendmail
+  #delivery_method   :exim,  :location => '/usr/bin/exim'
+end

@@ -1,0 +1,53 @@
+-#display post title if on user post/comment display page
+- if current_path == user_path(comment.author)
+  - post = comment.post
+  
+  .title
+    - brand_icons(post).each do |icon|
+      %i.vertical-middle(class="#{icon}")
+
+    - if logged_in?
+      = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable', :target => '_blank'
+    - else
+      = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable'
+
+    %span.domain (#{link_to post.domain, domain_path(post)})
+  
+%div(class="comment #{comment.id_hash}" id="#{comment.hash.split(/_/)[-1]}")
+  .voting
+    - if logged_in? and current_user.upvoted?(comment)
+      .arrow.upmod{:onclick => "vote('#{comment.hash}',event);"}
+      .arrow.down{:onclick => "vote('#{comment.hash}',event);"}
+    - elsif logged_in? and current_user.downvoted?(comment)
+      .arrow.up{:onclick => "vote('#{comment.hash}',event);"}
+      .arrow.downmod{:onclick => "vote('#{comment.hash}',event);"}
+    - else
+      .arrow.up{:onclick => "vote('#{comment.hash}',event);"}
+      .arrow.down{:onclick => "vote('#{comment.hash}',event);"}
+
+  .comment_detail.entry
+    .tagline
+
+      %strong
+        = link_to comment.author.name, user_path(comment.author)
+
+      发表于#{relative_time comment.created_at}
+
+      |
+
+      %span.karma= comment.karma
+
+      点人品
+
+    - if comment.author == comment.post.author
+      .md.post_author!= comment.rendered_content
+    - else
+      .md!= comment.rendered_content
+
+    .comment_actions
+      = link_to '链接', comment_path(comment)
+      %a{:onclick => "comment_reply('#{comment.hash}', event);"}  回复
+      - if comment.author == current_user
+        %a{:onclick => "comment_edit('#{comment.hash}', event);"} 编辑
+
+    .child= partial 'comment/replies', :locals => {:replies => comment.replies.sort_by(:score, :order => 'desc')}
