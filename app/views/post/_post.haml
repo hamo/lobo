@@ -43,13 +43,15 @@
         |
         %a{:onclick => "post_delete('#{post.hash}', event);", :href => 'javascript:void(0);'} 删除
       
-      - if logged_in? and current_user.able_to_sanction?
+      - if logged_in? and current_user.able_to_sanction?(post)
         - unless post.sanctioned_by
           |
           %a{:onclick => "sanction('#{post.hash}', event);", :href => 'javascript:void(0);'} 处罚
 
-      - if logged_in?
-        %a{:onclick => "report('#{post.hash}', event);", :href => 'javascript:void(0);'} 举报
+      - if logged_in? and current_user.able_to_report?
+        - unless post.reported_by
+          |
+          %a{:onclick => "report('#{post.hash}', event);", :href => 'javascript:void(0);'} 举报
     
     - if defined?(show_detail) and show_detail and post.has_content?
       %pre.md!= post.rendered_content

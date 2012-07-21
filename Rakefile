@@ -34,9 +34,11 @@ namespace :db do
 
     puts "Creating default admin account: loboadmin:admin"
 
-    User.create(:name => 'loboadmin', :password => 'admin', :password_confirmation => 'admin', :email => 'admin@lobo.com')
-    User.first(:name => 'loboadmin').tags << 'can_sanction'
-    User.first(:name => 'loboadmin').tags << 'admin'
+    admin = User.create(:name => 'loboadmin', :password => 'admin', :password_confirmation => 'admin', :email => 'admin@lobo.com')
+    admin.tags << 'can_sanction'
+    admin.tags << 'admin'
+    # 10 posts so that loboadmin can report ...
+    10.times { Fabricate(:content_post, :author => admin) }
 
     75.times { Fabricate(:comment) }
 
