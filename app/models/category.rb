@@ -62,12 +62,14 @@ class Category < Ohm::Model
     u = (user.is_a?(User) ? user : User.first(:name => user.to_s))
     return nil unless u
     self.admins.add u
+    u.tags << "##{self.name}"
   end
 
   def delete_admin(user)
     u = (user.is_a?(User) ? user : User.first(:name => user.to_s))
     return nil unless u
     self.admins.delete u
+    u.tags.delete "##{self.name}"
   end
 
   def allow_viewing?(user=nil)

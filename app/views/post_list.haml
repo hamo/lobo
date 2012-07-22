@@ -6,6 +6,15 @@
   = partial :float_aside
 
 #content
+
+  - if event = events.sample
+    .link.event-link
+      - case event
+      - when Moderation
+        .rank= '审'
+        = partial 'post/moderation', :locals => {:event => event}
+      .clearleft
+
   - i = 0
   - @posts.each do |post|
     - i += 1

@@ -17,8 +17,14 @@ class Main
     end
 
     def post_review_events
+      return [] unless logged_in?
       return [] unless current_user.able_to_sanction? or not current_user.moderated_categories.empty?
-      pending_review = Action.find
+      pending_review = Moderation.find(:reviewer => nil).to_a
+      if current_user.able_to_sanction?
+        pending_review
+      else
+        pending_review.select{|m| m.post.category.admins.include?(current_user)}
+      end
     end
   end
 end
