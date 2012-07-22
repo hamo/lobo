@@ -76,13 +76,13 @@ class Post < Ohm::Model
   end
 
   def reported_by
-    ar = Action.first(:post_id => id, :action_type => 'report')
-    ar ? ar.user : nil
+    ar = Moderation.with(:post_id, id)
+    ar ? ar.reporter : nil
   end
 
   def reviewed_by
-    ar = Action.first(:post_id => id, :action_type => 'review')
-    ar ? ar.user : nil
+    ar = Moderation.with(:post_id, id)
+    ar ? ar.reviewer : nil
   end
 
   def to_hash

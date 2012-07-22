@@ -188,7 +188,7 @@ class User < Ohm::Model
     # cannot report unless post karma > 10 
     return false unless able_to_report?
     return false if item.reported_by
-    rep = Action.new(:user => self, :post => item, :action_type => 'report', :memo => memo)
+    rep = Moderation.new(:reporter => self, :post => item, :memo => memo)
     if rep.valid?
       rep.save
       true
@@ -205,19 +205,16 @@ class User < Ohm::Model
     return if post.reviewed_by
     decision = approved ? 'positive' : 'negative'
 
-    rev = Action.new(:user => self, :post => post, :action_type => 'review', :action_result => decision)
-    if rev.valid?
-      rev.save
-      if approved
-        post.reported_by.incr(:conduct_karma, -5)
-      else
-        sanction(post)
-        post.reported_by.incr(:conduct_karma, 5)
-      end
-      rev
+    rev = Moderation.with(:post_id, post.id)
+    rev.update(:reviewer => self, :result => decision)
+    if approved
+      post.reported_by.incr(:conduct_karma, -5)
     else
-      nil
+      sanction(post)
+      post.reported_by.incr(:conduct_karma, 5)
     end
+
+    rev
   end
 
   def able_to_sanction?(post = nil)
