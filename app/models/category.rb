@@ -2,6 +2,7 @@
 # coding: utf-8
 #Author: Roy L Zuo (roylzuo at gmail dot com)
 #Description: 
+require_relative 'shared'
 
 class Category < Ohm::Model
   include Ohm::LoboTimestamp
