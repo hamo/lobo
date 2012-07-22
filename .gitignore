@@ -7,3 +7,4 @@ art-work
 .bundle
 public/stylesheets/*.css
 *.jar
+unicorn.conf.rb
