@@ -16,7 +16,7 @@ class Main
     posts = available_posts_in_categories(categories)
     @posts = paginate_posts(posts, :sort_by => :score, :order => 'DESC')
 
-    haml :home
+    haml :post_list
   end
 
   # get a random category
@@ -43,7 +43,7 @@ class Main
       if @category.allow_viewing? current_user
         post_set = available_posts_in_categories(categories)
         @posts = paginate_posts(post_set, :sort_by => :score, :order => 'DESC')
-        haml :home
+        haml :post_list
       else
         haml :not_authorized_to_view
       end
@@ -53,7 +53,7 @@ class Main
       @title = '混合类别'
       post_set = available_posts_in_categories(viewables)
       @posts = paginate_posts(post_set, :sort_by => :score, :order => 'DESC')
-      haml :home
+      haml :post_list
     end
   end
 
