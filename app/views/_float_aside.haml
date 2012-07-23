@@ -45,9 +45,10 @@
 
         #{user.comment_karma} 点人品
 
-        .horizontal-space
+        - unless user.conduct_karma.zero?
 
-        #{user.conduct_karma} 点节操
+          .horizontal-space
+          #{user.conduct_karma} 点节操
       
       %p
 
