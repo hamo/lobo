@@ -47,6 +47,6 @@ class Main
     @posts = paginate_posts(all_viewable_posts.find(:author_id => @user.id), 
                             :sort_by => :created_at, 
                             :order => 'DESC')
-    haml :home
+    haml :post_list
   end
 end
