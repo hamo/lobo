@@ -8,3 +8,4 @@ art-work
 public/stylesheets/*.css
 *.jar
 unicorn.conf.rb
+config/secret.txt
