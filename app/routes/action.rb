@@ -17,16 +17,15 @@ class Main
     nil
   end
 
-  # sanction a :Post or a :Comment
+  # sanction a :Post
   #
-  #   :hash => hash of post or comment
+  #   :hash => hash of post
   #
   post '/do/sanction' do
-    return stamp_json(false) unless logged_in? and current_user.able_to_sanction?
-    article_class = params[:hash].include?('_') ? Comment : Post
-    article = article_class[params[:hash]]
-    return stamp_json(false) unless article
-    current_user.sanction(article)
+    return stamp_json(false) unless logged_in? and params[:hash]
+    p = Post[params[:hash]]
+    return stamp_json(false) unless p and current_user.able_to_sanction?(p)
+    current_user.sanction(p)
     return stamp_json(true)
   end
 
