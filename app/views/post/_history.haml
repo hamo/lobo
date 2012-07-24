@@ -16,7 +16,7 @@
 
       .entry
         .title
-          = link_to post.title, ( post.url || post_path(post) )
+          = link_to post.title, ( post.url || post_path(post) ), :title => ( post.url || post.title ), :target => '_blank'
 
         .tagline
           %span.karma= post.karma
