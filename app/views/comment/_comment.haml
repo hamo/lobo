@@ -41,6 +41,8 @@
 
     - if comment.author == comment.post.author
       .md.post_author!= comment.rendered_content
+    - elsif comment.post.category.admins.include?(comment.author) or comment.author.tagged?('admin')
+      .md.post_admin!= comment.rendered_content
     - else
       .md!= comment.rendered_content
 
