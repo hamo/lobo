@@ -367,8 +367,10 @@ function vote(hash, event) {
     } else if (o.hasClass("downmod")){
 	$.post("/do/vote", {hash: hash, vote_type: 'down'});
 	type = "downmod";
+    } else {
+	return false;
     }
-    $(".id_"+hash).each(function(index, Element){
+    $(".post_detail.id_"+hash).each(function(index, Element){
 	var obj = $(Element).children(".voting");
 	var k = $(Element).find("span.karma:first");
 	var nk;
