@@ -11,7 +11,7 @@
     .link.event-link
       - case event
       - when Moderation
-        .rank= '审'
+        .rank= '审核'
         = partial 'post/moderation', :locals => {:event => event}
       .clearleft
 
