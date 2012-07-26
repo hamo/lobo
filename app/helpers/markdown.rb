@@ -12,6 +12,13 @@ class HTMLStripped < Redcarpet::Render::HTML
   def header(text, level)
     "<strong>#{'#'* level} #{text} #{'#' * level}</strong>"
   end
+
+  def codespan(code)
+    c = Category.with(:display_name, code)
+    c = Category.with(:name, code) unless c
+    return "" unless c
+    return "<a href='/l/#{c.name}' title='#{c.display_name}'>#{c.display_name}</a>"
+  end
 end
 
 MARKDOWN ||= Redcarpet::Markdown.new(
