@@ -57,6 +57,31 @@ class Main
     end
   end
 
+  get '/l/:category/settings' do
+    halt 404 unless logged_in?
+    @category = Category.with(:name, params[:category])
+    halt 404 unless @category
+    halt 404 unless current_user.tagged?('admin') or @category.admins.include?(current_user)
+    haml :'category/settings'
+  end
+
+  post '/l/:category/settings' do
+    halt 404 unless logged_in?
+    @category = Category.with(:name, params[:category])
+    halt 404 unless @category
+    halt 404 unless current_user.tagged?('admin') or @category.admins.include?(current_user)
+    case params[:operation]
+    when 'notes'
+      @category.note = params[:note]
+      @category.sidebar = params[:sidebar]
+      @category.save
+      session[:info] = '描述修改成功'
+      redirect category_path(@category)
+    else
+      halt 404
+    end
+  end
+
   # enquire categories with a :keyword in either name or display_name
   # TODO
   get '/q/category/:keyword' do

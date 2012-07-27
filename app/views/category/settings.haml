@@ -1,0 +1,40 @@
+%h2
+  圈子设置
+
+%hr
+
+.tabbable.tabs-left
+  %ul.nav.nav-tabs
+    %li.active
+      %a(href='#notes_form' data-toggle='tab') 描述
+    %li
+      %a(href='#tab2' data-toggle='tab') place for next
+  .tab-content
+    .tab-pane.active#notes_form
+      %form.form-horizontal.validate-form(action="/l/#{@category.name}/settings" method='post')
+        .fieldset
+          .control-group
+            %label.control-label(for='note') 简单描述
+            .controls
+              %textarea.span5(name='note' id='note' rows='2')
+                #{@category.note}
+              .md-helper
+                %a.pull-right(href='javascript:void(0);' onclick='format_help(event);') 格式说明
+        
+          .control-group
+            %label.control-label(for='sidebar') 侧边栏
+            .controls
+              %textarea.span5(name='sidebar' id='sidebar' rows='5')
+                #{@category.sidebar}
+              .md-helper
+                %a.pull-right(href='javascript:void(0);' onclick='format_help(event);') 格式说明
+
+          %input(type='hidden' name='operation' value='notes')
+
+          .form-actions
+            %button.btn.btn-danger.btn-large#notes_button(type="submit") 
+              %i.icon-exclamation-sign
+              修改
+    .tab-pane#tab2
+      %p
+        Howdy, I'm in Section 2.

@@ -93,6 +93,14 @@
 
   - if defined? category
     .side-ruler
+    - if current_user and (current_user.tagged?('admin') or category.admins.include?(current_user))
+      .side-box
+        %a.btn.btn-large.btn-success.inline-block{:href => "#{category_path(category)}/settings"}
+          %i.icon-cog.icon-white
+          管理本圈子
+        .aside_button_note.inline-block
+          修改圈子的设置
+
     .side-box
       - if category_subscribe? category
         %a.btn.btn-large.btn-inverse.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe('#{category.name}', event);"}
