@@ -370,7 +370,7 @@ function vote(hash, event) {
     } else {
 	return false;
     }
-    $(".post_detail.id_"+hash).each(function(index, Element){
+    $(".id_"+hash).each(function(index, Element){
 	var obj = $(Element).children(".voting");
 	var k = $(Element).find("span.karma:first");
 	var nk;
