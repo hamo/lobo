@@ -19,7 +19,7 @@ class Main
     def post_review_events
       return [] unless logged_in?
       return [] unless current_user.able_to_sanction? or not current_user.moderated_categories.empty?
-      pending_review = Moderation.find(:reviewer => nil).to_a.select{|po| po.reported_by != current_user}
+      pending_review = Moderation.find(:reviewer => nil).to_a
       if current_user.able_to_sanction?
         pending_review
       else
