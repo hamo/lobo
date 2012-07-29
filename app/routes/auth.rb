@@ -31,6 +31,7 @@ class Main
       else
         error_messages = parse_errors(user.errors) do |e|
           case e
+          when [:name                 , :not_unique] ; '用户名已经存在'
           when [:name                 , :not_present]; '您见过没名字的用户么？'
           when [:name                 , :format]     ; '好歹取个5个英文字母以上长度的名字吧'
           when [:email                , :not_email]  ; '邮件格式不对哦亲'

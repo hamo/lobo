@@ -250,3 +250,11 @@ def relative_time(start_time)
   end
 end
 
+class Scrivener
+  module Validations
+    protected
+    def assert_unique(att, err = [att, :not_unique])
+      assert(self.class.with(att, send(att)).nil?, err)
+    end
+  end
+end
