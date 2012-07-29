@@ -23,8 +23,8 @@ output_style = :compressed
 sass_dir = "app/views/css"
 #
 # Directory where Compass dumps the generated CSS files
-css_dir = "public/stylesheets"
-http_stylesheets_path = "/stylesheets"
+css_dir = "public/css"
+http_stylesheets_path = "/css"
 #
 # Directory where font files use in font-face declarations are stored
 fonts_dir = "public/fonts"

@@ -34,7 +34,7 @@ class Main < Monk::Glue
 
     Sass::Plugin.options.merge(
       :template_location => 'app/views/css',
-      :css_location => 'public/stylesheets'
+      :css_location => 'public/css'
     ) 
   end
 

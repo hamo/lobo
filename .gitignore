@@ -5,7 +5,7 @@ config/mail.rb
 webrat.log
 art-work
 .bundle
-public/stylesheets/*.css
+public/css/*.css
 *.jar
 unicorn.conf.rb
 config/secret.txt
