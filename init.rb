@@ -22,11 +22,7 @@ class Main < Monk::Glue
   set :app_file, __FILE__
   #the following two are Sinatra defaults 
   set :public_folder, 'public'
-  if ENV["RACK_ENV"] == "production"
-    set :static, false
-  else
-    set :static, true
-  end
+  set :static, ENV["RACK_ENV"] != "production"
 
   configure do
     enable :logging, :dump_errors
