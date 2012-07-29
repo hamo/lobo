@@ -566,6 +566,33 @@ function post_delete(hash, event) {
 	   "json");
 }
 
+function post_review(hash, event) {
+    var o = $(src(event));
+    var success = false;
+    if(o.hasClass('positive')){
+	$.post('/do/review',
+	       {hash: hash, approved: 'yes'},
+	       function(data) {
+		   if(data.success) {
+		       success = true;
+		   }
+	       },
+	       "json");
+    } else if(o.hasClass('negative')){
+	$.post('/do/review',
+	       {hash: hash, approved: 'no'},
+	       function(data) {
+		   if(data.success) {
+		       success = true;
+		   }
+	       },
+	       "json");
+    } else {
+	return false;
+    }
+    if (success == true)
+	o.parent().parent().remove();
+}
 /*
  *
  * typeahead
