@@ -2,9 +2,9 @@
 
 .post_event
   .voting.display-inline
-    .icon-thumbs-up.icon-large.positive(style='display:block; font-size:21px; line-height: 20px;' onclick="post_review('#{post.id}', event);")
+    .thumb.icon-thumbs-up.positive(onclick="post_review('#{post.id}', event);")
 
-    .icon-thumbs-down.icon-large.negative(style='display:block; font-size:21px; line-height: 20px;' onclick="post_review('#{post.id}', event);")
+    .thumb.icon-thumbs-down.negative(onclick="post_review('#{post.id}', event);")
 
   .entry
 
