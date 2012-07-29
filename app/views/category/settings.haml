@@ -4,11 +4,13 @@
 %hr
 
 .tabbable.tabs-left
+
   %ul.nav.nav-tabs
     %li.active
       %a(href='#notes_form' data-toggle='tab') 描述
     %li
-      %a(href='#tab2' data-toggle='tab') place for next
+      %a(href='#members' data-toggle='tab') 成员
+
   .tab-content
     .tab-pane.active#notes_form
       %form.form-horizontal.validate-form(action="/l/#{@category.name}/settings" method='post')
@@ -35,6 +37,6 @@
             %button.btn.btn-danger.btn-large#notes_button(type="submit") 
               %i.icon-exclamation-sign
               修改
-    .tab-pane#tab2
+    .tab-pane#members
       %p
         Howdy, I'm in Section 2.
