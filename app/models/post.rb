@@ -164,7 +164,7 @@ class Post < Ohm::Model
   end
   
   def render_content
-    self.rendered_content = MARKDOWN.render(content)    if content
+    self.rendered_content = MARKDOWN.render(content.strip)    if content
   end
 
 end
