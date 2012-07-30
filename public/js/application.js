@@ -479,6 +479,9 @@ function report(hash, event) {
 	    }
 	},
 	success: function(data, status, xhr, form){
+	    var json = $.parseJSON(data);
+	    if(json.success)
+		o.remove();
 	    report.modal('hide');
 	}
     });
