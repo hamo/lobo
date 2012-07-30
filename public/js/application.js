@@ -571,13 +571,13 @@ function post_delete(hash, event) {
 
 function post_review(hash, event) {
     var o = $(src(event));
-    var success = false;
+    var event = o.parent().parent().parent();
     if(o.hasClass('positive')){
 	$.post('/do/review',
 	       {hash: hash, approved: 'yes'},
 	       function(data) {
 		   if(data.success) {
-		       success = true;
+		       event.remove();
 		   }
 	       },
 	       "json");
@@ -586,15 +586,13 @@ function post_review(hash, event) {
 	       {hash: hash, approved: 'no'},
 	       function(data) {
 		   if(data.success) {
-		       success = true;
+		       event.remove();
 		   }
 	       },
 	       "json");
     } else {
 	return false;
     }
-    if (success == true)
-	o.parent().parent().remove();
 }
 /*
  *
