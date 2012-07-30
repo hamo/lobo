@@ -491,6 +491,32 @@ function report(hash, event) {
     report.modal();
 }
 
+function review(hash, event) {
+    var o = $(src(event));
+    var event = o.parent().parent().parent();
+    if(o.hasClass('positive')){
+	$.post('/do/review',
+	       {hash: hash, approved: 'yes'},
+	       function(data) {
+		   if(data.success) {
+		       event.remove();
+		   }
+	       },
+	       "json");
+    } else if(o.hasClass('negative')){
+	$.post('/do/review',
+	       {hash: hash, approved: 'no'},
+	       function(data) {
+		   if(data.success) {
+		       event.remove();
+		   }
+	       },
+	       "json");
+    } else {
+	return false;
+    }
+}
+
 function md_preview(event) {
     var o = $(src(event));
     var loading = o.parent().find(".comment_loading");
@@ -569,31 +595,6 @@ function post_delete(hash, event) {
 	   "json");
 }
 
-function post_review(hash, event) {
-    var o = $(src(event));
-    var event = o.parent().parent().parent();
-    if(o.hasClass('positive')){
-	$.post('/do/review',
-	       {hash: hash, approved: 'yes'},
-	       function(data) {
-		   if(data.success) {
-		       event.remove();
-		   }
-	       },
-	       "json");
-    } else if(o.hasClass('negative')){
-	$.post('/do/review',
-	       {hash: hash, approved: 'no'},
-	       function(data) {
-		   if(data.success) {
-		       event.remove();
-		   }
-	       },
-	       "json");
-    } else {
-	return false;
-    }
-}
 /*
  *
  * typeahead
