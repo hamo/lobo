@@ -24,7 +24,7 @@ def post_controversial_score(up, down, time)
   div = [karma.abs, 1].max
   n = up + down
 
-  n / div
+  (n.to_f / div).round(7)
 end
 
 # hot comments
