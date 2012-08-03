@@ -42,6 +42,8 @@ class Category < Ohm::Model
 
   # pending subscribers
   set :pending_subscribers    , :User
+  # user blacklist
+  set :user_blacklist         , :User
 
   counter   :n_subscribers
 
@@ -74,6 +76,7 @@ class Category < Ohm::Model
   end
 
   def allow_viewing?(user=nil)
+    return false if user and self.user_blacklist.include?(user)
     if self.privacy == 0 || self.privacy == 1
       return true
     elsif user
@@ -85,6 +88,7 @@ class Category < Ohm::Model
 
   def allow_posting?(user=nil)
     return false unless user
+    return false if self.user_blacklist.include?(user)
     return self.privacy == 0 || user.subscriptions.include?(self)
   end
 
@@ -131,6 +135,20 @@ class Category < Ohm::Model
     u = (user.is_a?(User) ? user : User.with(:name, user.to_s))
     if u
       self.pending_subscribers.delete u
+    end
+  end
+
+  def add_user_blacklist(user)
+    u = (user.is_a?(User) ? user : User.with(:name, user.to_s))
+    if u
+      self.user_blacklist.add u
+    end
+  end
+
+  def remove_user_blacklist(user)
+    u = (user.is_a?(User) ? user : User.with(:name, user.to_s))
+    if u
+      self.user_blacklist.delete u
     end
   end
 

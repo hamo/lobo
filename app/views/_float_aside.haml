@@ -114,6 +114,8 @@
           请求已发送
         .aside_button_note.inline-block
           关注这个圈子并添加到快速导航栏
+      - elsif current_user and category.user_blacklist.include? current_user
+
       - else
         %a.btn.btn-large.btn-danger.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe('#{category.name}', event);"}
           %i.icon-plus.icon-white
