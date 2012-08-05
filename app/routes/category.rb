@@ -144,7 +144,7 @@ class Main
       elsif category.pending_subscribers.include? current_user
         return stamp_json(false)
       else
-        category.add_pending_subscribers current_user
+        category.add_pending_subscriber current_user
         return stamp_json(true, {:action => 'subscribe', :result => 'pending'})
       end
     end
