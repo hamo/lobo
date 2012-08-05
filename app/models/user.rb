@@ -235,7 +235,7 @@ class User < Ohm::Model
   end
 
   def moderated_categories
-    tags.select{|i| i.start_with? '#'}.collect{|i| Category.with(:name, i[1..-1])}
+    tags.select{|i| i.start_with? '#'}.collect{|i| Category.with(:name, i[1..-1])}.compact
   end
 
   # creat a User:reset_#{id} to hold hash for password reset, expires in 60

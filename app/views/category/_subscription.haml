@@ -1,0 +1,20 @@
+- user = event.user
+- category = event.category
+
+.post_event
+  .voting.display-inline
+    .thumb.icon-thumbs-up.positive(onclick="review('#{post.id}', event);")
+
+    .thumb.icon-thumbs-down.negative(onclick="review('#{post.id}', event);")
+
+  .entry
+
+    .title
+      用户
+      = link_to user.name, user_path(user)
+      申请加入
+      = category_label post.category
+      分类
+
+    .tagline
+      申请提交于#{relative_time(event.created_at)}

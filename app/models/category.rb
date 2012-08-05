@@ -40,8 +40,6 @@ class Category < Ohm::Model
   # category administrators
   set :admins    , :User
 
-  # pending subscribers
-  set :pending_subscribers    , :User
   # user blacklist
   set :user_blacklist         , :User
 
@@ -108,48 +106,39 @@ class Category < Ohm::Model
     end
   end
 
-  def add_pending_subscribers(user)
-    u = (user.is_a?(User) ? user : User.with(:name, user.to_s))
-    if u 
-      if self.privacy == 0  # This category is public
-        logger.debug "add pending users to pubilc category #{name}"
-      else
-         self.pending_subscribers.add u
-      end
+  def subscription_review_required?
+    privacy == 2 || privacy == 1
+  end
+
+  def pending_subscribers
+    Subscription.find(:category_id => id)
+  end
+
+  def add_pending_subscriber(user)
+    return unless user
+    subs = Subscription.new(:user => user, :category => self)
+    subs.save   if subs.valid?
+  end
+
+  def accept_pending_subscriber(user)
+    if subs = pending_subscribers.first(:user_id => user.id)
+      subs.delete
+      user.subscribe(self)
     end
   end
 
-  def accept_pending_subscribers(user)
-    u = (user.is_a?(User) ? user : User.with(:name, user.to_s))
-    if u
-      if self.pending_subscribers.include? u
-        db.multi do
-          self.pending_subscribers.delete u
-          u.subscribe(self)
-        end
-      end
-    end
-  end
-
-  def remove_pending_subscribers(user)
-    u = (user.is_a?(User) ? user : User.with(:name, user.to_s))
-    if u
-      self.pending_subscribers.delete u
+  def reject_pending_subscriber(user)
+    if subs = pending_subscribers.first(:user_id => user.id)
+      subs.delete
     end
   end
 
   def add_user_blacklist(user)
-    u = (user.is_a?(User) ? user : User.with(:name, user.to_s))
-    if u
-      self.user_blacklist.add u
-    end
+    self.user_blacklist.add user
   end
 
   def remove_user_blacklist(user)
-    u = (user.is_a?(User) ? user : User.with(:name, user.to_s))
-    if u
-      self.user_blacklist.delete u
-    end
+    self.user_blacklist.delete user
   end
 
   private

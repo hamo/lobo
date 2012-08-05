@@ -41,7 +41,7 @@ describe "User actions" do
     po = Fabricate(:post)
     @u.report(@po)
     @admin.review(@po, true).should_not be_nil
-    @admin.review(@po, true).should be_nil
+    @admin.review(po, true).should be_nil
   end
 
   it 'review通过的帖子不扣分，没通过的扣50分' do

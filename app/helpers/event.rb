@@ -9,7 +9,7 @@ class Main
     end
 
     def admin_events
-      post_review_events
+      post_review_events + subscription_events
     end
 
     def commercial_events
@@ -25,6 +25,13 @@ class Main
       else
         pending_review.select{|m| m.post.category.admins.include?(current_user)}
       end
+    end
+
+    def subscription_events
+      return []   unless logged_in? and current_user.moderated_categories.empty?
+      current_user.moderated_categories.to_a.collect{|c|
+        Subscription.find(:category_id => c.id).to_a
+      }.flatten
     end
   end
 end

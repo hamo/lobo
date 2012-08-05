@@ -13,6 +13,9 @@
       - when Moderation
         .rank= '审核'
         = partial 'post/moderation', :locals => {:event => event}
+      - when Subscription
+        .rank= '订阅'
+        = partial 'category/subscription', :locals => {:event => event}
       .clearleft
 
   - i = 0

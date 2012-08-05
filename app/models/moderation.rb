@@ -24,7 +24,7 @@ class Moderation < Ohm::Model
 
   def validate
     assert_present  :reporter
+    assert_unique   :post_id
     assert_present  :post
   end
-
 end

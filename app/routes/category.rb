@@ -138,7 +138,7 @@ class Main
       current_user.unsubscribe category
       return stamp_json(true, :action => 'unsubscribe')
     else
-      if category.privacy == 0  # public category
+      if not category.subscription_review_required?
         current_user.subscribe category
         return stamp_json(true, {:action => 'subscribe', :result => 'accept'})
       elsif category.pending_subscribers.include? current_user

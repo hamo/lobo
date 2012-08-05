@@ -31,8 +31,9 @@
 
   /session/add_history post加入历史
 
-  /do/vote         投票
-  /do/sanction     砍一个post或者comment
-  /do/report       举报一个违规帖子
+  /do/vote                      投票
+  /do/sanction                  砍一个post或者comment
+  /do/report                    举报一个违规帖子
+  /do/authorize_subscription    将一个用户订阅到某个类别
 
 3. api使用的URL
