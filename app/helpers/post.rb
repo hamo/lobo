@@ -70,7 +70,7 @@ class Main
       opts = {
         :user => current_user,
         :time => params[:t] ? params[:t].downcase : 'week',
-        :timeout => 300,
+        :timeout => app_settings(:post_sorting_cache_time),
       }.merge(opts)
       opts[:time] = case opts[:time]
                     when 'day';     86400

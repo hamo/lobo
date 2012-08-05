@@ -10,3 +10,5 @@
 # really punished
 :post_karma_barrier: -10
 :comment_karma_barrier: -10
+
+:post_sorting_cache_time: 1
