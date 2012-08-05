@@ -19,7 +19,7 @@ class Subscription < Ohm::Model
     assert_present  :user
     assert_present  :category
     # can only apply once
-    assert( PendingSubscription.find(:user_id => user_id, :category_id => category_id).size.zero? ,
+    assert( Subscription.find(:user_id => user_id, :category_id => category_id).size.zero? ,
            [:subscription, :application_pending]
           )
   end

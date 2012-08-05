@@ -34,3 +34,19 @@ Fabricator :comment do
   content { Faker::Lorem.paragraph }
   after_create {|comment| comment.save }
 end
+
+Fabricator :category do
+  name { sequence(:name) {|i| "fake_category_#{i}"}}
+  rate          1
+  privacy       0
+  content_type  0
+  after_create {|category| category.save}
+end
+
+Fabricator :private_category, :class_name => :category do
+  name { sequence(:name) {|i| "pri_category_#{i}"}}
+  rate          1
+  privacy       2
+  content_type  0
+  after_create {|category| category.save }
+end
