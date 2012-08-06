@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # coding: utf-8
 #Description: 
+require 'uri'
 
 class Main
   # show post detail
@@ -16,6 +17,14 @@ class Main
     require_login
     if params[:category]
       @category = Category.with(:name, params[:category])
+    end
+    if params[:url]
+      @url = URI.decode(params[:url]).to_s
+      url_pattern = /\A(http|https):\/\/([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}|(25[0-5]|2[0-4]\d|[0-1]?\d?\d)(\.(25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|localhost)(:[0-9]{1,5})?(\/.*)?\z/ix
+      @url = nil unless @url.match(url_pattern)
+    end
+    if params[:title]
+      @post_title = params[:title]
     end
     @title = '发表新帖子'
     haml :'post/new'
