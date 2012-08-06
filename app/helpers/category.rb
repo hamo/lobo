@@ -43,7 +43,7 @@ class Main
 
     def category_pending_subscribe?(category)
       if logged_in?
-        return category.pending_subscribers.include? current_user
+        return category.pending_subscribers.include? current_user.id
       else
         return false
       end

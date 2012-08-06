@@ -111,7 +111,7 @@ class Category < Ohm::Model
   end
 
   def pending_subscribers
-    Subscription.find(:category_id => id)
+    Subscription.find(:category_id => self.id).sort(:get => :user_id).to_a
   end
 
   def add_pending_subscriber(user)
