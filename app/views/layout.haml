@@ -19,11 +19,11 @@
     - else
       != javascript_script_tag '/js/application.min.js'
 
-  %body
     /[if lte IE 8]
-      != javascript_script_tag '/js/ie6-warning.min.js'
       :javascript
-        window.onload=function(){e("/images/ie6/")}
+        window.location = "/browser";
+
+  %body
 
     .container-fluid
       = partial :header

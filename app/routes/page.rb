@@ -49,4 +49,9 @@ class Main
                             :order => 'DESC')
     haml :post_list
   end
+
+  get '/browser' do
+    @title = "请升级您的浏览器"
+    haml :browser, :layout => false, :format => :xhtml
+  end
 end
