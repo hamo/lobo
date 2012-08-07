@@ -19,12 +19,8 @@
     - else
       != javascript_script_tag '/js/application.min.js'
 
-    /[if lte IE 8]
-      != stylesheet_link_tag '/css/pie.css', :media => 'screen'
-      != javascript_script_tag '/js/ie9.min.js'
-
   %body
-    /[if lte IE 6]
+    /[if lte IE 8]
       != javascript_script_tag '/js/ie6-warning.min.js'
       :javascript
         window.onload=function(){e("/images/ie6/")}
