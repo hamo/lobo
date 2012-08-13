@@ -518,6 +518,32 @@ function review(hash, event) {
     }
 }
 
+function authorize_subscription(user, category, event) {
+    var o = $(src(event));
+    var event = o.parent().parent().parent();
+    if(o.hasClass('positive')){
+	$.post('/do/authorize_subscription',
+	       {user: user, category: category, approved: 'yes'},
+	       function(data) {
+		   if(data.success) {
+		       event.remove();
+		   }
+	       },
+	       "json");
+    } else if(o.hasClass('negative')){
+	$.post('/do/authorize_subscription',
+	       {user: user, category: category, approved: 'no'},
+	       function(data) {
+		   if(data.success) {
+		       event.remove();
+		   }
+	       },
+	       "json");
+    } else {
+	return false;
+    }
+}
+
 function md_preview(event) {
     var o = $(src(event));
     var loading = o.parent().find(".comment_loading");

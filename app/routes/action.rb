@@ -64,18 +64,18 @@ class Main
   #   :category   => id of category
   #   :approved   => 'yes' or 'no'
   #
-  post 'do/authorize_subscription' do
+  post '/do/authorize_subscription' do
     return stamp_json(false) unless logged_in?
     u = User[params[:user]]
     return stamp_json(false) unless u
     c = Category[params[:category]]
     return stamp_json(false) unless c
-    return stamp_json(false) unless Category.admins.include? current_user
+    return stamp_json(false) unless c.admins.include? current_user
     approved = ( params[:approved] == 'yes' ? true : false )
     if approved
-      category.accept_pending_subscriber
+      c.accept_pending_subscriber u
     else
-      category.reject_pending_subscriber
+      c.reject_pending_subscriber u
     end
     return stamp_json(true)
   end

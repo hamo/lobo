@@ -3,9 +3,9 @@
 
 .post_event
   .voting.display-inline
-    .thumb.icon-thumbs-up.positive(onclick="void();")
+    .thumb.icon-thumbs-up.positive(onclick="authorize_subscription('#{user.id}', '#{category.id}', event);")
 
-    .thumb.icon-thumbs-down.negative(onclick="void();")
+    .thumb.icon-thumbs-down.negative(onclick="authorize_subscription('#{user.id}', '#{category.id}', event);")
 
   .entry
 
