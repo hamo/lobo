@@ -28,6 +28,7 @@
         |
         .horizontal-space
         - hot_categories[0..(10 - n_sub - 1)].each do |c|
+          - next if subs.include? c
           = category_label(c)
           .horizontal-space
     - else

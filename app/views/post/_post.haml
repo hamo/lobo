@@ -35,7 +35,7 @@
 
       = link_to post.author.name, user_path(post.author), :icon => 'icon-user'
 
-      = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments-alt'}
+      = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments'}
 
       - if logged_in? and post.author == current_user and post.content
 
