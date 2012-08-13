@@ -24,7 +24,7 @@ a,a:hover
 body 
   background: url("/images/background-texture.jpg") repeat scroll 0 0 #999
   text-shadow: 0 1px 0 #FFFFFF 
-  //font-size: 12px 
+  font-size: 12px
   //font-size: 14px/150%
   //fix height diff of ch/en
   line-height: 1.2
@@ -153,7 +153,7 @@ footer
   overflow: hidden
   //border-bottom: 1px dotted $color3
   margin: 5px
-  padding: 5px 10px
+  padding: 0 10px
   font-size: medium
 
 //content area
@@ -184,27 +184,16 @@ footer
   border: 2px dashed rgba($blue, 0.5)
   overflow: hidden
   
-.post_detail
-  .title 
-    font-size: 20px
-  .domain 
-    margin-left: 1ex
-    font-size: small
-    a
-      color: $grayLight
-    a:hover
-      text-decoration: underline
+.title 
+  font-size: 20px
 
-.post_event
-  .title 
-    font-size: 20px
-  .domain 
-    margin-left: 1ex
-    font-size: small
-    a
-      color: $grayLight
-    a:hover
-      text-decoration: underline
+.domain 
+  margin-left: 1ex
+  font-size: small
+  a
+    color: $grayLight
+  a:hover
+    text-decoration: underline
 
 .tagline 
   //color: grey
@@ -277,6 +266,7 @@ footer
   font-family: "Lucida Grande","Lucida Sans Unicode",Simsun,serif
   *
     font-family: inherit
+    font-size: small
   p
     margin: 0 0 2px
 
@@ -320,16 +310,13 @@ footer
   width: 450px
 
 //-------MEDIA QUERIES--------
-@media (max-width: 700px) 
-  //disable side bar  
-  aside
-    display: none
-    visibility: hidden
 
 @media (max-width: 480px)
   *
-    font-size: 70%
-    line-height: auto
-  .rank
-    display: none
-    visibility: none
+    line-height: 1
+  .container-fluid
+    padding: 0 0
+  #menu_area
+    margin: 0 5px
+  .title
+    font-size: medium

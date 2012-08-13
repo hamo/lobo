@@ -22,7 +22,7 @@
   - @posts.each do |post|
     - i += 1
     .link
-      .rank= i + (@posts.page - 1) * @posts.per_page
+      .rank.hidden-phone= i + (@posts.page - 1) * @posts.per_page
       = partial 'post/post', :locals => {:post => post}
       .clearleft
 
