@@ -186,7 +186,7 @@ footer
   
 .post_detail
   .title 
-    font-size: 1.5em
+    font-size: 20px
   .domain 
     margin-left: 1ex
     font-size: small
@@ -197,7 +197,7 @@ footer
 
 .post_event
   .title 
-    font-size: 1.5em
+    font-size: 20px
   .domain 
     margin-left: 1ex
     font-size: small
@@ -208,7 +208,7 @@ footer
 
 .tagline 
   //color: grey
-  font-size: 1.1em
+  font-size: 13px
   margin: inherit
   margin: 0
   color: $grayLight
@@ -318,3 +318,18 @@ footer
 
 .md-helper
   width: 450px
+
+//-------MEDIA QUERIES--------
+@media (max-width: 700px) 
+  //disable side bar  
+  aside
+    display: none
+    visibility: hidden
+
+@media (max-width: 480px)
+  *
+    font-size: 70%
+    line-height: auto
+  .rank
+    display: none
+    visibility: none
