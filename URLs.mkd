@@ -26,7 +26,8 @@
   /post/edit/:hash 编辑帖子
   /post/delete/:hash 删除帖子
 
-  /category/get 获取分类
+  /category/get         获取所有分类名
+  /category/get/:id     获取单个分类
   /category/subscribe/:category 加入/离开分类
 
   /session/add_history post加入历史

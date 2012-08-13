@@ -40,10 +40,11 @@ class Category < Ohm::Model
   # category administrators
   set :admins    , :User
 
+  # category subscribers
+  set :subscribers, :User
+
   # user blacklist
   set :user_blacklist         , :User
-
-  counter   :n_subscribers
 
   unique    :name
   unique    :display_name
@@ -141,6 +142,23 @@ class Category < Ohm::Model
 
   def remove_user_blacklist(user)
     self.user_blacklist.delete user
+  end
+
+  def to_hash(opts = {})
+    res = {
+      :name => name,
+      :display_name => display_name, 
+      :created_at => relative_time(created_at),
+      :updated_at => relative_time(updated_at),
+      :note => note,
+      :rendered_note => rendered_note,
+      :sidebar => sidebar,
+      :rendered_sidebar => rendered_sidebar,
+      :privacy => privacy,
+      :content_type => content_type,
+      :rate => rate,
+    }
+    res.merge( :subscribers => subscribers.to_a.collect(&:id) ) if opts[:subscribers]
   end
 
   private

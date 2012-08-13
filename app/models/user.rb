@@ -140,7 +140,7 @@ class User < Ohm::Model
     return nil unless c
     db.multi do
       self.subscriptions.add c
-      c.incr(:n_subscribers)
+      c.subscribers.add self
     end
   end
 
@@ -151,7 +151,7 @@ class User < Ohm::Model
     return nil unless c
     db.multi do
       self.subscriptions.delete c
-      c.decr(:n_subscribers)
+      c.subscribers.delete self
       c.delete_admin(self)
     end
   end

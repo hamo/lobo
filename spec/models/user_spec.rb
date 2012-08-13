@@ -185,10 +185,10 @@ describe User do
       c = Category.with(:name, 'pic')
       lambda do
         @u.subscribe c
-      end.should change(c, :n_subscribers).by(1)
+      end.should change(c.subscribers, :size).by(1)
       lambda do
         @u.unsubscribe c
-      end.should change(c, :n_subscribers).by(-1)
+      end.should change(c.subscribers, :size).by(-1)
     end
   end
 end

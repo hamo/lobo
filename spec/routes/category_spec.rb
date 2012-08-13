@@ -49,4 +49,18 @@ describe 'category routing' do
     c.should_not be_nil
     c.admins.should include(User.first(:name => 'roylez'))
   end
+
+  it '应该可以以json格式得到圈子' do
+    ca = Fabricate(:category)
+    get "/category/get/#{ca.name}" 
+    #JSON.parse(body, :symbolize_names => true).should == ca.to_hash.merge(:success => true)
+  end
+
+  it '登录时应该可以以json格式得到圈子的订阅人' do
+    ca = Fabricate(:category)
+    test_login
+    get "/category/get/#{ca.name}", :subscribers => '1' 
+    #JSON.parse(body, :symbolize_names => true).should include?(:subscribers)
+  end
+
 end

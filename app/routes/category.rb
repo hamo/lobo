@@ -120,10 +120,19 @@ class Main
     end
   end
 
+  # get names of all categories 
   get '/category/get' do
     return stamp_json(false) unless logged_in? 
     categories = Category.all.collect(&:display_name)
     return stamp_json(true, {:names => categories})
+  end
+
+  # get description of a single category
+  get '/category/get/:name' do
+    unless category = Category.first(:name => params[:name])
+      return stamp_json(false) 
+    end
+    logged_in? ? stamp_json(true, category.to_hash(params)) : stamp_json(true, category.to_hash)
   end
 
   # subscribe a :Category or unsubscribe if already subscribed
