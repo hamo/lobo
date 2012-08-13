@@ -5,7 +5,10 @@
 //bootstrap
 @import 'bootstrap_striped'
 
-$gridGutterWidth:10px
+$gridGutterWidth: 10px
+
+.container-fluid
+  padding: 0 10px
 
 @import 'bootstrap-responsive'
 
@@ -14,11 +17,5 @@ $gridGutterWidth:10px
 @import 'compass/utilities'
 
 $default-transition-duration: 0.5s
-
-//resetting bootstrap _sprite leftover before importing font-awesome
-[class^="icon-"],[class*=" icon-"]
-  height: auto
-  line-height: normal
-  width: auto
 
 @import 'font-awesome'

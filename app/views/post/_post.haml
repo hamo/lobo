@@ -29,11 +29,11 @@
     .tagline
       = category_label post.category
 
-      = link_to post.author.name, user_path(post.author), :icon => 'icon-user'
-
       %i.icon-time 
 
       = relative_time(post.created_at)
+
+      = link_to post.author.name, user_path(post.author), :icon => 'icon-user'
 
       = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments-alt'}
 
