@@ -13,8 +13,6 @@ class Moderation < Ohm::Model
   reference   :reviewer , :User
   reference   :post     , :Post
 
-  index       :reporter
-  index       :reviewer
   unique      :post_id
 
   attribute   :result
@@ -24,7 +22,7 @@ class Moderation < Ohm::Model
 
   def validate
     assert_present  :reporter
-    assert_unique   :post_id
+    assert_unique   :post_id    if new?
     assert_present  :post
   end
 end

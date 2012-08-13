@@ -101,5 +101,30 @@ describe '申请加入私有圈子' do
     get '/'
     response.should have_selector("div.rank", :content => '订阅')
   end
+end
 
+describe '帖子审核' do
+  before :each do
+    @c = Fabricate(:category)
+    @po = Fabricate(:post, :category => @c)
+    @admin = User.with(:name, 'roylez')
+    @c.add_admin @admin
+    @u = Fabricate(:user)
+    10.times{ Fabricate(:post, :author => @u)}
+  end
+
+  it '审核前管理员应该可以看到提示' do
+    @u.report(@po)
+    test_login(@admin.name, 'foobar')
+    get '/'
+    response.should have_selector("div.rank", :content => '审核')
+  end
+
+  it '审核后应该看不到举报了' do
+    @u.report(@po)
+    @admin.review(@po)
+    test_login(@admin.name, 'foobar')
+    get '/'
+    response.should_not have_selector("div.rank", :content => '审核')
+  end
 end
