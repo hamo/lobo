@@ -80,3 +80,26 @@ describe "密码重置" do
     end
   end
 end
+
+describe '申请加入私有圈子' do
+  before :each do
+    @pc = Fabricate(:private_category)
+    @admin = User.with(:name, 'roylez')
+    @pc.add_admin @admin
+    @u = Fabricate(:user)
+  end
+
+  it '用户应该可以提交加入私有圈子的申请' do
+    test_login(@u.name, 'foobar')
+    post "/category/subscribe/#{@pc.name}"
+    JSON.parse(body, :symbolize_names => true)[:result].should == 'pending'
+  end
+
+  it '提交私有圈子申请后，管理员登录应该可以看到' do
+    @pc.add_pending_subscriber @u
+    test_login(@admin.name, 'foobar')
+    get '/'
+    response.should have_selector("div.rank", :content => '订阅')
+  end
+
+end

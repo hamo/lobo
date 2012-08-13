@@ -12,9 +12,6 @@ class Subscription < Ohm::Model
   reference   :user     , :User
   reference   :category , :Category
 
-  index       :user
-  index       :category
-
   def validate
     assert_present  :user
     assert_present  :category

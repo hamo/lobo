@@ -62,13 +62,13 @@ RSpec.configure do |conf|
   end
 
   def create_default_user
-    User.create(:name => 'roylez', :password => 'dummy', :password_confirmation => 'dummy', :email => 'roylzuo@gmail.com')
+    User.create(:name => 'roylez', :password => 'foobar', :password_confirmation => 'foobar', :email => 'roylzuo@gmail.com')
   end
 
-  def test_login
+  def test_login(name = 'roylez', password = 'foobar')
     visit '/login'
-    fill_in 'login_name', :with => 'roylez'
-    fill_in 'login_password', :with => 'dummy'
+    fill_in 'login_name', :with => name
+    fill_in 'login_password', :with => password
     click_button 'login_button'
     follow_redirect!
   end

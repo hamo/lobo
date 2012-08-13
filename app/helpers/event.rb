@@ -28,7 +28,7 @@ class Main
     end
 
     def subscription_events
-      return []   unless logged_in? and current_user.moderated_categories.empty?
+      return []   unless logged_in? and not current_user.moderated_categories.empty?
       current_user.moderated_categories.to_a.collect{|c|
         Subscription.find(:category_id => c.id).to_a
       }.flatten

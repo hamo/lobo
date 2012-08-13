@@ -6,7 +6,7 @@ describe '登录' do
   it '应该可以正确登录' do
     visit '/login'
     fill_in 'login_name', :with => 'roylez'
-    fill_in 'login_password', :with => 'dummy'
+    fill_in 'login_password', :with => 'foobar'
     click_button '登录'
     last_response.should be_redirect
     follow_redirect!

@@ -83,6 +83,11 @@ describe "User actions" do
     it '私密圈子管理员批准后能加入' do
       @pc.add_pending_subscriber @u
       @u.subscriptions.should_not include(@pc)
+      subs = @pm.moderated_categories.to_a.collect{|c|
+        Subscription.find(:category_id => c.id).to_a
+      }.flatten.first
+      subs.should_not be_nil
+      subs.user.should == @u
       @pc.accept_pending_subscriber @u
       @u.subscriptions.should include(@pc)
     end
