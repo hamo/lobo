@@ -254,7 +254,7 @@ class Scrivener
   module Validations
     protected
     def assert_unique(att, err = [att, :not_unique])
-      assert(self.class.with(att, send(att)).nil?, err)
+      assert(self.class.with(att, send(att)).nil?, err)   if new?
     end
   end
 end

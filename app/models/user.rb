@@ -37,7 +37,7 @@ class User < Ohm::Model
 
   def validate
     assert_format :name, /\A[\w_.]{5,32}\Z/
-    assert_unique :name                       if new?
+    assert_unique :name
     assert_email :email unless email.to_s.empty?
     assert_present :password                  if new?
     assert_present :password_confirmation     if new?

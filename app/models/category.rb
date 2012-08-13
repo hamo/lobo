@@ -55,8 +55,8 @@ class Category < Ohm::Model
     assert_present :name
     assert_format :name        , /\A[\w_.]{2,30}\Z/
     assert((not ['random', 'all'].include? name), [:name, :reserved_name])
-    assert_unique :name          if new?
-    assert_unique :display_name  if new? and not display_name.to_s.empty?
+    assert_unique :name
+    assert_unique :display_name  if not display_name.to_s.empty?
     assert_member :rate        , (0..4).to_a
     assert_member :privacy     , (0..2).to_a
     assert_member :content_type, (0..2).to_a
