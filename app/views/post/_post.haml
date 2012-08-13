@@ -28,30 +28,38 @@
 
     .tagline
       = category_label post.category
-      |
-      = link_to "#{post.reply_count}条评论", post_path(post), :class => 'trackable'
 
-      在#{relative_time(post.created_at)}由 #{link_to post.author.name, user_path(post.author)} 发布
+      = link_to post.author.name, user_path(post.author), :icon => 'icon-user'
+
+      %i.icon-time 
+
+      = relative_time(post.created_at)
+
+      = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments-alt'}
 
       - if logged_in? and post.author == current_user and post.content
 
-        |
-        %a{:onclick => "post_edit('#{post.hash}', event);", :href => 'javascript:void(0);'} 编辑
+        %a{:onclick => "post_edit('#{post.hash}', event);", :href => 'javascript:void(0);'}
+          %i.icon-edit
+          编辑
 
       - if logged_in? and post.author == current_user
 
-        |
-        %a{:onclick => "post_delete('#{post.hash}', event);", :href => 'javascript:void(0);'} 删除
+        %a{:onclick => "post_delete('#{post.hash}', event);", :href => 'javascript:void(0);'}
+          %i.icon-trash
+          删除
       
       - if logged_in? and current_user.able_to_sanction?(post)
         - unless post.sanctioned_by
-          |
-          %a{:onclick => "sanction('#{post.hash}', event);", :href => 'javascript:void(0);'} 处罚
+          %a{:onclick => "sanction('#{post.hash}', event);", :href => 'javascript:void(0);'}
+            %i.icon-bolt
+            处罚
 
       - if logged_in? and current_user.able_to_report?
         - unless post.reported_by
-          |
-          %a{:onclick => "report('#{post.hash}', event);", :href => 'javascript:void(0);'} 举报
+          %a{:onclick => "report('#{post.hash}', event);", :href => 'javascript:void(0);'}
+            %i.icon-flag
+            举报
     
     - if defined?(show_detail) and show_detail and post.has_content?
       %pre.md!= post.rendered_content
