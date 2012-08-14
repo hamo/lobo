@@ -1,12 +1,17 @@
 - if items.render?
   %ul.pager
-    - path = request.fullpath
+
+    - uri = URI(request.url)
+    - query_hash = Hash[URI::decode_www_form(uri.query || '')]
+
     - if items.prev_page
+      - uri.query = URI::encode_www_form(query_hash.merge('p' => items.prev_page))
       .horizontal-space
       %li
-        = link_to '上一页', "#{path}#{path.include?('?') ? '&' : '?'}p=#{items.prev_page}"
+        = link_to '上一页', uri.to_s
         
     - if items.next_page
+      - uri.query = URI::encode_www_form(query_hash.merge('p' => items.next_page))
       .horizontal-space
       %li
-        = link_to '下一页', "#{path}#{path.include?('?') ? '&' : '?'}p=#{items.next_page}"
+        = link_to '下一页', uri.to_s
