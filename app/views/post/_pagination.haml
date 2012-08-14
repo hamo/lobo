@@ -1,12 +1,12 @@
 - if items.render?
   %ul.pager
+    - path = request.fullpath
     - if items.prev_page
-      - pp = params.merge('p' => items.prev_page)
       .horizontal-space
       %li
-        = link_to '上一页', "#{current_path}?p=#{items.prev_page}"
+        = link_to '上一页', "#{path}#{path.include?('?') ? '&' : '?'}p=#{items.prev_page}"
         
     - if items.next_page
       .horizontal-space
       %li
-        = link_to '下一页', "#{current_path}?p=#{items.next_page}"
+        = link_to '下一页', "#{path}#{path.include?('?') ? '&' : '?'}p=#{items.next_page}"
