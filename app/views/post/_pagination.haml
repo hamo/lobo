@@ -4,10 +4,9 @@
       - pp = params.merge('p' => items.prev_page)
       .horizontal-space
       %li
-        = link_to '上一页', "#{current_path}?#{pp.collect{|k, v| "#{k}=#{v}"}.join('&')}"
+        = link_to '上一页', "#{current_path}?p=#{items.prev_page}"
         
     - if items.next_page
-      - np = params.merge('p' => items.next_page)
       .horizontal-space
       %li
-        = link_to '下一页', "#{current_path}?#{np.collect{|k, v| "#{k}=#{v}"}.join('&')}"
+        = link_to '下一页', "#{current_path}?p=#{items.next_page}"
