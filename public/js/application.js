@@ -629,6 +629,7 @@ function post_delete(hash, event) {
  */
 $(document).ready(function () {
     var category = $('.typeahead.category');
+    var category_members = $('.typeahead.category_members');
     
     if (category.length != 0) {
 	category.parent().parent().parent().find("button[type='submit']").attr("disabled", true);
@@ -642,6 +643,27 @@ $(document).ready(function () {
 		  }
 	      },
 	      "json");
+    }
+
+    if (category_members.length != 0) {
+	category_members.each(function(index, element){
+	    var name;
+	    var classes = $(element).attr('class').split(/\s+/);
+	    $(classes).each(function(i, e){
+		if ((/^name_/).test(e)) {
+		    name = e.slice(5);
+		}
+	    });
+	$.get("/category/get/"+name,
+	      function(data) {
+		  if(data.success) {
+		      $(element).typeahead({source: data.subscribers});
+		  } else {
+		      //FIXME
+		  }
+	      },
+	      "json");
+	});
     }
 });
 

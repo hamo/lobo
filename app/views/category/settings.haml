@@ -38,5 +38,10 @@
               %i.icon-exclamation-sign
               修改
     .tab-pane#members
-      %p
-        Howdy, I'm in Section 2.
+      %form.well.form-inline(action="/l/#{@category.name}/settings" method='post')
+        %label
+          添加管理员
+        %input.typeahead.category_members(type="text" class="name_#{@category.name}" name="user")
+        %input(type="hidden" name='operation' value='add_admin')
+        %button.btn(type="submit")
+          添加
