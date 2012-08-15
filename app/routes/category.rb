@@ -129,10 +129,8 @@ class Main
 
   # get description of a single category
   get '/category/get/:name' do
-    unless category = Category.first(:name => params[:name])
-      return stamp_json(false) 
-    end
-    logged_in? ? stamp_json(true, category.to_hash(params)) : stamp_json(true, category.to_hash)
+    return stamp_json(false) unless logged_in? and category = Category.first(:name => params[:name])
+    return stamp_json(true, category.to_hash)
   end
 
   # subscribe a :Category or unsubscribe if already subscribed

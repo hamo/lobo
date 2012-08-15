@@ -144,8 +144,8 @@ class Category < Ohm::Model
     self.user_blacklist.delete user
   end
 
-  def to_hash(opts = {})
-    res = {
+  def to_hash
+    {
       :name => name,
       :display_name => display_name, 
       :created_at => relative_time(created_at),
@@ -157,8 +157,8 @@ class Category < Ohm::Model
       :privacy => privacy,
       :content_type => content_type,
       :rate => rate,
+      :subscribers => subscribers.to_a.collect(&:name),
     }
-    res.merge( :subscribers => subscribers.to_a.collect(&:id) ) if opts[:subscribers]
   end
 
   private
