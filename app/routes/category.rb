@@ -78,9 +78,12 @@ class Main
       session[:info] = '描述修改成功'
       redirect category_path(@category)
     when 'add_admin'
-      @category.add_admin(params[:user])
-      @category.save
-      session[:info] = '添加管理员成功'
+      if @category.add_admin(params[:user])
+        @category.save
+        session[:info] = '添加管理员成功'
+      else
+        session[:error] = '添加管理员失败'
+      end
       redirect category_path(@category)
     else
       halt 404

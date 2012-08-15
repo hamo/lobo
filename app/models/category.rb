@@ -64,7 +64,7 @@ class Category < Ohm::Model
 
   def add_admin(user)
     u = (user.is_a?(User) ? user : User.first(:name => user.to_s))
-    return nil unless u
+    return nil unless u and self.subscribers.include? u
     self.admins.add u
     u.tags << "##{self.name}"
   end
