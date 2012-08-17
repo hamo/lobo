@@ -47,13 +47,21 @@ class Main
     # link_to from sinatra-static-asset with icon support
     #
     def link_to(title, href, opts = {})
-      return super unless opts.key? :icon
-      icon = opts.delete(:icon)
+      return super unless opts.key?(:icon) or opts.key?(:icon_after)
+      after = true  if opts.key? :icon_after
+      icon = opts.delete(:icon) || opts.delete(:icon_after)
       opts = opts.merge(:href => href)
-      %Q{<a #{opts.collect{|k,v| "#{k}='#{v}'"}.join(" ")}>
-      <i class="#{icon.gsub(".", ' ')}"></i>
-      #{title}
-      </a>}
+      if after
+        %Q{<a #{opts.collect{|k,v| "#{k}='#{v}'"}.join(" ")}>
+        #{title}
+        <i class="#{icon}"></i>
+        </a>}
+      else
+        %Q{<a #{opts.collect{|k,v| "#{k}='#{v}'"}.join(" ")}>
+        <i class="#{icon}"></i>
+        #{title}
+        </a>}
+      end
     end
   end
 end
