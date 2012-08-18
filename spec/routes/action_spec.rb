@@ -85,6 +85,7 @@ describe '申请加入私有圈子' do
   before :each do
     @pc = Fabricate(:private_category)
     @admin = User.with(:name, 'roylez')
+    @admin.subscribe(@pc)
     @pc.add_admin @admin
     @u = Fabricate(:user)
   end
@@ -108,6 +109,7 @@ describe '帖子审核' do
     @c = Fabricate(:category)
     @po = Fabricate(:post, :category => @c)
     @admin = User.with(:name, 'roylez')
+    @admin.subscribe(@c)
     @c.add_admin @admin
     @u = Fabricate(:user)
     10.times{ Fabricate(:post, :author => @u)}

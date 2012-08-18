@@ -77,6 +77,7 @@ describe "User actions" do
       @u = Fabricate(:user)
       @pc = Fabricate(:private_category)
       @pm = Fabricate(:user)
+      @pm.subscribe @pc
       @pc.add_admin @pm
     end
 

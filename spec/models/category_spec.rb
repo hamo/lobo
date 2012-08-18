@@ -45,6 +45,7 @@ describe Category do
   it '应该可以添加删除分类管理员' do
     c = Category.create(@attr)
     u = Fabricate(:user)
+    u.subscribe(c)
     c.add_admin u
     c.admins.should include(u)
     c.delete_admin u
