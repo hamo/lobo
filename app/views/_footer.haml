@@ -23,6 +23,7 @@
         - else
           - subs.each do |s|
             %li= category_label(s)
+        .clearleft
         %li.divider
         - hot_categories[0..(10 - n_sub - 1)].each do |c|
           - next if subs.include? c
