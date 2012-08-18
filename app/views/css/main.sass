@@ -32,13 +32,11 @@ body
 
 header 
   margin: 0
+  margin-top: 5px
   text-shadow: none
   //border: 1px solid $color3
   z-index: 50
   @include border-radius(6px)
-
-#category_nav
-  margin-bottom: 5px
 
 #logo:hover
   @include simple-transform(1.5,-10deg)
@@ -308,6 +306,23 @@ footer
 
 .md-helper
   width: 450px
+
+.bottom-nav
+  float: right
+  position: fixed
+  right: 10px
+  bottom: 5px
+  z-index: 20
+
+.large
+  font-size: 150%
+
+li .label
+  display: block
+  float: left
+  margin: 2px
+  a
+    padding: 0
 
 //-------MEDIA QUERIES--------
 

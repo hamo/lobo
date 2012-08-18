@@ -1,41 +1,5 @@
 -#http://twitter.github.com/bootstrap/components.html#navs
 %header
-  #category_nav.align-center
-    = link_to '首页', '/'
-    .horizontal-space
-
-    = link_to '全部', '/l/all'
-    .horizontal-space
-
-    = link_to '随机', '/l/random'
-    .horizontal-space
-
-    |
-
-    .horizontal-space
-
-    - if logged_in? and not current_user.subscriptions.empty?
-      - subs = current_user.subscriptions.to_a
-      - n_sub = subs.size
-      - if n_sub >= 10
-        - subs[0..9].each do |s|
-          = category_label(s)
-          .horizontal-space
-      - else
-        - subs.each do |s|
-          = category_label(s)
-          .horizontal-space
-        |
-        .horizontal-space
-        - hot_categories[0..(10 - n_sub - 1)].each do |c|
-          - next if subs.include? c
-          = category_label(c)
-          .horizontal-space
-    - else
-      - hot_categories.each do |c|
-        = category_label(c)
-        .horizontal-space
-
   .navbar
     .navbar-inner
       .container{:style => 'width:auto;'}
@@ -58,6 +22,7 @@
             - if ['/', '/top', '/controversial'].include? current_path
               %li.dropdown
                 %a.dropdown-toggle(href='#' data-toggle='dropdown')
+                  %i.icon-time
                   - case params[:t]
                   - when 'day';
                     一天

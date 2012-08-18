@@ -1,6 +1,33 @@
 %footer
   %div{:class => "row-fluid"}
   .row-fluid
-    .row
-      .span12 
-        © 2012 萝卜网. All rights reserved.
+    .span12 
+      © 2012 萝卜网. All rights reserved.
+
+.bottom-nav
+  .btn-group.dropup
+    %button.btn.btn-inverse.primary.dropdown-toggle(data-toggle='dropdown')
+      %i.icon-sitemap.large
+    %ul.dropdown-menu.pull-right
+      %li= link_to '首页', '/'
+      %li= link_to '全部', '/l/all'
+      %li= link_to '随机', '/l/random'
+      %li.divider
+
+      - if logged_in? and not current_user.subscriptions.empty?
+        - subs = current_user.subscriptions.to_a
+        - n_sub = subs.size
+        - if n_sub >= 10
+          - subs[0..9].each do |s|
+            %li= category_label(s)
+        - else
+          - subs.each do |s|
+            %li= category_label(s)
+        %li.divider
+        - hot_categories[0..(10 - n_sub - 1)].each do |c|
+          - next if subs.include? c
+          %li= category_label(c)
+
+      - else
+        - hot_categories.each do |c|
+          %li= category_label(c)
