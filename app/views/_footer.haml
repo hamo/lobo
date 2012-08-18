@@ -1,9 +1,3 @@
-%footer
-  %div{:class => "row-fluid"}
-  .row-fluid
-    .span12 
-      © 2012 萝卜网. All rights reserved.
-
 .bottom-nav
   .btn-group.dropup
     %button.btn.btn-inverse.primary.dropdown-toggle(data-toggle='dropdown')
@@ -32,3 +26,9 @@
       - else
         - hot_categories.each do |c|
           %li= category_label(c)
+
+%footer
+  %div{:class => "row-fluid"}
+  .row-fluid
+    .span12 
+      © 2012 萝卜网. All rights reserved.
