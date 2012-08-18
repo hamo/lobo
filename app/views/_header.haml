@@ -50,15 +50,14 @@
 
         .nav-collapse
           %ul.nav
-            %li(class="#{"active" if current_path == '/'}"             )= link_to '热门', '/', :icon_after => 'icon-fire color-orange'
+            %li(class="#{"active" if current_path == '/'}"             )= link_to '热门', '/'
+            %li(class="#{"active" if current_path == '/latest'}"       )= link_to '最新', '/latest'
             %li(class="#{"active" if current_path == '/controversial'}")= link_to '最具争议', '/controversial'
             %li(class="#{"active" if current_path == '/top'}"          )= link_to '分数最高', '/top'
-            %li(class="#{"active" if current_path == '/latest'}"       )= link_to '最新', '/latest'
             %li.divider-vertical/
             - if ['/', '/top', '/controversial'].include? current_path
               %li.dropdown
                 %a.dropdown-toggle(href='#' data-toggle='dropdown')
-                  %i.icon-time
                   - case params[:t]
                   - when 'day';
                     一天
