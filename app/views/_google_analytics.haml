@@ -1,5 +1,13 @@
-:javascript
-  var _gaq=[["_setAccount","#{app_settings(:google_analytics_id)}"],["_trackPageview"],["_trackPageLoadTime"]];
-  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-  g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
-  s.parentNode.insertBefore(g,s)}(document,"script"));
+- domain = app_settings(:domain)
+- site_id = app_settings(:google_analytics_id)
+- if site_id
+  :javascript
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  :javascript
+    try {
+      var pageTracker = _gat._getTracker("#{site_id}");
+      pageTracker._setDomainName(".#{domain}");
+      pageTracker._setAllowHash(false);
+      pageTracker._trackPageview();
+    } catch(err) {}
