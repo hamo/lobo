@@ -18,7 +18,7 @@ class Main
     # Get a dynamic title based on @title variable
     #
     def title
-      base_title = '萝卜'
+      base_title = '嘟噜'
       @title ? "#{base_title} | #{@title}" : base_title
     end
 

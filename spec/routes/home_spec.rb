@@ -5,7 +5,7 @@ require "spec_helper"
 describe '主页', :type => :request do
   it "应该有正确的标题" do 
     get "/"
-    response.should have_selector("title", :content => '萝卜')
+    response.should have_selector("title", :content => '嘟噜')
   end
 
   it '应该有content区域' do

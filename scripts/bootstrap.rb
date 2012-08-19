@@ -20,7 +20,10 @@ pic_sidebar = %Q{
 * **禁止发成人图片**
 * **上班不宜图片请发送到NSFW版面**
 }
-Category.create(:name => 'pic', :display_name => '图片', :rate => 3, :sidebar => pic_sidebar, :privacy => 0, :content_type => 0)
+Category.create(:name => 'pic', :display_name => '图片', :rate => 3, :sidebar => pic_sidebar, :privacy => 0, :content_type => 1)
 
 notice "创建初始类别：funny"
 Category.create(:name => 'funny', :display_name => '趣味', :rate => 3, :privacy => 0, :content_type => 0)
+
+notice "创建初始类别：video"
+Category.create(:name => 'video', :display_name => '视频', :rate => 3, :privacy => 0, :content_type => 1)
