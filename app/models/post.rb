@@ -38,7 +38,7 @@ class Post < Ohm::Model
   index     :available?
 
   def domain
-    d = url ? url[/\/\/(?:www.)?([^\/]+)/i,1] : "嘟噜->#{category.display_name}"
+    d = url ? url[/\/\/(?:www.)?([^\/]+)/i,1] : "#{category.display_name}"
     d.downcase
   end
 
