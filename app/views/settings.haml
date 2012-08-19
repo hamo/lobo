@@ -7,8 +7,7 @@
   %ul.nav.nav-tabs
     %li.active
       %a(href='#pass_email_form' data-toggle='tab') 邮箱/密码
-    %li
-      %a(href='#tab2' data-toggle='tab') place for next
+
   .tab-content
     .tab-pane.active#pass_email_form
       %form.form-horizontal.validate-form(action='/settings' method='post')
@@ -41,6 +40,4 @@
             %button.btn.btn-danger.btn-large#reset_passwd_button(type="submit") 
               %i.icon-exclamation-sign
               修改密码
-    .tab-pane#tab2
-      %p
-        Howdy, I'm in Section 2.
+
