@@ -32,9 +32,9 @@ namespace :db do
     require 'spec/factory'
     puts "Putting default stuff in DB #{monk_settings(:redis)[:db]}"
 
-    puts "Creating default admin account: loboadmin:admin"
+    puts "Creating default admin account: loboadmin"
 
-    admin = User.create(:name => 'loboadmin', :password => 'admin', :password_confirmation => 'admin', :email => 'admin@lobo.com')
+    admin = User.create(:name => 'loboadmin', :password => 'm316121', :password_confirmation => 'm316121', :email => 'admin@lobo.com')
     admin.tags << 'can_sanction'
     admin.tags << 'admin'
     # 10 posts so that loboadmin can report ...
