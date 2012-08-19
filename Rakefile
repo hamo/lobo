@@ -11,8 +11,19 @@ end
 
 desc "Bootstrap project, initialize databases"
 task :bootstrap do
+  Rake::Task['db:clean'].invoke
   puts "Bootstrapping database...."
   system 'scripts/bootstrap.rb'
+
+  require 'init'
+  require 'spec/factory'
+  puts "Putting default stuff in DB #{monk_settings(:redis)[:db]}"
+
+  puts "Creating default admin account: loboadmin"
+
+  admin = User.create(:name => 'loboadmin', :password => 'm316121', :password_confirmation => 'm316121', :email => 'admin@lobo.com')
+  admin.tags << 'can_sanction'
+  admin.tags << 'admin'
 end
 
 namespace :db do
@@ -25,18 +36,8 @@ namespace :db do
 
   desc "Fill in default data"
   task :fill do
-    Rake::Task['db:clean'].invoke
     Rake::Task['bootstrap'].invoke
 
-    require 'init'
-    require 'spec/factory'
-    puts "Putting default stuff in DB #{monk_settings(:redis)[:db]}"
-
-    puts "Creating default admin account: loboadmin"
-
-    admin = User.create(:name => 'loboadmin', :password => 'm316121', :password_confirmation => 'm316121', :email => 'admin@lobo.com')
-    admin.tags << 'can_sanction'
-    admin.tags << 'admin'
     # 10 posts so that loboadmin can report ...
     10.times { Fabricate(:content_post, :author => admin) }
 
