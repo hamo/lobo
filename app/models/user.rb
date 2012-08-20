@@ -36,7 +36,7 @@ class User < Ohm::Model
   plain_set :tags
 
   def validate
-    assert_format :name, /\A[\w_.]{5,32}\Z/
+    assert_format :name, /\A[\w_.\u4e00-\u9fa5]{3,20}\Z/   if new?
     assert_unique :name
     assert_email :email unless email.to_s.empty?
     assert_present :password                  if new?

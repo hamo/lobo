@@ -238,8 +238,8 @@ $(document).ready(function() {
 	    rules:{
 		name: {
 		    required: true,
-		    minlength: 5,
-		    maxlength: 32
+		    minlength: 3,
+		    maxlength: 20
 		},
 		password: {
 		    required: true
@@ -257,8 +257,8 @@ $(document).ready(function() {
 		},
 		login_name: {
 		    required: true,
-		    minlength: 5,
-		    maxlength: 32
+		    minlength: 3,
+		    maxlength: 20
 		},
 		login_password: {
 		    required: true

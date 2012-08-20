@@ -33,6 +33,11 @@ describe User do
     u.should_not be_valid
   end
 
+  it '应该允许中文名' do
+    u = User.new(@attr.merge(:name => '么不是吧'))
+    u.should be_valid
+  end
+
   it '应该拒绝含有奇怪字符的用户' do
     u = User.new(@attr.merge(:name => 'dummy?'))
     u.should_not be_valid
