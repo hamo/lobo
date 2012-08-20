@@ -49,10 +49,9 @@ namespace :db do
   desc 'Remake indexes after changing models'
   task :migrate do
     require 'init'
-    Post.all.each(&:save)
-    Comment.all.each(&:save)
-    User.all.each(&:save)
-    Category.all.each(&:save)
+    [Post, Comment, User, Category, Moderation, Subscription].each do |c|
+      c.all.each(&:save)
+    end
     puts "Updating DB #{monk_settings(:redis)[:db]}"
     puts "There are #{User.all.count} users, #{Post.all.count} posts and #{Comment.all.count} comments in DB."
   end
