@@ -8,6 +8,18 @@
           %span.icon-bar
           %span.icon-bar
 
+        .btn-group.pull-right
+          - unless logged_in?
+            %a.btn.btn-success(href='/login') 登录
+            %a.btn.btn-warning(href='/register') 注册
+          - else
+            %a.btn.btn-info.dropdown-toggle(data-toggle='dropdown' href='#')
+              = current_user.name
+            %ul.dropdown-menu.no-collapse
+              %li= link_to '我的帖子', user_path(current_user), :icon => 'icon-list'
+              %li= link_to '个人设置', '/settings'            , :icon => 'icon-wrench'
+              %li= link_to '退出登录', '/logout'              , :icon => 'icon-signout'
+
         .brand-items
           .brand-content= link_to(logo, '/')
           .brand-content.brand{:style => 'margin: 0;'}= link_to '嘟噜', '/'
@@ -40,11 +52,3 @@
                   %li= link_to '一周'   , "#{current_path}?t=week"
                   %li= link_to '一个月' , "#{current_path}?t=month"
                   %li= link_to '所有'   , "#{current_path}?t=all"
-
-          %ul.nav.pull-right
-            - unless logged_in?
-              %li= link_to '登录|注册', '/login'
-            - else
-              %li.active= link_to current_user.name, user_path(current_user)
-              %li= link_to '个人设置', '/settings'
-              %li= link_to '退出登录', '/logout'
