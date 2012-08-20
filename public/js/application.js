@@ -705,3 +705,23 @@ function category_subscribe(category, event) {
 	   "json"
 	  );
 }
+
+function expando_child(event) {
+    var o = $(src(event));
+    var target = o.parent().parent();
+    switch(true) {
+    case o.hasClass('icon-picture'):
+	if (target.find(".expando_pic").length != 0) {
+	    target.find(".expando_pic").remove();
+	} else {
+	    var pic = o.parent().find('a').attr('href');
+	    var div = $("<div class='expando_pic'>").append($("<img>").attr('src', pic));
+	    target.append(div);
+	}
+	    break;
+    default:
+	return false;
+	break;
+	//FIXME
+    }
+}

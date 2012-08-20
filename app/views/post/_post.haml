@@ -17,7 +17,7 @@
 
     .title
       - brand_icons(post).each do |icon|
-        %i.vertical-middle(class="#{icon}")
+        %i.vertical-middle(class="#{icon}" onclick="expando_child(event);")
 
       - if logged_in? and post.type == :url
         = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable', :title => ( post.url || post.title ), :target => '_blank'
