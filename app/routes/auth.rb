@@ -3,10 +3,16 @@
 #Description: 
 class Main
 
-  get %r{/(login|register)} do
+  get '/login' do
     redirect '/'    if logged_in?
-    @title = '登录或注册新用户'
+    @title = '登录'
     haml :login
+  end
+
+  get '/register' do
+    redirect '/'    if logged_in?
+    @title = '注册新用户'
+    haml :register
   end
 
   post '/login' do
@@ -46,7 +52,7 @@ class Main
       session[:error] = '图形验证未通过'
     end
     @title = '注册新用户'
-    haml :login
+    haml :register
   end
 
   get '/logout' do

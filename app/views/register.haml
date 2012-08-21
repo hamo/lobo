@@ -1,0 +1,35 @@
+.container
+  .span6.offset3
+    %form.form-horizontal.validate-form(action='/register' method='post')
+      .fieldset
+        .control-group
+          %label.control-label(for="name") 用户名
+          .controls
+            %input.input-large(type="text" name="name" )/
+
+        .control-group
+          %label.control-label(for="password") 密码
+          .controls
+            %input.input-large(type="password" name="password" )/
+
+        .control-group
+          %label.control-label(for="password") 确认密码
+          .controls
+            %input.control-large(type="password" name="password_confirmation" )/
+
+        .control-group
+          %label.control-label(for="email") 电子邮件
+          .controls
+            %input.control-large(type="email" name="email" )/
+
+        .control-group
+          %label.control-label(for="captcha-answer") 图形验证
+          .controls
+            %input.input-small(type='text' name='captcha_answer')
+            %br
+            = captcha_image_tag
+
+        .form-actions
+          %button.btn.btn-primary.btn-large#register_button(type="submit") 
+            %i.icon-white.icon-user
+            注册
