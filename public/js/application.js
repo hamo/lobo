@@ -712,7 +712,7 @@ function expando_child(event) {
     switch(true) {
     case o.hasClass('icon-picture'):
 	if (target.find(".expando_pic").length != 0) {
-	    target.find(".expando_pic").remove();
+	    target.find(".expando_pic").toggle();
 	} else {
 	    var pic = o.parent().find('a').attr('href');
 	    var div = $("<div class='expando_pic'>").append($("<img>").attr('src', pic));
@@ -721,7 +721,7 @@ function expando_child(event) {
 	break;
     case o.hasClass('icon-file'):
 	if (target.find(".expando_text").length != 0) {
-	    target.find(".expando_text").remove();
+	    target.find(".expando_text").toggle();
 	} else {
 	    var hash = o.parent().find('a').attr('href').split("/").pop();
 	    $.getJSON('/post/get/' + hash,
