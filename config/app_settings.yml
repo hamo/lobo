@@ -14,4 +14,7 @@
 
 :post_sorting_cache_time: 1
 
+# cache for 3 days
+:hot_categories_cache_time: 259200
+
 :google_analytics_id: UA-34188656-1

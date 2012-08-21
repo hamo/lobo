@@ -51,6 +51,8 @@ class Category < Ohm::Model
 
   index     :allow_viewing?
 
+  index     :size
+
   def validate
     assert_present :name
     assert_format :name        , /\A[\w_.]{2,30}\Z/
@@ -107,6 +109,10 @@ class Category < Ohm::Model
     else
       false
     end
+  end
+
+  def size
+    posts.size
   end
 
   def subscription_review_required?

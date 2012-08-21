@@ -2,9 +2,19 @@ class Main
   helpers do
 
     # top10 categories with most posts
-    # TODO: move this part to cron job
     def hot_categories
-      Category.all.sort(:limit => [0, 10])
+      return @hot_categories  if @hot_categories
+      k = :hot_categories
+      key = Category.key[k]
+      if key.exists
+        @hot_categories = Ohm::List.new(key, Category.key, Category).to_a
+        return @hot_categories
+      end
+
+      @hot_categories = Category.all.sort_by(:size, :order => 'DESC', :limit => [0, 10]).to_a
+      Category.db.rpush(key, @hot_categories.collect(&:id))
+      Category.db.expire(key, app_settings(:hot_categories_cache_time))
+      return @hot_categories
     end
 
     def all_category_names
