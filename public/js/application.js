@@ -718,7 +718,23 @@ function expando_child(event) {
 	    var div = $("<div class='expando_pic'>").append($("<img>").attr('src', pic));
 	    target.append(div);
 	}
-	    break;
+	break;
+    case o.hasClass('icon-file'):
+	if (target.find(".expando_text").length != 0) {
+	    target.find(".expando_text").remove();
+	} else {
+	    var hash = o.parent().find('a').attr('href').split("/").pop();
+	    $.getJSON('/post/get/' + hash,
+		      function(data) {
+			  if (data.success) {
+			      var div = $("<div class='expando_text'>").append($("<pre class='md'>").append(data.rendered_content));
+			      target.append(div);
+			  } else {
+			      // FIXME
+			  }
+		      });
+	}
+	break;
     default:
 	return false;
 	break;
