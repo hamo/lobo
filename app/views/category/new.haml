@@ -1,86 +1,88 @@
 -#= partial :float_aside
 
-%form.form-horizontal.validate-form(action='/category/new' method='post')
-  .field-set
-    .control-group
-      %label.control-label(for='name') 类别英文名
-      .controls
-        %input.validate-inline.span5(type='text' id='name' name='name')
-        %p.help-block 将被使用在类别URL中
+.container
+  .span8.offset2
+    %form.form-horizontal.validate-form(action='/category/new' method='post')
+      .field-set
+        .control-group
+          %label.control-label(for='name') 类别英文名
+          .controls
+            %input.validate-inline.span5(type='text' id='name' name='name')
+            %p.help-block 将被使用在类别URL中
 
-    .control-group
-      %label.control-label(for='display_name') 类别名称
-      .controls
-        %input.span5(type='text' id='display_name' name='display_name')
+        .control-group
+          %label.control-label(for='display_name') 类别名称
+          .controls
+            %input.span5(type='text' id='display_name' name='display_name')
 
-    .control-group
-      %label.control-label(for='rate') 内容分级
-      .controls
-        %label.radio
-          %input(id='radio_rate0' type='radio' value='0' name='rate')
-            %span.label.label-info 公告
-            本站公告，无分级
-        %label.radio
-          %input(id='radio_rate1' type='radio' value='1' name='rate')
-            %span.label.label-success 安全
-            安全内容
-        %label.radio
-          %input(id='radio_rate2' type='radio' checked value='2' name='rate')
-            %span.label 默认
-            暂无分级，大体上属于安全内容（默认）
-        %label.radio
-          %input(id='radio_rate3' type='radio' value='3' name='rate')
-            %span.label.label-warning 警告
-            可能含有令人不快的暴力或血腥、上班不宜(NSFW)、少儿不宜或粗俗的内容
-        %label.radio
-          %input(id='radio_rate4' type='radio' value='4' name='rate')
-            %span.label.label-important 不安全
-            可能含有让很多普通人产生不快的内容(NSFL)
+        .control-group
+          %label.control-label(for='rate') 内容分级
+          .controls
+            %label.radio
+              %input(id='radio_rate0' type='radio' value='0' name='rate')
+                %span.label.label-info 公告
+                本站公告，无分级
+            %label.radio
+              %input(id='radio_rate1' type='radio' value='1' name='rate')
+                %span.label.label-success 安全
+                安全内容
+            %label.radio
+              %input(id='radio_rate2' type='radio' checked value='2' name='rate')
+                %span.label 默认
+                暂无分级，大体上属于安全内容（默认）
+            %label.radio
+              %input(id='radio_rate3' type='radio' value='3' name='rate')
+                %span.label.label-warning 警告
+                可能含有令人不快的暴力或血腥、上班不宜(NSFW)、少儿不宜或粗俗的内容
+            %label.radio
+              %input(id='radio_rate4' type='radio' value='4' name='rate')
+                %span.label.label-important 不安全
+                可能含有让很多普通人产生不快的内容(NSFL)
 
-    .control-group
-      %label.control-label(for='privacy') 开放性
-      .controls
-        %label.radio
-          %input(id='radio_privacy0' type='radio' checked value='0' name='privacy')
-            所有用户可以浏览和发布分享
-        %label.radio
-          %input(id='radio_privacy1' type='radio' value='1' name='privacy')
-            所有用户可以浏览，订阅用户可以发布分享
-        %label.radio
-          %input(id='radio_privacy2' type='radio' value='2' name='privacy')
-            只有订阅用户可以浏览和发布分享
+        .control-group
+          %label.control-label(for='privacy') 开放性
+          .controls
+            %label.radio
+              %input(id='radio_privacy0' type='radio' checked value='0' name='privacy')
+                所有用户可以浏览和发布分享
+            %label.radio
+              %input(id='radio_privacy1' type='radio' value='1' name='privacy')
+                所有用户可以浏览，订阅用户可以发布分享
+            %label.radio
+              %input(id='radio_privacy2' type='radio' value='2' name='privacy')
+                只有订阅用户可以浏览和发布分享
 
-    .control-group
-      %label.control-label(for='content_type') 内容
-      .controls
-        %label.radio
-          %input(id='radio_content_type0' type='radio' checked value='0' name='content_type')
-            允许链接和文字帖
-        %label.radio
-          %input(id='radio_content_type1' type='radio' value='1' name='content_type')
-            仅允许链接
-        %label.radio
-          %input(id='radio_content_type2' type='radio' value='2' name='content_type')
-            仅允许文字贴
+        .control-group
+          %label.control-label(for='content_type') 内容
+          .controls
+            %label.radio
+              %input(id='radio_content_type0' type='radio' checked value='0' name='content_type')
+                允许链接和文字帖
+            %label.radio
+              %input(id='radio_content_type1' type='radio' value='1' name='content_type')
+                仅允许链接
+            %label.radio
+              %input(id='radio_content_type2' type='radio' value='2' name='content_type')
+                仅允许文字贴
 
-    .control-group
-      %label.control-label(for='note') 简单描述
-      .controls
-        %textarea.span5(name='note' id='note' rows='2' placeholder='请输入文字内容')
-        .md-helper
-          %a.pull-right(href='javascript:void(0);' onclick='format_help(event);') 格式说明
-        
-    .control-group
-      %label.control-label(for='sidebar') 侧边栏
-      .controls
-        %textarea.span5(name='sidebar' id='sidebar' rows='5' placeholder='请输入文字内容')
-        .md-helper
-          %a.pull-right(href='javascript:void(0);' onclick='format_help(event);') 格式说明
+        .control-group
+          %label.control-label(for='note') 简单描述
+          .controls
+            %textarea.span5(name='note' id='note' rows='2' placeholder='请输入文字内容')
+            .md-helper
+              %a.pull-right(href='javascript:void(0);' onclick='format_help(event);') 格式说明
+            
+        .control-group
+          %label.control-label(for='sidebar') 侧边栏
+          .controls
+            %textarea.span5(name='sidebar' id='sidebar' rows='5' placeholder='请输入文字内容')
+            .md-helper
+              %a.pull-right(href='javascript:void(0);' onclick='format_help(event);') 格式说明
 
-    .form-actions
-      %button.btn.btn-large.btn-primary(type='submit')
-        %i.icon-white.icon-ok
-        建立新类别
-      %a.btn.btn-large(href='/')
-        %i.icon-remove
-        取消
+        .form-actions
+          %button.btn.btn-large.btn-primary(type='submit')
+            %i.icon-white.icon-ok
+            建立新类别
+          %a.btn.btn-large(href='/')
+            %i.icon-remove
+            取消
