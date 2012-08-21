@@ -185,6 +185,12 @@ footer
   
 .title 
   font-size: 20px
+  i
+    color: $grayLight
+  i:hover 
+    color: $grayDarker
+  i.icon-picture
+    cursor: pointer
 
 .domain 
   margin-left: 1ex
@@ -203,9 +209,16 @@ footer
   line-height: 1.4
   vertical-align: middle
   * 
-    color: #999999
+    color: inherit
   i
-    margin-left: 0.7em
+    line-height: 0
+    margin-left: 0.6em
+  a:hover
+    @include single-text-shadow
+    @include transition-property(color)
+    @include transition-duration(0.5s)
+    @include transition-timing-function(ease-in)
+    color: $gray
 
 .vertical-middle
   vertical-align: middle
