@@ -11,7 +11,7 @@ class Main
         return @hot_categories
       end
 
-      @hot_categories = Category.all.sort_by(:size, :order => 'DESC', :limit => [0, 10]).to_a
+      @hot_categories = Category.all.to_a.sort_by(&:size).reverse[0...9]
       @hot_categories.each do |c|
         Category.db.rpush(key, c.id)
       end

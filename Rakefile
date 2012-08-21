@@ -39,7 +39,7 @@ namespace :db do
     Rake::Task['bootstrap'].invoke
 
     # 10 posts so that loboadmin can report ...
-    10.times { Fabricate(:content_post, :author => admin) }
+    10.times { Fabricate(:content_post, :author => User.with(:name, 'loboadmin')) }
 
     75.times { Fabricate(:comment) }
 
