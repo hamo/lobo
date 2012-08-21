@@ -36,6 +36,7 @@ class Main
     def post_brands(post)
       brands = []
       brands << :picture  if post.url =~ /\.(jpg|png|jpeg|gif)$/i
+      brands << :text     if post.type == :content
       brands
     end
 
