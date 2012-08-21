@@ -1,17 +1,17 @@
 %div(class="post_detail #{post.id_hash}" onclick="read('#{post.hash}', event);")
   .voting.display-inline
     - if logged_in? and current_user.upvoted?(post)
-      .arrow.upmod{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite_upmod{:onclick => "vote('#{post.hash}',event);"}
       %span.karma= post.karma
-      .arrow.down{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite_down{:onclick => "vote('#{post.hash}',event);"}
     - elsif logged_in? and current_user.downvoted?(post)
-      .arrow.up{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite_up{:onclick => "vote('#{post.hash}',event);"}
       %span.karma= post.karma
       .arrow.downmod{:onclick => "vote('#{post.hash}',event);"}
     - else
-      .arrow.up{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite_up{:onclick => "vote('#{post.hash}',event);"}
       %span.karma= post.karma
-      .arrow.down{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite_down{:onclick => "vote('#{post.hash}',event);"}
 
   .entry
 

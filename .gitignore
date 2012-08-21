@@ -6,6 +6,7 @@ webrat.log
 art-work
 .bundle
 public/css/*.css
+public/images/sprite.png
 *.jar
 unicorn.conf.rb
 config/secret.txt

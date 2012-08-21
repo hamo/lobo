@@ -9,6 +9,20 @@ task :test do
   exec "thor monk:test"
 end
 
+desc 'regenerate sprites'
+task :sprite do
+  require 'sprite_factory'
+  SpriteFactory.run!('app/views/css', 
+                     :layout => :packed, 
+                     :library => :chunkypng,
+                     :style => :sass,
+                     :selector => 'div.',
+                     :csspath => '/images',
+                     :output_image => 'public/images/sprite.png',
+                     :output_style => 'app/views/css/_sprite.sass',
+                    )
+end
+
 desc "Bootstrap project, initialize databases"
 task :bootstrap do
   Rake::Task['db:clean'].invoke
