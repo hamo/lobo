@@ -92,10 +92,9 @@ class User < Ohm::Model
     author = item.author
     author_karma_sym = "#{item_class}_karma".to_sym  # :post_karma / :comment_karma
 
-    #make operations in an atomic fashion
-    db.multi do
-      # already voted? Then this vote will be reset back.
-      if vote_collection.include? item
+    # already voted? Then this vote will be reset back.
+    if vote_collection.include? item
+      db.multi do
         vote_collection.delete(item)
         case type
         when :up
@@ -105,30 +104,33 @@ class User < Ohm::Model
           item.decr(:downvotes)
           author.incr(author_karma_sym)
         end
-        break
       end
+    else
+      #make operations in an atomic fashion
+      db.multi do
 
-      # flipping vote?
-      if eval("#{item_class}_upvotes").delete(item)
-        item.decr(:upvotes)
-        author.decr(author_karma_sym)
-      end
-      if eval("#{item_class}_downvotes").delete(item)
-        item.decr(:downvotes)
-        author.incr(author_karma_sym)
-      end
+        # flipping vote?
+        if eval("#{item_class}_upvotes").delete(item)
+          item.decr(:upvotes)
+          author.decr(author_karma_sym)
+        end
+        if eval("#{item_class}_downvotes").delete(item)
+          item.decr(:downvotes)
+          author.incr(author_karma_sym)
+        end
 
-      vote_collection.add item
-      case type
-      when :up
-        item.incr(:upvotes)
-        author.incr(author_karma_sym)
-      when :down
-        item.incr(:downvotes)
-        author.decr(author_karma_sym)
-      end
-      #logger.debug "#{name} #{type}-voted #{item.class} #{item.hash}"
+        vote_collection.add item
+        case type
+        when :up
+          item.incr(:upvotes)
+          author.incr(author_karma_sym)
+        when :down
+          item.incr(:downvotes)
+          author.decr(author_karma_sym)
+        end
+        #logger.debug "#{name} #{type}-voted #{item.class} #{item.hash}"
 
+      end
     end
     item.update_score
   end

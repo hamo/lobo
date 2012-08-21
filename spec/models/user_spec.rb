@@ -109,9 +109,16 @@ describe User do
     end
 
     it '应该可以重置voting' do
-      @u1.downvote(@p)
-      @u1.downvote(@p)
       @p.karma.should == 1
+      @p.author.post_karma.should == 1
+      @u1.downvote(@p)
+      @u1.downvote(@p)
+      @u1.downvote(@c)
+      @u1.downvote(@c)
+      @p.karma.should == 1
+      @p.author.post_karma.should == 1
+      @c.karma.should == 1
+      @c.author.comment_karma.should == 1
     end
 
     it '应该可以flip voting' do
