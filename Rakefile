@@ -12,11 +12,11 @@ end
 desc 'regenerate sprites'
 task :sprite do
   require 'sprite_factory'
-  SpriteFactory.run!('app/views/css', 
+  SpriteFactory.run!('app/views/css/sprite', 
                      :layout => :packed, 
                      :library => :chunkypng,
                      :style => :sass,
-                     :selector => 'div.',
+                     :selector => '.sprite.',
                      :csspath => '/images',
                      :output_image => 'public/images/sprite.png',
                      :output_style => 'app/views/css/_sprite.sass',
