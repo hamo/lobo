@@ -152,22 +152,14 @@ describe User do
         @u.tags << 'can_sanction'
         @u.sanction(@p)
       end.should change(@p, :karma).by(-50)
+      @p.author.post_karma.should == -49
     end
 
-    it '应该可以砍还没砍过的评论' do
+    it '应该不可以砍评论' do
       lambda do
         @u.tags << 'can_sanction'
         @u.sanction(@c)
-      end.should change(@c, :karma).by(-50)
-    end
-
-    it '应该不可以砍砍过的评论' do
-      lambda do
-        @u.tags << 'can_sanction'
-        @u1.tags << 'can_sanction'
-        @u.sanction(@c)
-        @u1.sanction(@c)
-      end.should change(@c, :karma).by(-50)
+      end.should change(@c, :karma).by(0)
     end
 
     it '应该不可以砍砍过的文章' do

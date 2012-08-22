@@ -177,12 +177,15 @@ class User < Ohm::Model
     tags.include? ab.to_s
   end
 
+  # sanction a post
   def sanction(item)
-    return if item.sanctioned_by
+    return if item.sanctioned_by or not item.is_a? Post
     return unless able_to_sanction?(item)
+    author = item.author
     db.multi do
       item.sanctioned_by = self
       item.decr(:karma_modifier, 50)
+      author.decr(:post_karma, 50)
     end
     item.update_score
   end
