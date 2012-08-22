@@ -27,10 +27,6 @@ class Comment < Ohm::Model
   counter :downvotes
   counter :karma_modifier
 
-  def karma
-    upvotes - downvotes + karma_modifier
-  end
-
   def parent=(post_or_comment)
     self.parent_hash = post_or_comment.hash
   end

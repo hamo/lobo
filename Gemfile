@@ -8,8 +8,9 @@ source "http://ruby.taobao.org"
 gem 'bundler'
 
 gem 'monk-glue'            , :ref => '8a59f', :require => 'monk/glue', :git => 'git://github.com/monkrb/glue.git'
-gem 'ohm'                  , '1.0.2'
-gem 'ohm-contrib'          , '1.0.1', :require => 'ohm/contrib'
+gem 'ohm'                  , '1.1.1'
+gem 'redis'                , '3.0.1'
+gem 'ohm-contrib'          , '1.1.0', :require => 'ohm/contrib'
 gem 'maruku'               , '0.6.0'
 gem 'rack'                 , '1.4.1'
 gem 'rack-protection'      , '1.2'

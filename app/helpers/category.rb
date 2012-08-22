@@ -12,10 +12,10 @@ class Main
       end
 
       @hot_categories = Category.all.to_a.sort_by(&:size).reverse[0...9]
-      @hot_categories.each do |c|
-        Category.db.rpush(key, c.id)
+      Category.db.multi do
+        @hot_categories.each { |c| Category.db.rpush(key, c.id) }
+        Category.db.expire(key, app_settings(:hot_categories_cache_time))
       end
-      Category.db.expire(key, app_settings(:hot_categories_cache_time))
       return @hot_categories
     end
 
