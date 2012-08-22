@@ -69,9 +69,11 @@ describe User do
     end
 
     it '新评论也应该有1分' do
-      p1 = Fabricate(:post, :author => Fabricate(:user))
-      c = Fabricate(:comment, :author => @user, :parent => p1)
+      u = Fabricate(:user)
+      p1 = Fabricate(:post, :author => u)
+      c = Fabricate(:comment, :author => u, :parent => p1)
       c.karma.should == 1
+      u.comment_karma.should == 1
     end
   end
 
@@ -94,6 +96,7 @@ describe User do
       @u1.upvote(@c)
       @u2.upvote(@c)
       @c.karma.should == 3
+      @c.author.comment_karma.should == 3
     end
 
     it '应该可以把帖子埋下去' do
@@ -106,6 +109,7 @@ describe User do
       @u1.downvote(@c)
       @u2.downvote(@c)
       @c.karma.should == -1
+      @c.author.comment_karma.should == -1
     end
 
     it '应该可以重置voting' do
