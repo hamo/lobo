@@ -7,7 +7,7 @@
     - elsif logged_in? and current_user.downvoted?(post)
       .arrow.sprite.up{:onclick => "vote('#{post.hash}',event);"}
       %span.karma= post.karma
-      .arrow.downmod{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite.downmod{:onclick => "vote('#{post.hash}',event);"}
     - else
       .arrow.sprite.up{:onclick => "vote('#{post.hash}',event);"}
       %span.karma= post.karma
