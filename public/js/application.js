@@ -101,8 +101,8 @@ function comment_show(json, father){
 	}
 
 	var voting = $("<div>", {'class': 'voting'});
-	voting.append($("<div>", {'class': "arrow upmod", onclick: "vote('"+comment.hash+"', event);"}));
-	voting.append($("<div>", {'class': 'arrow down', onclick: "vote('"+comment.hash+"', event);"}));
+	voting.append($("<div>", {'class': "arrow sprite upmod", onclick: "vote('"+comment.hash+"', event);"}));
+	voting.append($("<div>", {'class': 'arrow sprite down', onclick: "vote('"+comment.hash+"', event);"}));
 
 	var detail = $("<div>", {'class': 'comment_detail entry'});
 	detail.append($("<div>", {'class': 'tagline'}).append($("<strong>").append($("<a>", {href: '/u/'+logged, html: logged}))).append(" 发表于"+comment.updated_at+" | ").append($("<span>", {'class': 'karma', html: comment.karma})).append(" 点人品"));
