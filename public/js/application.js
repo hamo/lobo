@@ -450,6 +450,9 @@ function change_captcha(event) {
 
 function sanction(hash, event) {
     var o = $(src(event));
+    var answer = confirm("R U sure?");
+    if (!answer)
+	return false;
     $.post("/do/sanction", 
 	   {hash: hash}, 
 	   function(data) {
@@ -611,6 +614,9 @@ function post_modify(json) {
 }
 
 function post_delete(hash, event) {
+    var answer = confirm("R U sure?");
+    if (!answer)
+	return false;
     $.post('/post/delete/'+hash,
 	   function(data) {
 	       if (data.success) {
