@@ -9,7 +9,8 @@ gem 'bundler'
 
 gem 'monk-glue'            , :ref => '8a59f', :require => 'monk/glue', :git => 'git://github.com/monkrb/glue.git'
 gem 'ohm'                  , '1.1.1'
-gem 'redis'                , '3.0.1'
+gem "hiredis"              , "0.4.5"
+gem 'redis'                , '3.0.1', :require => ["redis/connection/hiredis", "redis"]
 gem 'ohm-contrib'          , '1.1.0', :require => 'ohm/contrib'
 gem 'maruku'               , '0.6.0'
 gem 'rack'                 , '1.4.1'
@@ -26,7 +27,7 @@ gem 'redcarpet'
 gem 'haml'                 , '3.1.4'
 gem 'sass'                 , '3.1.15', :require => 'sass/plugin'
 
-gem 'sinatra'              , '1.3.2', :require => 'sinatra/base'
+gem 'sinatra'              , '1.3.3', :require => 'sinatra/base'
 gem 'sinatra-static-assets', '1.0.2', :require => 'sinatra/static_assets'
 gem 'thin'
 
