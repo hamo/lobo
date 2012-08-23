@@ -89,50 +89,26 @@ class User < Ohm::Model
     item_class = item.class.to_s.downcase
     vote_collection = eval "#{item_class}_#{type}votes"
     
-    author = item.author
     author_karma_sym = "#{item_class}_karma".to_sym  # :post_karma / :comment_karma
+    vote_field = "#{type}votes".to_sym    # :upvotes / :downvotes
+    opposite_author_field = ( type == :down )
 
     # already voted? Then this vote will be reset back.
     if vote_collection.include? item
-      db.multi do
-        vote_collection.delete(item)
-        case type
-        when :up
-          item.decr(:upvotes)
-          author.decr(author_karma_sym)
-        when :down
-          item.decr(:downvotes)
-          author.incr(author_karma_sym)
-        end
-      end
+      vote_collection.delete(item)
+      change_item_karma(item, -1, vote_field, author_karma_sym, opposite_author_field)
     else
-      #make operations in an atomic fashion
-      db.multi do
-
-        # flipping vote?
-        if eval("#{item_class}_upvotes").delete(item)
-          item.decr(:upvotes)
-          author.decr(author_karma_sym)
-        end
-        if eval("#{item_class}_downvotes").delete(item)
-          item.decr(:downvotes)
-          author.incr(author_karma_sym)
-        end
-
-        vote_collection.add item
-        case type
-        when :up
-          item.incr(:upvotes)
-          author.incr(author_karma_sym)
-        when :down
-          item.incr(:downvotes)
-          author.decr(author_karma_sym)
-        end
-        #logger.debug "#{name} #{type}-voted #{item.class} #{item.hash}"
-
+      # flipping vote?
+      if eval("#{item_class}_upvotes").delete(item)
+        change_item_karma(item, -1, :upvotes, author_karma_sym, false)
       end
+      if eval("#{item_class}_downvotes").delete(item)
+        change_item_karma(item, -1, :downvotes, author_karma_sym, true)
+      end
+
+      vote_collection.add item
+      change_item_karma(item, 1, vote_field, author_karma_sym, opposite_author_field)
     end
-    item.update_score
   end
 
   # subscribe a category
@@ -181,13 +157,8 @@ class User < Ohm::Model
   def sanction(item)
     return if item.sanctioned_by or not item.is_a? Post
     return unless able_to_sanction?(item)
-    author = item.author
-    db.multi do
-      item.sanctioned_by = self
-      item.decr(:karma_modifier, 50)
-      author.decr(:post_karma, 50)
-    end
-    item.update_score
+    item.sanctioned_by = self
+    change_item_karma(item, -50, :karma_modifier, :post_karma)
   end
 
   def report(item, memo = nil)
@@ -283,6 +254,22 @@ class User < Ohm::Model
 
   def encrypt(string)
     secure_hash("---#{salt}-----#{string}")
+  end
+
+  # modify items karma, together with author karma value
+  #
+  #   item                      Post or Comment
+  #   value                     value to be changed
+  #   item_field                :upvotes, :downvotes, :karma_modifier
+  #   author_field              :post_karma, :comment_karma
+  #   opposite_author_field     does author_field change in the opposite direction?
+  #
+  def change_item_karma(item, value, item_field, author_field, opposite_author_field = false)
+    db.multi do
+      item.incr         item_field  , value
+      item.author.incr  author_field, (opposite_author_field ? - value : value )
+    end
+    item.update_score
   end
 
   def _initialize_id
