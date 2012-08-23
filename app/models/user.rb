@@ -194,6 +194,24 @@ class User < Ohm::Model
     rev
   end
 
+  # how does this user perform in the past days?
+  #
+  def able_to_post?
+    # recalculate the list every hour
+    user_posts = Post.latest_within(app_settings(:post_karam_tracking_time), 3600).find(:author_id => id).to_a
+    return true   if user_posts.empty? 
+    return user_posts.collect(&:karma).inject(&:+) > app_settings(:post_karma_barrier)
+  end
+
+  # how does this user's comment perform in the past days?
+  #
+  def able_to_comment?
+    # recalculate the list every hour
+    user_comments = Comment.latest_within(app_settings(:comment_karam_tracking_time), 3600).find(:author_id => id).to_a
+    return true   if user_comments.empty? 
+    return user_comments.collect(&:karma).inject(&:+) > app_settings(:comment_karma_barrier) 
+  end
+
   def able_to_sanction?(post = nil)
     unless post
       tagged?('can_sanction')

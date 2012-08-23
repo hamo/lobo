@@ -17,4 +17,12 @@
 # cache for 3 days
 :hot_categories_cache_time: 259200
 
+# user post karma validation window
+:post_karam_tracking_time: 259200
+:post_karma_barrier: -10
+
+# user comment karma validation window
+:comment_karam_tracking_time: 259200
+:comment_karma_barrier: -10
+
 :google_analytics_id: UA-34188656-1

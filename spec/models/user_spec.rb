@@ -75,6 +75,14 @@ describe User do
       c.karma.should == 1
       u.comment_karma.should == 1
     end
+
+    it '分太低应该不能发帖' do
+      p1 = Fabricate(:post, :author => @user)
+      admin = Fabricate(:user)
+      admin.tags << 'can_sanction'
+      admin.sanction p1
+      @user.should_not be_able_to_post
+    end
   end
 
   describe '顶帖子' do

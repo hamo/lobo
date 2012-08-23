@@ -12,6 +12,11 @@ class Main
   post '/comment/new/:parent_hash' do
     require_login
 
+    unless current_user.able_to_post?
+      session[:error] = '您最近的评论表现不佳，请休息几天再回来发帖吧'
+      return stamp_json(false, :error => error_messages)
+    end
+
     parent_class = params[:parent_hash].include?('_') ? Comment : Post
     parent = parent_class[params[:parent_hash]]
 
