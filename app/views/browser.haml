@@ -3,9 +3,6 @@
   %head
     %title= title
     %meta{:"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}/
-
-    - if ENV['RACK_ENV'] == 'production'
-      = partial :google_analytics
   
   %body
     %h1
@@ -22,3 +19,6 @@
     %br
     %a{:href => "http://www.google.com/chrome"}
       Google Chrome
+
+    - if ENV['RACK_ENV'] == 'production'
+      = partial :counting_code

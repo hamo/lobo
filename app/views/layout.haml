@@ -18,7 +18,6 @@
       != javascript_script_tag '/js/application.js'
     - else
       != javascript_script_tag '/js/application.min.js'
-      = partial :google_analytics
 
     /[if lte IE 8]
       :javascript
@@ -35,6 +34,9 @@
 
       = partial :footer
 
-      - if ENV['RACK_ENV'] == 'development'
+      - case ENV['RACK_ENV']
+      - when 'production'
+        = partial :counting_code
+      - when 'development'
         %p= "params: #{params.inspect}"
         %p= "session: #{session.inspect}"
