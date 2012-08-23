@@ -81,6 +81,7 @@ describe User do
       admin = Fabricate(:user)
       admin.tags << 'can_sanction'
       admin.sanction p1
+      p1.karma.should == -49
       @user.should_not be_able_to_post
     end
   end

@@ -283,9 +283,10 @@ class User < Ohm::Model
   #   opposite_author_field     does author_field change in the opposite direction?
   #
   def change_item_karma(item, value, item_field, author_field, opposite_author_field = false)
+    author = item.author
     db.multi do
-      item.incr         item_field  , value
-      item.author.incr  author_field, (opposite_author_field ? - value : value )
+      item.incr         item_field, value
+      author.incr     author_field, (opposite_author_field ? - value : value )
     end
     item.update_score
   end
