@@ -80,9 +80,20 @@ describe User do
       p1 = Fabricate(:post, :author => @user)
       admin = Fabricate(:user)
       admin.tags << 'can_sanction'
+      @user.able_to_post?.should == true
       admin.sanction p1
       p1.karma.should == -49
-      @user.should_not be_able_to_post
+      @user.able_to_post?.should == false
+    end
+
+    it '分太低应该不能发评论' do
+      p1 = Fabricate(:post, :author => @user)
+      c1 = Fabricate(:comment, :author => @user, :parent => p1)
+      @user.able_to_comment?.should  == true
+      50.times { Fabricate(:user).downvote(c1) }
+      c1.karma.should == -49
+      @user.comment_karma.should == -49
+      @user.able_to_comment?.should == false
     end
   end
 
