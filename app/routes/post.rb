@@ -33,8 +33,7 @@ class Main
     require_login
     unless current_user.able_to_post?
       session[:error] = '您最近的帖子表现不佳，请休息几天再回来发帖吧'
-      @title = '发表新贴子'
-      haml :'post/new'
+      redirect '/post/new'
     end
     post = new_post(params)
     if post.valid?
