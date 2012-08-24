@@ -675,6 +675,36 @@ $(document).ready(function () {
 
 /*
  *
+ * tooltip
+ *
+ */
+$(document).ready(function () {
+    var tooltip = $(".tooltip-lb");
+
+    if(tooltip.length != 0) {
+	tooltip.each(function(index, element) {
+	    var e = $(element);
+	    switch(true) {
+	    case e.hasClass('user-info'):
+		e.tooltip({
+		    placement: 'bottom',
+		    title: function() {
+			var name = e.clone();
+			name.find("i").remove();
+			return name.html();
+		    }
+		});
+		break;
+	    default:
+		alert("BUG HERE");
+		break;
+	    }
+	});
+    }
+});
+
+/*
+ *
  * Category functions
  *
  */
