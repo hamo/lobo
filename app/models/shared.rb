@@ -44,7 +44,7 @@ module Ohm
     end
 
     def add_tag(tag)
-      if tags and tags.include? tag
+      if tags and not tags.include? tag
         self.tags << tag
         save
       elsif not tags
