@@ -42,7 +42,7 @@ describe Post do
     l = Post.create(@attr.merge(:author => Fabricate(:user)))
     l.should be_valid
     u = User.all.first
-    u.tags << 'can_sanction'
+    u.add_tag 'can_sanction'
     u.sanction l
     l.sanctioned_by.should == u
   end

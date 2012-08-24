@@ -79,7 +79,7 @@ describe User do
     it '分太低应该不能发帖' do
       p1 = Fabricate(:post, :author => @user)
       admin = Fabricate(:user)
-      admin.tags << 'can_sanction'
+      admin.add_tag 'can_sanction'
       admin.sanction p1
       p1.karma.should == -49
       @user.able_to_post?.should == false
@@ -163,15 +163,15 @@ describe User do
     end
 
     it '应该可以正确添加和删除tag' do
-      @u.tags.add('与拉拉聊天')
-      @u.tags.should include('与拉拉聊天')
-      @u.tags.delete '与拉拉聊天'
-      @u.tags.should_not include('与拉拉聊天')
+      @u.add_tag('a')
+      @u.should be_tagged('a')
+      @u.delete_tag 'a'
+      @u.should_not be_tagged('a')
     end
 
     it '应该可以砍还没砍过的文章' do
       lambda do
-        @u.tags << 'can_sanction'
+        @u.add_tag 'can_sanction'
         @u.sanction(@p)
       end.should change(@p, :karma).by(-50)
       @p.author.post_karma.should == -49
@@ -179,15 +179,15 @@ describe User do
 
     it '应该不可以砍评论' do
       lambda do
-        @u.tags << 'can_sanction'
+        @u.add_tag 'can_sanction'
         @u.sanction(@c)
       end.should change(@c, :karma).by(0)
     end
 
     it '应该不可以砍砍过的文章' do
       lambda do
-        @u.tags << 'can_sanction'
-        @u1.tags << 'can_sanction'
+        @u.add_tag 'can_sanction'
+        @u1.add_tag 'can_sanction'
         @u.sanction(@p)
         @u1.sanction(@p)
       end.should change(@p, :karma).by(-50)

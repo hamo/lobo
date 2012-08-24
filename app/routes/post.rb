@@ -91,8 +91,7 @@ class Main
   post '/post/delete/:hash' do
     po = Post[params[:hash]]
     return stamp_json(false) unless po and po.visible? and po.author == current_user
-    po.tags << 'deleted'
-    po.save
+    po.add_tag 'deleted'
     stamp_json(true)
   end
   

@@ -37,45 +37,74 @@ module Ohm
     end
   end
 
-  class PlainSet < ::Set
-    def each
-      to_a.each {|i| yield i}
+  module LoboTag
+    def self.included(model)
+      model.include(Ohm::DataTypes)   unless model.include?(Ohm::DataTypes)
+      model.attribute :tags, model::Type::Array
     end
 
-    def key
-      @key
+    def add_tag(tag)
+      if tags and tags.include? tag
+        self.tags << tag
+        save
+      elsif not tags
+        self.tags = [ tag ]
+        save
+      end
     end
 
-    def db
-      @db
+    def delete_tag(tag)
+      return unless tags
+      # self.tags.delete tag DOES NOT work???
+      self.tags = self.tags.select{|i| i != tag }
+      save
     end
 
-    # get all data in one go with SMEMBERS
-    def to_a
-      db.smembers(key)
-    end
-
-    # add a member with SADD
-    def add(o)
-      db.sadd(key, o.to_s)
-    end
-    alias_method :<<, :add
-
-    # remove a member with SREM
-    def delete(item)
-      db.srem(key, item.to_s)
-    end
-
-    # query existence of member with SISMEMBER
-    def include?(item)
-      db.sismember(key, item.to_s)
-    end
-
-    def initialize(key, db)
-      @key = key
-      @db = db
+    def tagged?(tag)
+      tags ? tags.include?(tag) : false
     end
   end
+
+  # PlainSet is deprecated in favor of ohm-contrib implementions
+  #class PlainSet < ::Set
+    #def each
+      #to_a.each {|i| yield i}
+    #end
+
+    #def key
+      #@key
+    #end
+
+    #def db
+      #@db
+    #end
+
+    ## get all data in one go with SMEMBERS
+    #def to_a
+      #db.smembers(key)
+    #end
+
+    ## add a member with SADD
+    #def add(o)
+      #db.sadd(key, o.to_s)
+    #end
+    #alias_method :<<, :add
+
+    ## remove a member with SREM
+    #def delete(item)
+      #db.srem(key, item.to_s)
+    #end
+
+    ## query existence of member with SISMEMBER
+    #def include?(item)
+      #db.sismember(key, item.to_s)
+    #end
+
+    #def initialize(key, db)
+      #@key = key
+      #@db = db
+    #end
+  #end
 
   # make attributes expirable
   #

@@ -10,7 +10,7 @@ describe "User actions" do
       @po1 = Fabricate(:post)
       @u = Fabricate(:user)
       @admin = Fabricate(:user)
-      @admin.tags << 'can_sanction'
+      @admin.add_tag 'can_sanction'
     end
 
     it 'post karma < 10不能举报' do

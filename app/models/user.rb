@@ -8,6 +8,8 @@ require 'securerandom'
 class User < Ohm::Model
   include Ohm::LoboTimestamp
   include Ohm::Callbacks
+  include Ohm::DataTypes
+  include Ohm::LoboTag
 
   attr_accessor :password, :password_confirmation
   attribute :name
@@ -32,8 +34,6 @@ class User < Ohm::Model
   counter :post_karma
   counter :comment_karma
   counter :conduct_karma
-
-  plain_set :tags
 
   def validate
     assert_format :name, /\A[\w_.\u4e00-\u9fa5]{3,20}\Z/   if new?
@@ -148,11 +148,6 @@ class User < Ohm::Model
     vote_collection.include? item
   end
 
-  # check if user has an ability
-  def tagged?(ab)
-    tags.include? ab.to_s
-  end
-
   # sanction a post
   def sanction(item)
     return if item.sanctioned_by or not item.is_a? Post
@@ -229,6 +224,7 @@ class User < Ohm::Model
   end
 
   def moderated_categories
+    return [] unless tags
     tags.select{|i| i.start_with? '#'}.collect{|i| Category.with(:name, i[1..-1])}.compact
   end
 

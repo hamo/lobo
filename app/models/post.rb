@@ -9,6 +9,7 @@ class Post < Ohm::Model
   include Ohm::Callbacks
   include Ohm::LoboLatest
   include Ohm::DataTypes
+  include Ohm::LoboTag
 
   attribute :url
   attribute :title
@@ -34,7 +35,6 @@ class Post < Ohm::Model
 
   index   :domain
 
-  plain_set :tags
   index     :available?
 
   def domain
@@ -106,7 +106,7 @@ class Post < Ohm::Model
   end
 
   def deleted?
-    tags.include?('deleted')
+    tagged?('deleted')
   end
 
   # The visibility of a post to users
