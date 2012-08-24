@@ -137,6 +137,14 @@ module Ohm
       self.class.key[:latest].zrem(id)
     end
 
+    def after_delete
+      remove_from_latest
+    end
+    
+    def after_create
+      add_to_latest
+    end
+
     module ClassMethods
       # get instances within a period
       def latest

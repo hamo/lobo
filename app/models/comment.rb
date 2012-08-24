@@ -7,6 +7,7 @@ require_relative 'sorting'
 class Comment < Ohm::Model
   include Ohm::LoboTimestamp
   include Ohm::Callbacks
+  include Ohm::LoboLatest
   include Ohm::DataTypes
 
   attribute :content
@@ -14,9 +15,9 @@ class Comment < Ohm::Model
 
   attribute :parent_hash
 
-  reference :author , :User
+  reference :author       , :User
   reference :sanctioned_by, :User
-  set :replies      , :Comment
+  set       :replies      , :Comment
 
   attribute :score, Type::Float
   index     :score
@@ -81,6 +82,7 @@ class Comment < Ohm::Model
   private 
   
   def after_create
+    super
     author_upvote
     link_parent
   end

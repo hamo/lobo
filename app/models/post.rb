@@ -136,16 +136,11 @@ class Post < Ohm::Model
   private 
 
   def after_create
-    author_upvote
     # see LoboLatest
-    add_to_latest
+    super
+    author_upvote
   end
 
-  def after_delete
-    # see LoboLatest
-    remove_from_latest
-  end
-  
   def before_save
     category_fallback
     render_content
