@@ -33,7 +33,7 @@
 
       = relative_time(post.created_at)
 
-      = link_to post.author.name, user_path(post.author), :icon => 'icon-user', :class => 'tooltip-lb user-info', "post-karma" => "#{post.author.post_karma}", "comment-karma" => "#{post.author.comment_karma}"
+      = link_to post.author.name, user_path(post.author), :icon => 'icon-user', :class => 'tooltip-lb user-info', "data-post-karma" => "#{post.author.post_karma}", "data-comment-karma" => "#{post.author.comment_karma}"
 
       = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments'}
 

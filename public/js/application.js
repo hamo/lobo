@@ -689,7 +689,7 @@ $(document).ready(function () {
 		e.tooltip({
 		    placement: 'bottom',
 		    title: function() {
-			return e.attr("post-karma")+"点功德  "+e.attr("comment-karma")+"点人品";
+			return e.attr("data-post-karma")+"点功德  "+e.attr("data-comment-karma")+"点人品";
 		    }
 		});
 		break;
