@@ -36,9 +36,9 @@ class Main
     # classes for a category when displaying
     def category_label_class(category)
       label_tag = {
-        0 => 'info',
+        0 => 'default',
         1 => 'success',
-        2 => 'default',
+        2 => 'info',
         3 => 'warning',
         4 => 'important',
       }[category.rate]
