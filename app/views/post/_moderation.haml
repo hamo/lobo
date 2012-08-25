@@ -2,9 +2,9 @@
 
 .post_event
   .voting.display-inline
-    .thumb.icon-thumbs-up.positive(onclick="review('#{post.id}', event);")
+    .thumb.icon-thumbs-up.positive(onclick="review(event, '#{post.id}');")
 
-    .thumb.icon-thumbs-down.negative(onclick="review('#{post.id}', event);")
+    .thumb.icon-thumbs-down.negative(onclick="review(event, '#{post.id}');")
 
   .entry
 

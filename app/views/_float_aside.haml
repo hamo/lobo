@@ -103,7 +103,7 @@
 
     .side-box
       - if category_subscribe? category
-        %a.btn.btn-large.btn-inverse.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe('#{category.name}', event);"}
+        %a.btn.btn-large.btn-inverse.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
           %i.icon-minus.icon-white
           离开本圈子
         .aside_button_note.inline-block
@@ -117,7 +117,7 @@
       - elsif current_user and category.user_blacklist.include? current_user
 
       - else
-        %a.btn.btn-large.btn-danger.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe('#{category.name}', event);"}
+        %a.btn.btn-large.btn-danger.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
           %i.icon-plus.icon-white
           加入本圈子
         .aside_button_note.inline-block

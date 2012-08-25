@@ -5,14 +5,14 @@
     %div(class="post_detail #{post.id_hash}")
       .voting.display-inline.no-margin
         - if logged_in? and current_user.upvoted?(post)
-          .arrow.sprite.upmod{:onclick => "vote('#{hash}',event);"}
-          .arrow.sprite.down{:onclick => "vote('#{hash}',event);"}
+          .arrow.sprite.upmod{:onclick => "vote(event, '#{hash}');"}
+          .arrow.sprite.down{:onclick => "vote(event, '#{hash}');"}
         - elsif logged_in? and current_user.downvoted?(post)
-          .arrow.sprite.up{:onclick => "vote('#{hash}',event);"}
-          .arrow.sprite.downmod{:onclick => "vote('#{hash}',event);"}
+          .arrow.sprite.up{:onclick => "vote(event, '#{hash}');"}
+          .arrow.sprite.downmod{:onclick => "vote(event, '#{hash}');"}
         - else
-          .arrow.sprite.up{:onclick => "vote('#{hash}',event);"}
-          .arrow.sprite.down{:onclick => "vote('#{hash}',event);"}
+          .arrow.sprite.up{:onclick => "vote(event, '#{hash}');"}
+          .arrow.sprite.down{:onclick => "vote(event, '#{hash}');"}
 
       .entry
         .title

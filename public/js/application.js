@@ -101,13 +101,13 @@ function comment_show(json, father){
 	}
 
 	var voting = $("<div>", {'class': 'voting'});
-	voting.append($("<div>", {'class': "arrow sprite upmod", onclick: "vote('"+comment.hash+"', event);"}));
-	voting.append($("<div>", {'class': 'arrow sprite down', onclick: "vote('"+comment.hash+"', event);"}));
+	voting.append($("<div>", {'class': "arrow sprite upmod", onclick: "vote(event, '"+comment.hash+"');"}));
+	voting.append($("<div>", {'class': 'arrow sprite down', onclick: "vote(event, '"+comment.hash+"');"}));
 
 	var detail = $("<div>", {'class': 'comment_detail entry'});
 	detail.append($("<div>", {'class': 'tagline'}).append($("<strong>").append($("<a>", {href: '/u/'+logged, html: logged}))).append(" 发表于"+comment.updated_at+" | ").append($("<span>", {'class': 'karma', html: comment.karma})).append(" 点人品"));
 	detail.append($("<div>", {'class': 'md', html: comment.rendered_content}));
-	detail.append($("<div>", {'class': 'comment_actions'}).append($("<a>", {href: "/p/"+comment.hash.replace("_","#"), text: "链接"})).append(" ").append($("<a>", {onclick: "comment_reply('"+comment.hash+"', event);", text: "回复"})).append(" ").append($("<a>", {onclick: "comment_edit('"+comment.hash+"', event);", text: "编辑"})));
+	detail.append($("<div>", {'class': 'comment_actions'}).append($("<a>", {href: "/p/"+comment.hash.replace("_","#"), text: "链接"})).append(" ").append($("<a>", {onclick: "comment_reply(event, '"+comment.hash+"');", text: "回复"})).append(" ").append($("<a>", {onclick: "comment_edit(event, '"+comment.hash+"');", text: "编辑"})));
 	detail.append($("<div>", {'class': 'child'}).append($("<div>", {'class': 'replies'})));
 
 	var show = $("<div>", {'class': "comment "+comment.id_hash, id: comment.hash.split('_').pop()});
@@ -135,7 +135,7 @@ function comment_modify(json) {
     }
 }
 
-function comment_reply(hash, event) {
+function comment_reply(event, hash) {
     if (!checklogin(event))
 	return false;
     var o = $(src(event));
@@ -176,7 +176,7 @@ function comment_reply(hash, event) {
     form.find("textarea").focus();
 }
 
-function comment_edit(hash, event) {
+function comment_edit(event, hash) {
     var o = $(src(event));
     if ($('form.id_'+hash).length != 0) {
 	var form = $('form.id_'+hash);
@@ -345,7 +345,7 @@ $(document).ready(function() {
  * others functions
  *
  */
-function vote(hash, event) {
+function vote(event, hash) {
     if(!checklogin(event))
 	return false;
     var o = $(src(event));
@@ -416,7 +416,7 @@ function vote(hash, event) {
     });
 }
 
-function read(hash, event) {
+function read(event, hash) {
     var o = $(src(event));
     if(logged && o.hasClass('trackable')) {
 	$.ajax({
@@ -448,7 +448,7 @@ function change_captcha(event) {
     form.find("img#captcha-image").attr("src","http://captchator.com/captcha/image/"+new_session);
 }
 
-function sanction(hash, event) {
+function sanction(event, hash) {
     var o = $(src(event));
     var answer = confirm("R U sure?");
     if (!answer)
@@ -470,7 +470,7 @@ function sanction(hash, event) {
 	   });
 }
 
-function report(hash, event) {
+function report(event, hash) {
     var o = $(src(event));
     var report = modal.clone();
     report.find(".modal-header").append("<h3>举报</h3>");
@@ -495,7 +495,7 @@ function report(hash, event) {
     report.modal();
 }
 
-function review(hash, event) {
+function review(event, hash) {
     var o = $(src(event));
     var event = o.parent().parent().parent();
     if(o.hasClass('positive')){
@@ -521,7 +521,7 @@ function review(hash, event) {
     }
 }
 
-function authorize_subscription(user, category, event) {
+function authorize_subscription(event, user, category) {
     var o = $(src(event));
     var event = o.parent().parent().parent();
     if(o.hasClass('positive')){
@@ -572,7 +572,7 @@ function md_preview(event) {
 	  );
 }
 
-function post_edit(hash, event) {
+function post_edit(event, hash) {
     var o = $(src(event));
     var form = $(".post-form.id_"+hash);
     if (form.is(":visible"))
@@ -613,7 +613,7 @@ function post_modify(json) {
     }
 }
 
-function post_delete(hash, event) {
+function post_delete(event, hash) {
     var answer = confirm("R U sure?");
     if (!answer)
 	return false;
@@ -705,7 +705,7 @@ $(document).ready(function () {
  * Category functions
  *
  */
-function category_subscribe(category, event) {
+function category_subscribe(event, category) {
     if (!checklogin(event))
 	return false;
     var button = $(src(event));

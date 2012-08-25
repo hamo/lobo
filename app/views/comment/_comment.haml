@@ -16,14 +16,14 @@
 %div(class="comment #{comment.id_hash}" id="#{comment.hash.split(/_/)[-1]}")
   .voting
     - if logged_in? and current_user.upvoted?(comment)
-      .arrow.sprite.upmod{:onclick => "vote('#{comment.hash}',event);"}
-      .arrow.sprite.down{:onclick => "vote('#{comment.hash}',event);"}
+      .arrow.sprite.upmod{:onclick => "vote(event, '#{comment.hash}');"}
+      .arrow.sprite.down{:onclick => "vote(event, '#{comment.hash}');"}
     - elsif logged_in? and current_user.downvoted?(comment)
-      .arrow.sprite.up{:onclick => "vote('#{comment.hash}',event);"}
-      .arrow.sprite.downmod{:onclick => "vote('#{comment.hash}',event);"}
+      .arrow.sprite.up{:onclick => "vote(event, '#{comment.hash}');"}
+      .arrow.sprite.downmod{:onclick => "vote(event, '#{comment.hash}');"}
     - else
-      .arrow.sprite.up{:onclick => "vote('#{comment.hash}',event);"}
-      .arrow.sprite.down{:onclick => "vote('#{comment.hash}',event);"}
+      .arrow.sprite.up{:onclick => "vote(event, '#{comment.hash}');"}
+      .arrow.sprite.down{:onclick => "vote(event, '#{comment.hash}');"}
 
   .comment_detail.entry
     .tagline
@@ -48,8 +48,8 @@
 
     .comment_actions
       = link_to '链接', comment_path(comment)
-      %a{:onclick => "comment_reply('#{comment.hash}', event);"}  回复
+      %a{:onclick => "comment_reply(event, '#{comment.hash}');"}  回复
       - if comment.author == current_user
-        %a{:onclick => "comment_edit('#{comment.hash}', event);"} 编辑
+        %a{:onclick => "comment_edit(event, '#{comment.hash}');"} 编辑
 
     .child= partial 'comment/replies', :locals => {:replies => comment.replies.sort_by(:score, :order => 'desc')}

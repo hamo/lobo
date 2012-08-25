@@ -1,17 +1,17 @@
-%div(class="post_detail #{post.id_hash}" onclick="read('#{post.hash}', event);")
+%div(class="post_detail #{post.id_hash}" onclick="read(event, '#{post.hash}');")
   .voting.display-inline
     - if logged_in? and current_user.upvoted?(post)
-      .arrow.sprite.upmod{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite.upmod{:onclick => "vote(event, '#{post.hash}');"}
       %span.karma= post.karma
-      .arrow.sprite.down{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite.down{:onclick => "vote(event, '#{post.hash}');"}
     - elsif logged_in? and current_user.downvoted?(post)
-      .arrow.sprite.up{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite.up{:onclick => "vote(event, '#{post.hash}');"}
       %span.karma= post.karma
-      .arrow.sprite.downmod{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite.downmod{:onclick => "vote(event, '#{post.hash}');"}
     - else
-      .arrow.sprite.up{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite.up{:onclick => "vote(event, '#{post.hash}');"}
       %span.karma= post.karma
-      .arrow.sprite.down{:onclick => "vote('#{post.hash}',event);"}
+      .arrow.sprite.down{:onclick => "vote(event, '#{post.hash}');"}
 
   .entry
 
@@ -39,25 +39,25 @@
 
       - if logged_in? and post.author == current_user and post.content
 
-        %a{:onclick => "post_edit('#{post.hash}', event);", :href => 'javascript:void(0);'}
+        %a{:onclick => "post_edit(event, '#{post.hash}');", :href => 'javascript:void(0);'}
           %i.icon-edit
           编辑
 
       - if logged_in? and post.author == current_user
 
-        %a{:onclick => "post_delete('#{post.hash}', event);", :href => 'javascript:void(0);'}
+        %a{:onclick => "post_delete(event, '#{post.hash}');", :href => 'javascript:void(0);'}
           %i.icon-trash
           删除
       
       - if logged_in? and current_user.able_to_sanction?(post)
         - unless post.sanctioned_by
-          %a{:onclick => "sanction('#{post.hash}', event);", :href => 'javascript:void(0);'}
+          %a{:onclick => "sanction(event, '#{post.hash}');", :href => 'javascript:void(0);'}
             %i.icon-bolt
             处罚
 
       - if logged_in? and current_user.able_to_report?
         - unless post.reported_by
-          %a{:onclick => "report('#{post.hash}', event);", :href => 'javascript:void(0);'}
+          %a{:onclick => "report(event, '#{post.hash}');", :href => 'javascript:void(0);'}
             %i.icon-flag
             举报
     
