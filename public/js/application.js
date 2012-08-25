@@ -689,14 +689,11 @@ $(document).ready(function () {
 		e.tooltip({
 		    placement: 'bottom',
 		    title: function() {
-			var name = e.clone();
-			name.find("i").remove();
-			return name.html();
+			return e.attr("post-karma")+"点功德  "+e.attr("comment-karma")+"点人品";
 		    }
 		});
 		break;
 	    default:
-		alert("BUG HERE");
 		break;
 	    }
 	});
