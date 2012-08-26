@@ -139,11 +139,11 @@ describe '帖子收藏' do
 
   it '用户应该可以收藏帖子和删除收藏' do
     test_login(@u.name, 'foobar')
-    post '/do/favourite', :user => @u.id, :post => @po.id
+    post '/do/favourite', :post => @po.id
     JSON.parse(body, :symbolize_names => true)[:action].should =~ /add/
     @u.favourites.should include(@po)
     @po.favourite_count.should == 1
-    post '/do/favourite', :user => @u.id, :post => @po.id
+    post '/do/favourite', :post => @po.id
     JSON.parse(body, :symbolize_names => true)[:action].should =~ /delete/
     @u.favourites.should_not include(@po)
     @po.favourite_count.should == 0

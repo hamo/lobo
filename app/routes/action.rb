@@ -82,18 +82,16 @@ class Main
 
   # favourite or remove from favourites
   #
-  #   :user     => id of user
   #   :post     => id of post
   #
   post '/do/favourite' do
     return stamp_json(false) unless logged_in?
-    return stamp_json(false) unless u  = User[params[:user]]
     return stamp_json(false) unless po = Post[params[:post]]
-    if u.favourites.include? po
-      u.delete_favourite po
+    if current_user.favourites.include? po
+      current_user.delete_favourite po
       return stamp_json(true, :action => 'delete_favourite')
     else
-      u.add_favourite po
+      current_user.add_favourite po
       return stamp_json(true, :action => 'add_favourite')
     end
   end
