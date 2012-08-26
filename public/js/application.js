@@ -521,6 +521,40 @@ function review(event, hash) {
     }
 }
 
+function favourite(event, post) {
+    if (!checklogin(event))
+	return false;
+    var o = $(src(event));
+    if(!o.is("a")) {
+	var target = o.parent();
+    } else {
+	var target = o;
+    }
+    var fn = Number(target.find(".favourite-number").html());
+    $.post("/do/favourite",
+	   {post: post},
+	   function(data) {
+	       if(data.success) {
+		   switch(data.action) {
+		   case "add_favourite":
+		       target.find("i").addClass("color-red");
+		       target.find(".favourite-number").html(fn+1);
+		       break;
+		   case "delete_favourite":
+		       target.find("i").removeClass("color-red");
+		       target.find(".favourite-number").html(fn-1);
+		       break;
+		   default:
+		       break;
+		   }
+	       } else {
+		   //FIXME
+	       }
+	   },
+	   "json");
+}
+
+
 function authorize_subscription(event, user, category) {
     var o = $(src(event));
     var event = o.parent().parent().parent();

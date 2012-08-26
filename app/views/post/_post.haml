@@ -37,10 +37,13 @@
 
       = link_to post.author.name, user_path(post.author), :icon => 'icon-user', :class => 'tooltip-lb user-info', "data-post-karma" => "#{post.author.post_karma}", "data-comment-karma" => "#{post.author.comment_karma}"
 
-      %a
-        %i.icon-heart
-
-      = post.favourite_count
+      %a{:onclick => "favourite(event, '#{post.hash}');", :href => 'javascript:void(0);'}
+        - if logged_in? and current_user.favourites.include? post
+          %i.icon-heart.color-red
+        - else
+          %i.icon-heart
+        %span.favourite-number
+          = post.favourite_count
 
       - if logged_in? and post.author == current_user and post.content
 
