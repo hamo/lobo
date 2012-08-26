@@ -17,6 +17,7 @@
               = current_user.name
             %ul.dropdown-menu.no-collapse
               %li= link_to '我的帖子', user_path(current_user), :icon => 'icon-list'
+              %li= link_to '我的收藏', '/favourites'          , :icon => 'icon-heart'
               %li= link_to '个人设置', '/settings'            , :icon => 'icon-wrench'
               %li= link_to '退出登录', '/logout'              , :icon => 'icon-signout'
 

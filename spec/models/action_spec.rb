@@ -93,4 +93,20 @@ describe "User actions" do
       @u.subscriptions.should include(@pc)
     end
   end
+
+  describe '收藏' do
+    before :each do
+      @u = Fabricate(:user)
+      @po = Fabricate(:post)
+    end
+
+    it '普通用户应该能够收藏帖子' do
+      @u.add_favourite @po
+      @po.favourite_count.should == 1
+      @u.favourites.should include(@po)
+      @u.delete_favourite @po
+      @po.favourite_count.should == 0
+      @u.favourites.should_not include(@po)
+    end
+  end
 end

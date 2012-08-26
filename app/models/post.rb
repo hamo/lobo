@@ -33,6 +33,8 @@ class Post < Ohm::Model
   attribute :controversy, Type::Float
   index     :controversy
 
+  counter   :favourite_count
+
   index   :domain
 
   index     :available?

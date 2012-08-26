@@ -30,6 +30,9 @@ class User < Ohm::Model
 
   # subscribed categories
   set :subscriptions    , :Category
+  
+  # favourited posts
+  set :favourites       , :Post
 
   counter :post_karma
   counter :comment_karma
@@ -245,6 +248,20 @@ class User < Ohm::Model
   # get password reset hash for current user
   def password_reset_hash
     db.get("User:reset_#{id}")
+  end
+
+  def add_favourite(post)
+    db.multi do
+      favourites.add post
+      post.incr :favourite_count
+    end
+  end
+
+  def delete_favourite(post)
+    db.multi do
+      favourites.delete post
+      post.decr :favourite_count
+    end
   end
 
   private
