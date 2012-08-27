@@ -63,7 +63,7 @@
             %i.icon-bolt
             处罚
 
-      - if logged_in? and current_user.able_to_report?
+      - if logged_in? and current_user.able_to_report? and post.author != current_user
         - unless post.reported_by
           %a{:onclick => "report(event, '#{post.hash}');", :href => 'javascript:void(0);'}
             %i.icon-flag
