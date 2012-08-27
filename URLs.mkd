@@ -37,5 +37,6 @@
   /do/report                    举报一个违规帖子
   /do/review                    审核一个帖子的举报
   /do/authorize_subscription    将一个用户订阅到某个类别
+  /do/favourite                 收藏/取消收藏帖子
 
 3. api使用的URL
