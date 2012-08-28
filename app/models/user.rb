@@ -34,6 +34,9 @@ class User < Ohm::Model
   # favourited posts
   set :favourites       , :Post
 
+  # moderated categories
+  set :moderated_categories,  :Category
+
   counter :post_karma
   counter :comment_karma
   counter :conduct_karma
@@ -224,11 +227,6 @@ class User < Ohm::Model
 
   def able_to_review?(post)
     able_to_sanction?(post)
-  end
-
-  def moderated_categories
-    return [] unless tags
-    tags.select{|i| i.start_with? '#'}.collect{|i| Category.with(:name, i[1..-1])}.compact
   end
 
   # creat a User:reset_#{id} to hold hash for password reset, expires in 60

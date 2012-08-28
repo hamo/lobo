@@ -48,6 +48,7 @@ describe 'category routing' do
     c = Category.first(:name => 'unicon')
     c.should_not be_nil
     c.admins.should include(User.first(:name => 'roylez'))
+    User.with(:name, 'roylez').moderated_categories.should include(c)
   end
 
   it '登录后应该可以以json格式得到圈子名字列表' do

@@ -67,15 +67,19 @@ class Category < Ohm::Model
   def add_admin(user)
     u = (user.is_a?(User) ? user : User.first(:name => user.to_s))
     return nil unless u and self.subscribers.include? u
-    self.admins.add u
-    u.add_tag "##{self.name}"
+    db.multi do
+      self.admins.add u
+      u.moderated_categories.add self
+    end
   end
 
   def delete_admin(user)
     u = (user.is_a?(User) ? user : User.first(:name => user.to_s))
     return nil unless u
-    self.admins.delete u
-    u.delete_tag "##{self.name}"
+    db.multi do
+      self.admins.delete u
+      u.moderated_categories.delete self
+    end
   end
 
   def allow_viewing?(user=nil)
