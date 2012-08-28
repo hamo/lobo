@@ -56,7 +56,7 @@ class Category < Ohm::Model
   def validate
     assert_present :name
     assert_format :name        , /\A[\w_.]{2,30}\Z/
-    assert((not ['random', 'all'].include? name), [:name, :reserved_name])
+    assert((not ['random', 'all', 'mine'].include? name), [:name, :reserved_name])
     assert_unique :name
     assert_unique :display_name  if not display_name.to_s.empty?
     assert_member :rate        , (0..4).to_a

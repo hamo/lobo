@@ -3,9 +3,8 @@
     %button.btn.btn-inverse.primary.dropdown-toggle(data-toggle='dropdown')
       %i.icon-sitemap.large
     %ul.dropdown-menu.pull-right
-      %li= link_to '首页', '/'
-      %li= link_to '全部', '/l/all'
-      %li= link_to '随机', '/l/random'
+      %li= link_to '我的圈子', '/l/mine'
+      %li= link_to '随机圈子', '/l/random'
       %li.divider
 
       - if logged_in? and not current_user.subscriptions.empty?
