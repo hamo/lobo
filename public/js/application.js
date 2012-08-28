@@ -498,7 +498,8 @@ function report(event, hash) {
 function review(event, hash) {
     var o = $(src(event));
     var event = o.parent().parent().parent();
-    if(o.hasClass('positive')){
+    switch(true) {
+    case o.hasClass('positive'):
 	$.post('/do/review',
 	       {hash: hash, approved: 'yes'},
 	       function(data) {
@@ -507,7 +508,8 @@ function review(event, hash) {
 		   }
 	       },
 	       "json");
-    } else if(o.hasClass('negative')){
+	break;
+    case o.hasClass('negative'):
 	$.post('/do/review',
 	       {hash: hash, approved: 'no'},
 	       function(data) {
@@ -516,8 +518,10 @@ function review(event, hash) {
 		   }
 	       },
 	       "json");
-    } else {
+	break;
+    default:
 	return false;
+	break;
     }
 }
 

@@ -11,7 +11,7 @@
     .link.event-link
       - case event
       - when Moderation
-        .rank= '审核'
+        .rank= '处罚'
         = partial 'post/moderation', :locals => {:event => event}
       - when Subscription
         .rank= '订阅'

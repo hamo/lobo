@@ -45,29 +45,29 @@ describe "User actions" do
       @admin.review(po, true).should be_nil
     end
 
-    it 'review通过的帖子不扣分，没通过的扣50分' do
+    it 'review结果为true的帖子扣50分，为false的不扣分' do
       10.times { Fabricate(:post, :author => @u) }
       @u.report(@po1)
       @admin.review(@po1, true)
-      @po1.karma.should == 1
+      @po1.karma.should == -49
       @u.report(@po)
       @admin.review(@po, false)
-      @po.karma.should == -49
+      @po.karma.should == 1
     end
 
-    it 'review通过，举报不通过，节操-5' do
+    it 'review为false，则举报不通过，节操-5' do
       10.times { Fabricate(:post, :author => @u) }
       @u.report(@po1)
       lambda do 
-        @admin.review(@po1, true)
+        @admin.review(@po1, false)
       end.should change(@u, :conduct_karma).by(-5)
     end
 
-    it 'review后，举报通过，节操+5' do
+    it 'review为true,举报通过，节操+5' do
       10.times { Fabricate(:post, :author => @u) }
       @u.report(@po)
       lambda do 
-        @admin.review(@po, false)
+        @admin.review(@po, true)
       end.should change(@u, :conduct_karma).by(5)
     end
   end

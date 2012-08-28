@@ -115,11 +115,11 @@ describe '帖子审核' do
     10.times{ Fabricate(:post, :author => @u)}
   end
 
-  it '审核前管理员应该可以看到提示' do
+  it '处罚前管理员应该可以看到提示' do
     @u.report(@po)
     test_login(@admin.name, 'foobar')
     get '/'
-    response.should have_selector("div.rank", :content => '审核')
+    response.should have_selector("div.rank", :content => '处罚')
   end
 
   it '审核后应该看不到举报了' do

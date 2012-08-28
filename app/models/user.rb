@@ -175,8 +175,9 @@ class User < Ohm::Model
     end
   end
 
-  def review(post, approved = true)
-    # reporter and viewer cannot be same person
+  # review one post, if approved == true, the action will  take effect.
+  def review(post, approved = false)
+    # reporter and reviewer cannot be same person
     return if post.reported_by == self or post.reported_by.nil?
     # cannot review unless is a site admin or a category admin
     return unless able_to_review?(post)
@@ -186,10 +187,10 @@ class User < Ohm::Model
     rev = Moderation.with(:post_id, post.id)
     rev.update(:reviewer => self, :result => decision)
     if approved
-      post.reported_by.incr(:conduct_karma, -5)
-    else
       sanction(post)
       post.reported_by.incr(:conduct_karma, 5)
+    else
+      post.reported_by.incr(:conduct_karma, -5)
     end
 
     rev
