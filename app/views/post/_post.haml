@@ -57,7 +57,7 @@
           %i.icon-trash
           删除
       
-      - if logged_in? and current_user.able_to_sanction?(post)
+      - if logged_in? and current_user.able_to_sanction?(post) and post.author != current_user
         - unless post.sanctioned_by
           %a{:onclick => "sanction(event, '#{post.hash}');", :href => 'javascript:void(0);'}
             %i.icon-bolt
