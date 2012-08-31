@@ -10,11 +10,12 @@ class Main
   get '/l/mine' do
     if current_user and not current_user.subscriptions.empty?
       categories = current_user.subscriptions.to_a
+      @title = "#{current_user.name}的圈子"
     else
       categories = hot_categories
+      @title = "热门圈子"
     end
     posts = available_posts_in_categories(categories)
-    @title = "#{current_user.name}的圈子"
     @posts = paginate_posts(posts, :sort_by => :score, :order => 'DESC')
 
     haml :post_list
