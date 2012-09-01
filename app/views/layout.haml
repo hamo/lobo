@@ -11,8 +11,6 @@
       var logged="#{current_user.name if logged_in?}";
 
     != stylesheet_link_tag '/css/main.css', :media => 'screen'
-    /[if IE 7]
-      != stylesheet_link_tag '/css/font-awesome-ie7.css', :media => 'screen'
 
     /[if lte IE 8]
       != javascript_script_tag '/js/html5shiv-3.6.1.js'

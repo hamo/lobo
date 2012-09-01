@@ -5,7 +5,7 @@ config/mail.rb
 webrat.log
 art-work
 .bundle
-public/css/main.css
+public/css/*.css
 public/images/sprite.png
 *.jar
 unicorn.conf.rb
