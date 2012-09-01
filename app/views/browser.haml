@@ -7,6 +7,9 @@
     /[if gt IE 8]
       :javascript
         window.location = "/";
+
+    - if ENV['RACK_ENV'] == 'production'
+      = partial :counting_code
   
   %body
     %h1
@@ -23,6 +26,3 @@
     %br
     %a{:href => "http://www.microsoft.com/windows/Internet-explorer/default.aspx"}
       Internet Explorer 9+
-
-    - if ENV['RACK_ENV'] == 'production'
-      = partial :counting_code

@@ -23,6 +23,9 @@
       :javascript
         window.location = "/browser";
 
+    - if ENV['RACK_ENV'] == 'production'
+      = partial :counting_code
+
   %body
 
     .container-fluid
@@ -34,9 +37,6 @@
 
       = partial :footer
 
-      - case ENV['RACK_ENV']
-      - when 'production'
-        = partial :counting_code
-      - when 'development'
+      - if ENV['RACK_ENV'] == 'development'
         %p= "params: #{params.inspect}"
         %p= "session: #{session.inspect}"
