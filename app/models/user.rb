@@ -44,6 +44,10 @@ class User < Ohm::Model
   counter :comment_karma
   counter :conduct_karma
 
+  # counters for unread replies
+  # { id => counter, .... } 
+  attribute :unread_replies,  Type::Hash
+
   def validate
     assert_format :name, /\A[\w_.\u4e00-\u9fa5]{3,20}\Z/   if new?
     assert_unique :name
