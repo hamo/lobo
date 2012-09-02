@@ -19,6 +19,8 @@ class Comment < Ohm::Model
   reference :sanctioned_by, :User
   set       :replies      , :Comment
 
+  attribute :ancestor_ids , Type::Array
+
   attribute :score, Type::Float
   index     :score
   attribute :karma, Type::Integer
@@ -40,6 +42,12 @@ class Comment < Ohm::Model
 
   def parent
     parent_is_post? ? Post[parent_hash] : Comment[parent_hash]
+  end
+
+  # return an array of Post and Comment objects
+  def ancestors
+    nil unless ancestor_ids
+    ancestor_ids.map{|id| id.include?('_') ? Comment[id] : Post[id] }
   end
 
   def post
@@ -88,6 +96,7 @@ class Comment < Ohm::Model
   end
   
   def before_save
+    store_ancestors
     render_content
   end
 
@@ -97,6 +106,16 @@ class Comment < Ohm::Model
 
   def link_parent
     parent.replies.add self
+  end
+
+  def store_ancestors
+    comm = self
+    arr = []
+    begin
+      comm = comm.parent
+      arr << comm.id
+    end until comm.is_a? Post
+    self.ancestor_ids = arr
   end
 
   def author_upvote
