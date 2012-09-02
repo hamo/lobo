@@ -141,11 +141,16 @@ class Post < Ohm::Model
     # see LoboLatest
     super
     author_upvote
+    add_author_monitor
   end
 
   def before_save
     category_fallback
     render_content
+  end
+
+  def add_author_monitor
+    author.monitored_posts.add self
   end
 
   def author_upvote

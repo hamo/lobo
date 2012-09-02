@@ -37,6 +37,9 @@ class User < Ohm::Model
   # moderated categories
   set :moderated_categories,  :Category
 
+  # posts written as well as posts for comments written
+  set :monitored_posts  , :Post
+
   counter :post_karma
   counter :comment_karma
   counter :conduct_karma

@@ -88,16 +88,25 @@ class Comment < Ohm::Model
   end
 
   private 
+
+  def before_create
+    store_ancestors
+  end
   
   def after_create
     super
     author_upvote
     link_parent
+    add_author_monitor
+    notify_new_replies
   end
-  
+
   def before_save
-    store_ancestors
     render_content
+  end
+
+  def add_author_monitor
+    author.monitored_posts.add post
   end
 
   def render_content
@@ -109,13 +118,17 @@ class Comment < Ohm::Model
   end
 
   def store_ancestors
-    comm = self
-    arr = []
-    begin
-      comm = comm.parent
-      arr << comm.id
-    end until comm.is_a? Post
-    self.ancestor_ids = arr
+    if parent.is_a? Comment and parent.ancestor_ids
+      self.ancestor_ids = parent.ancestor_ids.unshift parent_hash
+    else
+      comm = self
+      arr = []
+      begin
+        comm = comm.parent
+        arr << comm.id
+      end until comm.is_a? Post
+      self.ancestor_ids = arr
+    end
   end
 
   def author_upvote
