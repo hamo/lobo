@@ -9,6 +9,9 @@ class Main
     @post = Post[params[:hash]]
     halt 404 unless @post and @post.visible? current_user
     @title = @post.title
+    if logged_in?
+      current_user.clear_unread_replies(@post)
+    end
     haml(:'post/detail')
   end
 

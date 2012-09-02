@@ -104,12 +104,7 @@ class Comment < Ohm::Model
   # for each ancestor, notify its author that there is a new reply
   def notify_new_replies
     authors = ancestors.map(&:author).uniq
-    authors.each do |au|
-      unread = au.unread_replies || {}
-      unread[post.id] = unread[post.id] ? (unread[post.id] + 1) : 1
-      au.unread_replies = unread
-      au.save
-    end
+    authors.each { |au| au.increment_unread_replies(post) }
   end
 
   def before_save

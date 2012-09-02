@@ -90,6 +90,22 @@ class User < Ohm::Model
     vote(item, :down)
   end
 
+  def increment_unread_replies(post)
+    unread = unread_replies || {}
+    unread[post.id] = unread[post.id] ? (unread[post.id] + 1) : 1
+    self.unread_replies = unread
+    save
+  end
+
+  def clear_unread_replies(post)
+    return unless unread_replies
+    return unless unread_replies[post.id]
+    unread = unread_replies
+    unread.delete post.id
+    self.unread_replies = unread
+    save
+  end
+
   # vote something, up or down
   # If already voted and a same type of voting comes in, the vote will be reset.
   #
