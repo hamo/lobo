@@ -36,13 +36,19 @@ task :bootstrap do
   puts "Creating default admin account: loboadmin"
 
   admin = User.create(:name => 'loboadmin', :password => 'm316121', :password_confirmation => 'm316121', :email => 'admin@lobo.com')
-  admin.tags << 'can_sanction'
-  admin.tags << 'admin'
+  admin.add_tag 'can_sanction'
+  admin.add_tag 'admin'
 end
 
 namespace :db do
   desc "Clean everything in DB"
   task :clean do
+    print "\e[31;1mWarning\e[m: all data in db will be lost! Type YES to confirm: "
+    answer = STDIN.gets.strip
+    if answer != 'YES'
+      puts 'Abort.'
+      exit
+    end
     require 'init'
     puts "Removing everything in DB #{monk_settings(:redis)[:db]}"
     Ohm.flush
