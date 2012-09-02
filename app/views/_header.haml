@@ -15,8 +15,7 @@
           - else
             - if unread_replies
               - total = unread_replies.values.compact.inject(&:+)
-            - else
-              - total = 0
+            - total ||= 0
             %a.btn.btn-info.dropdown-toggle(data-toggle='dropdown' href='#')
               = current_user.name
               - if total > 0
