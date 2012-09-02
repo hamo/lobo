@@ -40,4 +40,14 @@ class Main
     @posts = paginate_posts(current_user.favourites, :sort_by => :created_at, :order => 'DESC')
     haml :post_list
   end
+
+  get '/u/:name' do
+    @title = "#{params[:name]}的帖子"
+    @user = User.first :name => params[:name]
+    halt 404 unless @user
+    @posts = paginate_posts(@user.monitored_posts, 
+                            :sort_by => :created_at, 
+                            :order => 'DESC')
+    haml :user_post_list
+  end
 end

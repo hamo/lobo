@@ -40,16 +40,6 @@ class Main
     haml :post_list
   end
 
-  get '/u/:name' do
-    @title = "#{params[:name]}的帖子"
-    @user = User.first :name => params[:name]
-    halt 404 unless @user
-    @posts = paginate_posts(all_viewable_posts.find(:author_id => @user.id), 
-                            :sort_by => :created_at, 
-                            :order => 'DESC')
-    haml :post_list
-  end
-
   get '/browser' do
     @title = "请升级您的浏览器"
     haml :browser, :layout => false, :format => :xhtml

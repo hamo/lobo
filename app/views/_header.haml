@@ -13,10 +13,19 @@
             %a.btn.btn-success(href='/login') 登录
             %a.btn.btn-warning(href='/register') 注册
           - else
+            - if unread_replies
+              - total = unread_replies.values.compact.inject(&:+)
+            - else
+              - total = 0
             %a.btn.btn-info.dropdown-toggle(data-toggle='dropdown' href='#')
               = current_user.name
+              - if total > 0
+                %span.badge.badge-important= total
             %ul.dropdown-menu.no-collapse
-              %li= link_to '我的帖子', user_path(current_user), :icon => 'icon-list'
+              - if total > 0
+                %li= link_to "我的帖子 (#{total})", user_path(current_user), :icon => 'icon-list'
+              - else
+                %li= link_to '我的帖子', user_path(current_user), :icon => 'icon-list'
               %li= link_to '我的收藏', '/favourites'          , :icon => 'icon-heart'
               %li= link_to '个人设置', '/settings'            , :icon => 'icon-wrench'
               %li= link_to '退出登录', '/logout'              , :icon => 'icon-signout'

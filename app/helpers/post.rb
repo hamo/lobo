@@ -128,6 +128,11 @@ class Main
       return url.match(url_pattern)
     end
       
+    # unread comment counters
+    def unread_replies
+      nil unless logged_in?
+      current_user.unread_replies
+    end
   end
 end
 

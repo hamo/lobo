@@ -1,0 +1,17 @@
+- if defined? @user
+  = partial :float_aside, :locals => { :user => @user }
+- elsif defined? @category
+  = partial :float_aside, :locals => { :category => @category }
+- else
+  = partial :float_aside
+
+#content
+
+  - unread = (current_user == @user) ? unread_replies : nil
+  - @posts.each do |post|
+    .link
+      = partial 'post/post', :locals => {:post => post, 
+                                         :unread => unread }
+      .clearleft
+
+  = partial 'post/pagination', :locals => {:items => @posts, :show_detail => false}

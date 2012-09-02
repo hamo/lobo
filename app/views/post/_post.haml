@@ -29,7 +29,14 @@
     .tagline
       = category_label post.category
 
-      = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments'}
+      - if defined?(unread) and unread and unread[post.id].to_i != 0
+        %a(href="#{post_path(post)}" class="trackable")
+          %i.icon-comments.color-orange
+          = precede post.reply_count.to_s do
+            = surround '(', ')' do
+              %strong.color-orange +#{unread[post.id]}
+      - else
+        = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments'}
 
       %i.icon-time 
 
