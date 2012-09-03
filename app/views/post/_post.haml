@@ -30,51 +30,59 @@
       = category_label post.category
 
       - if defined?(unread) and unread and unread[post.id].to_i != 0
-        %a(href="#{post_path(post)}" class="trackable")
-          %i.icon-comments.color-orange
-          = precede post.reply_count.to_s do
-            = surround '(', ')' do
-              %strong.color-orange +#{unread[post.id]}
+        .action
+          %a(href="#{post_path(post)}" class="trackable")
+            %i.icon-comments.color-orange
+            = precede post.reply_count.to_s do
+              = surround '(', ')' do
+                %strong.color-orange +#{unread[post.id]}
       - else
-        = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments'}
+        .action
+          = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments'}
 
-      %i.icon-time 
+      .action
+        %i.icon-time 
+        = relative_time(post.created_at)
 
-      = relative_time(post.created_at)
+      .action
+        = link_to post.author.name, user_path(post.author), :icon => 'icon-user', :class => 'tooltip-lb user-info', "data-post-karma" => "#{post.author.post_karma}", "data-comment-karma" => "#{post.author.comment_karma}"
 
-      = link_to post.author.name, user_path(post.author), :icon => 'icon-user', :class => 'tooltip-lb user-info', "data-post-karma" => "#{post.author.post_karma}", "data-comment-karma" => "#{post.author.comment_karma}"
-
-      %a{:onclick => "favourite(event, '#{post.hash}');", :href => 'javascript:void(0);'}
-        - if logged_in? and current_user.favourites.include? post
-          %i.icon-heart.color-red
-        - else
-          %i.icon-heart
-        %span.favourite-number
-          = post.favourite_count
+      .action
+        %a{:onclick => "favourite(event, '#{post.hash}');", :href => 'javascript:void(0);'}
+          - if logged_in? and current_user.favourites.include? post
+            %i.icon-heart.color-red
+          - else
+            %i.icon-heart
+          %span.favourite-number
+            = post.favourite_count
 
       - if logged_in? and post.author == current_user and post.content
 
-        %a{:onclick => "post_edit(event, '#{post.hash}');", :href => 'javascript:void(0);'}
-          %i.icon-edit
-          编辑
+        .action
+          %a{:onclick => "post_edit(event, '#{post.hash}');", :href => 'javascript:void(0);'}
+            %i.icon-edit
+            编辑
 
       - if logged_in? and post.author == current_user
 
-        %a{:onclick => "post_delete(event, '#{post.hash}');", :href => 'javascript:void(0);'}
-          %i.icon-trash
-          删除
+        .action
+          %a{:onclick => "post_delete(event, '#{post.hash}');", :href => 'javascript:void(0);'}
+            %i.icon-trash
+            删除
       
       - if logged_in? and current_user.able_to_sanction?(post) and post.author != current_user
         - unless post.sanctioned_by
-          %a{:onclick => "sanction(event, '#{post.hash}');", :href => 'javascript:void(0);'}
-            %i.icon-bolt
-            处罚
+          .action
+            %a{:onclick => "sanction(event, '#{post.hash}');", :href => 'javascript:void(0);'}
+              %i.icon-bolt
+              处罚
 
       - if logged_in? and current_user.able_to_report? and post.author != current_user
         - unless post.reported_by
-          %a{:onclick => "report(event, '#{post.hash}');", :href => 'javascript:void(0);'}
-            %i.icon-flag
-            举报
+          .action
+            %a{:onclick => "report(event, '#{post.hash}');", :href => 'javascript:void(0);'}
+              %i.icon-flag
+              举报
     
     - if defined?(show_detail) and show_detail and post.has_content?
       %pre.md!= post.rendered_content

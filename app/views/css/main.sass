@@ -202,28 +202,32 @@ footer
   a:hover
     text-decoration: underline
 
+.action
+  display: inline-block
+  text-align: center
+  margin-left: 0.65em
+  color: $grayLight
+  *
+    color: inherit
+  i
+    width: 12px
+    line-height: 0
+  >a 
+    color: #002930
+    @include opacity(0.4)
+  &>a:hover
+    @include opacity(1)
+    @include single-text-shadow
+    @include transition-property(opacity)
+    @include transition-duration(0.5s)
+    @include transition-timing-function(ease-in)
+
 .tagline 
   //color: grey
   font-size: 13px
-  margin: inherit
   margin: 0
-  color: $grayLight
   line-height: 1.4
   vertical-align: middle
-  * 
-    color: inherit
-  i
-    line-height: 0
-    margin-left: 0.65em
-    display: inline-block
-    text-align: center
-    width: 12px
-  &>a:hover
-    @include single-text-shadow
-    @include transition-property(color)
-    @include transition-duration(0.5s)
-    @include transition-timing-function(ease-in)
-    color: $gray
 
 .vertical-middle
   vertical-align: middle
