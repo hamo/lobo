@@ -463,7 +463,7 @@ function sanction(event, hash) {
 		       var nk = Number(k.html())-50;
 		       k.html(nk);
 		   });
-		   o.remove();
+		   o.parent().remove();
 	       } else {
 		   //FIXME
 	       }
@@ -485,7 +485,7 @@ function report(event, hash) {
 	success: function(data, status, xhr, form){
 	    var json = $.parseJSON(data);
 	    if(json.success)
-		o.remove();
+		o.parent().remove();
 	    report.modal('hide');
 	}
     });

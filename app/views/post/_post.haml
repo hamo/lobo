@@ -91,7 +91,7 @@
       %pre.md!= post.rendered_content
 
     - if logged_in? and post.author == current_user and post.content
-      %form.form-horizontal.post-form.validate-form(class="#{post.id_hash}" action="/post/edit/#{post.hash}" method='post' style='display:none' autocomplete='off')
+      %form.form-horizontal.post-form(class="#{post.id_hash}" action="/post/edit/#{post.hash}" method='post' style='display:none' autocomplete='off')
         %textarea.validate-input.span5.md_preview(name='post_content' rows='5')
         %button.btn.post_submit(type="submit") 修改
         %button.btn(type='button' onclick='md_preview(event);') 预览
