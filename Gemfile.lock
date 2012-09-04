@@ -41,12 +41,12 @@ GEM
     nest (1.1.1)
       redis
     nokogiri (1.5.5)
-    ohm (1.1.1)
+    ohm (1.2.0)
       nest (~> 1.0)
       redis
       scrivener (~> 0.0.3)
-    ohm-contrib (1.1.0)
-      ohm (~> 1.1)
+    ohm-contrib (1.2)
+      ohm (~> 1.2)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-protection (1.2.0)
@@ -107,8 +107,8 @@ DEPENDENCIES
   mail (= 2.4.4)
   maruku (= 0.6.0)
   monk-glue!
-  ohm (= 1.1.1)
-  ohm-contrib (= 1.1.0)
+  ohm (= 1.2.0)
+  ohm-contrib (= 1.2.0)
   pagination!
   rack (= 1.4.1)
   rack-protection (= 1.2)
