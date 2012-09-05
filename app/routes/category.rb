@@ -36,6 +36,7 @@ class Main
   # show detail of a catgory or a mixture of categories joined by '+'
   get '/l/:categories' do
     categories = params[:categories].split('+').compact.collect{|c| Category.first(:name => c)}
+    categories.delete(nil)
     case categories.size
     when 0      # no such category ?
       halt 404
