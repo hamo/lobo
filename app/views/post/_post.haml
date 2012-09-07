@@ -32,6 +32,10 @@
     .tagline
       = category_label post.category
 
+      .action
+        %i.icon-time 
+        = relative_time(post.created_at)
+
       - if defined?(unread) and unread and unread[post.id].to_i != 0
         .action
           %a(href="#{post_path(post)}" class="trackable")
@@ -44,13 +48,6 @@
           = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments'}
 
       .action
-        %i.icon-time 
-        = relative_time(post.created_at)
-
-      .action
-        = link_to post.author.name, user_path(post.author), :icon => 'icon-user', :class => 'tooltip-lb user-info', "data-post-karma" => "#{post.author.post_karma}", "data-comment-karma" => "#{post.author.comment_karma}"
-
-      .action
         %a{:onclick => "favourite(event, '#{post.hash}');", :href => 'javascript:void(0);'}
           - if logged_in? and current_user.favourites.include? post
             %i.icon-heart.color-red
@@ -58,6 +55,9 @@
             %i.icon-heart
           %span.favourite-number
             = post.favourite_count
+
+      .action
+        = link_to post.author.name, user_path(post.author), :icon => 'icon-user', :class => 'tooltip-lb user-info', "data-post-karma" => "#{post.author.post_karma}", "data-comment-karma" => "#{post.author.comment_karma}"
 
       - if logged_in? and post.author == current_user and post.content
 
