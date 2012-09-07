@@ -39,8 +39,11 @@
 
       点人品
 
-    - if comment.author == comment.post.author
+    - case comment.author
+    - when comment.post.author
       .md.post_author!= comment.rendered_content
+    - when current_user
+      .md.current_user!= comment.rendered_content
     - else
       .md!= comment.rendered_content
 
