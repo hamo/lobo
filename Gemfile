@@ -25,7 +25,7 @@ gem 'pagination'           , :ref => 'a0cb3', :git => 'git://github.com/roylez/p
 gem 'redcarpet'
 
 gem 'haml'                 , '3.1.7'
-gem 'sass'                 , '3.1.15', :require => 'sass/plugin'
+gem 'sass'                 , '3.2.1', :require => 'sass/plugin'
 
 gem 'sinatra'              , '1.3.3', :require => 'sinatra/base'
 gem 'sinatra-static-assets', '1.0.4', :require => 'sinatra/static_assets'
