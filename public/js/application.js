@@ -106,7 +106,7 @@ function comment_show(json, father){
 
 	var detail = $("<div>", {'class': 'comment_detail entry'});
 	detail.append($("<div>", {'class': 'tagline'}).append($("<strong>").append($("<a>", {href: '/u/'+logged, html: logged}))).append(" 发表于"+comment.updated_at+" | ").append($("<span>", {'class': 'karma', html: comment.karma})).append(" 点人品"));
-	detail.append($("<div>", {'class': 'md', html: comment.rendered_content}));
+	detail.append($("<div>", {'class': 'md current_user', html: comment.rendered_content}));
 	detail.append($("<div>", {'class': 'comment_actions'}).append($("<a>", {href: "/p/"+comment.hash.replace("_","#"), text: "链接"})).append(" ").append($("<a>", {onclick: "comment_reply(event, '"+comment.hash+"');", text: "回复"})).append(" ").append($("<a>", {onclick: "comment_edit(event, '"+comment.hash+"');", text: "编辑"})));
 	detail.append($("<div>", {'class': 'child'}).append($("<div>", {'class': 'replies'})));
 
