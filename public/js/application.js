@@ -725,10 +725,11 @@ $(document).ready(function () {
 	    switch(true) {
 	    case e.hasClass('user-info'):
 		e.tooltip({
-		    placement: 'bottom',
+		    placement: 'top',
 		    title: function() {
 			return e.attr("data-post-karma")+"点功德  "+e.attr("data-comment-karma")+"点人品";
-		    }
+		    },
+                    delay: 500
 		});
 		break;
 	    default:
