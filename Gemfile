@@ -36,6 +36,8 @@ gem 'rake'
 gem 'mail'                 , '2.4.4'
 
 group :production do
+  # newrelic.yml need to be put in "config" subdirectory
+  gem 'newrelic_rpm'
   gem "unicorn", "~> 4.3.1"
 end
 

@@ -40,6 +40,7 @@ GEM
     mime-types (1.19)
     nest (1.1.1)
       redis
+    newrelic_rpm (3.4.2)
     nokogiri (1.5.5)
     ohm (1.2.0)
       nest (~> 1.0)
@@ -107,6 +108,7 @@ DEPENDENCIES
   mail (= 2.4.4)
   maruku (= 0.6.0)
   monk-glue!
+  newrelic_rpm
   ohm (= 1.2.0)
   ohm-contrib (= 1.2.0)
   pagination!
