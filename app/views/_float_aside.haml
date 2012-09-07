@@ -4,7 +4,7 @@
       %form.aside_login(action='/login' method='post')
         %input(type="text" name="login_name" id="login_name" placeholder="用户名" value="#{params[:login_name]}")/
         %input(type="password" name="login_password" placeholder="密码" id="login_password")/
-        %button.btn(type="submit") 登录
+        %button.btn.btn-small(type="submit") 登录
 
     .side-ruler
   
@@ -83,6 +83,7 @@
         发表新分享
       .aside_button_note.inline-block
         分享你觉得有意思的图片、视频、文章或者言论
+  .clearleft
 
   .side-box
     %a.btn.btn-large.btn-warning.inline-block(href='/category/new')
@@ -90,6 +91,7 @@
       建立新圈子
     .aside_button_note.inline-block
       建立新的圈子，团聚有共同爱好的朋友
+  .clearleft
 
   - if defined? category
     .side-ruler
@@ -100,6 +102,7 @@
           管理本圈子
         .aside_button_note.inline-block
           修改圈子的设置
+      .clearleft
 
     .side-box
       - if category_subscribe? category
@@ -122,6 +125,7 @@
           加入本圈子
         .aside_button_note.inline-block
           关注这个圈子并添加到快速导航栏
+    .clearleft
 
     .side-ruler
     - if not category.rendered_sidebar.to_s.empty? 
