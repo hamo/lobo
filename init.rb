@@ -64,7 +64,7 @@ class Main < Monk::Glue
     end
 
   # enable session!!!
-  use Rack::Session::Cookie, :secret => secret
+  use Rack::Session::Cookie, :secret => secret, :expire_after => 2592000 #30 days in seconds
   #use Rack::Session::Pool, :expire_after => 2592000    # server session
 end
 
