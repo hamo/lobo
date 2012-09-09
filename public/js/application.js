@@ -105,9 +105,15 @@ function comment_show(json, father){
 	voting.append($("<div>", {'class': 'arrow sprite down', onclick: "vote(event, '"+comment.hash+"');"}));
 
 	var detail = $("<div>", {'class': 'comment_detail entry'});
-	detail.append($("<div>", {'class': 'tagline'}).append($("<strong>").append($("<a>", {href: '/u/'+logged, html: logged}))).append(" 发表于"+comment.updated_at+" | ").append($("<span>", {'class': 'karma', html: comment.karma})).append(" 点人品"));
+
+	var ac_karma = $("<div>", {'class': 'action'}).append($("<i>", {'class': 'icon-arrow-up'})).append(" ").append($("<span>", {'class': 'karma', 'text': comment.karma})).append(" ");
+	var ac_time = $("<div>", {'class': 'action'}).append($("<i>", {'class': 'icon-time'})).append(" ").append(comment.created_at).append(" ");
+	var ac_link = $("<div>", {'class': 'action'}).append($("<i>", {'class': 'icon-link'})).append(" ").append($("<a>", {href: "/p/"+comment.hash.replace("_","#"), text: "链接"})).append(" ");
+	var ac_reply = $("<div>", {'class': 'action'}).append($("<a>", {onclick: "comment_reply(event, '"+comment.hash+"');", html: "<i class='icon-comment-alt'></i> 回复 "}));
+	var ac_edit = $("<div>", {'class': 'action'}).append($("<a>", {onclick: "comment_edit(event, '"+comment.hash+"');", html: "<i class='icon-edit'></i> 编辑 "}));
+
+	detail.append($("<div>", {'class': 'tagline'}).append($("<strong>").append($("<a>", {href: '/u/'+logged, html: logged}))).append(ac_karma).append(ac_time).append(ac_link).append(ac_reply).append(ac_edit));
 	detail.append($("<div>", {'class': 'md current_user', html: comment.rendered_content}));
-	detail.append($("<div>", {'class': 'comment_actions'}).append($("<a>", {href: "/p/"+comment.hash.replace("_","#"), text: "链接"})).append(" ").append($("<a>", {onclick: "comment_reply(event, '"+comment.hash+"');", text: "回复"})).append(" ").append($("<a>", {onclick: "comment_edit(event, '"+comment.hash+"');", text: "编辑"})));
 	detail.append($("<div>", {'class': 'child'}).append($("<div>", {'class': 'replies'})));
 
 	var show = $("<div>", {'class': "comment "+comment.id_hash, id: comment.hash.split('_').pop()});
@@ -139,8 +145,8 @@ function comment_reply(event, hash) {
     if (!checklogin(event))
 	return false;
     var o = $(src(event));
-    if ($('form.id_'+hash).length != 0) {
-	var form = $('form.id_'+hash);
+    if ($('form.comment-form.id_'+hash).length != 0) {
+	var form = $('form.comment-form.id_'+hash);
 	if(form.attr("action") == "/comment/new/"+hash) {
 	    form.remove();
 	    return false;
@@ -169,17 +175,17 @@ function comment_reply(event, hash) {
 	},
 	success: function(data, status, xhr, form){
 	    form.remove();
-	    comment_show(data, o.parent().parent());
+	    comment_show(data, o.parent().parent().parent());
 	}
     });
-    o.parent().after(form);
+    o.parent().parent().parent().find(".md:first").after(form);
     form.find("textarea").focus();
 }
 
 function comment_edit(event, hash) {
     var o = $(src(event));
-    if ($('form.id_'+hash).length != 0) {
-	var form = $('form.id_'+hash);
+    if ($('form.comment-form.id_'+hash).length != 0) {
+	var form = $('form.comment-form.id_'+hash);
 	if(form.attr("action") == "/comment/edit/"+hash) {
 	    form.remove();
 	    return false;
@@ -224,7 +230,7 @@ function comment_edit(event, hash) {
 	    comment_modify(data);
 	}
     });
-    o.parent().after(form);
+    o.parent().parent().parent().find(".md:first").after(form);
     form.find("textarea").focus();
 }
 /*
