@@ -45,7 +45,10 @@ class User < Ohm::Model
   counter :conduct_karma
 
   # counters for unread replies
-  # { id => counter, .... } 
+  # { 
+  #   post_id/comment_id => [reply_comment_id, ...], 
+  #     .... 
+  # } 
   attribute :unread_replies,  Type::Hash
 
   def validate
@@ -90,18 +93,21 @@ class User < Ohm::Model
     vote(item, :down)
   end
 
-  def increment_unread_replies(post)
+  def add_new_reply(article, comment)
     unread = unread_replies || {}
-    unread[post.id] = unread[post.id] ? (unread[post.id] + 1) : 1
+    unread[article.id] ? 
+      unread[article.id] << comment.id  :
+      unread[article.id] = [ comment.id ]
     self.unread_replies = unread
     save
   end
 
   def clear_unread_replies(post)
     return unless unread_replies
-    return unless unread_replies[post.id]
     unread = unread_replies
-    unread.delete post.id
+    unread.each_key do |k|
+      unread.delete(k)  if k == post.id or k =~ /\A#{post.id}_/
+    end
     self.unread_replies = unread
     save
   end

@@ -40,12 +40,18 @@
       点人品
 
     - case comment.author
+    - when current_user
+      - if is_new_reply? comment
+        .md.current_user.new_reply!= comment.rendered_content
+      - else
+        .md.current_user!= comment.rendered_content
     - when comment.post.author
       .md.post_author!= comment.rendered_content
-    - when current_user
-      .md.current_user!= comment.rendered_content
     - else
-      .md!= comment.rendered_content
+      - if is_new_reply? comment
+        .md.new_reply!= comment.rendered_content
+      - else
+        .md!= comment.rendered_content
 
     .comment_actions
       = link_to '链接', comment_path(comment)

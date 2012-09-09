@@ -36,13 +36,13 @@
         %i.icon-time 
         = relative_time(post.created_at)
 
-      - if defined?(unread) and unread and unread[post.id].to_i != 0
+      - if defined?(unread) and unread and unread[post.id]
         .action
           %a(href="#{post_path(post)}" class="trackable")
             %i.icon-comments.color-orange
             = precede post.reply_count.to_s do
               = surround '(', ')' do
-                %strong.color-orange +#{unread[post.id]}
+                %strong.color-orange +#{unread[post.id].size}
       - else
         .action
           = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments'}

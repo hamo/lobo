@@ -9,10 +9,15 @@ class Main
     @post = Post[params[:hash]]
     halt 404 unless @post and @post.visible? current_user
     @title = @post.title
+    haml(:'post/detail')
+  end
+
+  # clear unread counter after visiting a post page
+  after '/p/:hash' do
+    @post = Post[params[:hash]]
     if logged_in?
       current_user.clear_unread_replies(@post)
     end
-    haml(:'post/detail')
   end
 
   # new post page

@@ -104,7 +104,15 @@ class Comment < Ohm::Model
   # for each ancestor, notify its author that there is a new reply
   def notify_new_replies
     authors = ancestors.map(&:author).uniq
-    authors.each { |au| au.increment_unread_replies(post) unless au == author }
+    ancestors.reverse.each do |an|
+      # if an author appears more than once in an ancestor chain, only the
+      # earlies reply that he/she makes should be notified
+      au = an.author
+      next unless authors.include? au
+      next if au == author
+      authors.delete au
+      au.add_new_reply(an, self)
+    end
   end
 
   def before_save

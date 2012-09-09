@@ -109,4 +109,36 @@ describe "User actions" do
       @u.favourites.should_not include(@po)
     end
   end
+
+  describe '回复提醒' do
+    before :each do
+      @po = Fabricate(:post)
+      @au = @po.author
+    end
+
+    it '新回复会通知到作者' do
+      c = Fabricate(:comment, :parent => @po)
+      c.should be_valid
+      c.ancestors.should include(@po)
+      @au.load!     # reload from database...
+      @au.unread_replies.should_not be_nil
+      @au.unread_replies[@po.id].should include(c.id)
+    end
+
+    it '可以一次清除一个帖子所有未读的评论' do
+      c  = Fabricate(:comment, :parent => @po)
+      c1 = Fabricate(:comment, :parent => c)
+      c2 = Fabricate(:comment, :parent => c1)
+      cau = c.author
+      @au.load!
+      @au.unread_replies.should_not be_nil
+      @au.unread_replies[@po.id].should include(c2.id)
+      @au.clear_unread_replies(@po)
+      @au.unread_replies[@po.id].should be_nil
+      cau.load!
+      cau.unread_replies[c.id].should_not be_nil
+      cau.clear_unread_replies(@po)
+      cau.unread_replies[c.id].should be_nil
+    end
+  end
 end
