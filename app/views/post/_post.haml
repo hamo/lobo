@@ -27,7 +27,7 @@
       - else
         = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable', :title => ( post.url || post.title )
 
-      %span.domain (#{link_to post.domain, domain_path(post)})
+      %span.title_info (#{link_to post.domain, domain_path(post)})
 
     .tagline
       = category_label post.category
@@ -36,15 +36,14 @@
         %i.icon-time 
         = relative_time(post.created_at)
 
-      - if defined?(unread) and unread and unread[post.id]
-        .action
+      .action
+        - if unread_replies_for_post(post) > 0
           %a(href="#{post_path(post)}" class="trackable")
             %i.icon-comments.color-orange
             = precede post.reply_count.to_s do
               = surround '(', ')' do
-                %strong.color-orange +#{unread[post.id].size}
-      - else
-        .action
+                %strong.color-orange +#{unread_replies_for_post(post)}
+        - else
           = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments'}
 
       .action

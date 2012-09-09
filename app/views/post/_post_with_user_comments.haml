@@ -1,0 +1,30 @@
+%div(class="post_detail #{post.id_hash}" onclick="read(event, '#{post.hash}');")
+  .entry
+
+    .title
+      - brand_icons(post).each do |icon|
+        - if defined?(show_detail) and show_detail and icon == "icon-file"
+          %i.vertical-middle(class="#{icon}")
+        - else
+          %i.vertical-middle(class="#{icon}" onclick="expando_child(event);")
+
+      - if logged_in? and post.type == :url
+        = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable', :title => ( post.url || post.title ), :target => '_blank'
+      - else
+        = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable', :title => ( post.url || post.title )
+
+    .horizontal-space
+
+    %span.title_info
+
+      由
+
+      = link_to post.author.name, user_path(post.author), :class => 'tooltip-lb user-info', "data-post-karma" => "#{post.author.post_karma}", "data-comment-karma" => "#{post.author.comment_karma}"
+
+      发表在
+
+      = category_label post.category
+
+    - user_comments_for_post(user, post).each do |cid, sub_cids|
+
+      = partial 'comment/comment', :locals => {:comment => Comment[cid], :no_children => true, :show_replies => true}

@@ -1,18 +1,3 @@
--#display post title if on user post/comment display page
-- if current_path == user_path(comment.author)
-  - post = comment.post
-  
-  .title
-    - brand_icons(post).each do |icon|
-      %i.vertical-middle(class="#{icon}")
-
-    - if logged_in?
-      = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable', :target => '_blank'
-    - else
-      = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable'
-
-    %span.domain (#{link_to post.domain, domain_path(post)})
-  
 %div(class="comment #{comment.id_hash}" id="#{comment.hash.split(/_/)[-1]}")
   .voting
     - if logged_in? and current_user.upvoted?(comment)
@@ -31,13 +16,38 @@
       %strong
         = link_to comment.author.name, user_path(comment.author)
 
-      发表于#{relative_time comment.created_at}
+      .action
+        %i.icon-arrow-up
+        %span.karma= comment.karma
 
-      |
+      .action
+        %i.icon-time 
+        = relative_time(comment.created_at)
 
-      %span.karma= comment.karma
+      - if defined?(show_replies) and show_replies
+        .action
+          - if unread_replies_for_comment(comment) > 0
+            %a(href="#{comment_path(comment)}" class="trackable")
+              %i.icon-comments.color-orange
+              = precede comment.reply_count.to_s do
+                = surround '(', ')' do
+                  %strong.color-orange +#{unread_replies_for_comment(comment)}
+          - else
+            = link_to comment.reply_count, comment_path(comment), {:class => 'trackable', :icon => 'icon-comments'}
 
-      点人品
+      .action
+        = link_to '链接', comment_path(comment), :icon => 'icon-link'
+
+      .action
+        %a{:onclick => "comment_reply(event, '#{comment.hash}');"}
+          %i.icon-comment-alt
+          回复
+
+      - if comment.author == current_user
+        .action
+          %a{:onclick => "comment_edit(event, '#{comment.hash}');"}
+            %i.icon-edit
+            编辑
 
     - case comment.author
     - when current_user
@@ -53,10 +63,5 @@
       - else
         .md!= comment.rendered_content
 
-    .comment_actions
-      = link_to '链接', comment_path(comment)
-      %a{:onclick => "comment_reply(event, '#{comment.hash}');"}  回复
-      - if comment.author == current_user
-        %a{:onclick => "comment_edit(event, '#{comment.hash}');"} 编辑
-
-    .child= partial 'comment/replies', :locals => {:replies => comment.replies.sort_by(:score, :order => 'desc')}
+    - unless defined?(no_children) and no_children
+      .child= partial 'comment/replies', :locals => {:replies => comment.replies.sort_by(:score, :order => 'desc')}

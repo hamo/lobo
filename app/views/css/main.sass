@@ -188,6 +188,7 @@ footer
   
 .title 
   font-size: 20px
+  display: inline-block
   i
     color: $grayLight
     text-align: center
@@ -198,7 +199,7 @@ footer
   i.icon-picture, i.icon-file
     cursor: pointer
 
-.domain 
+.title_info 
   margin-left: 1ex
   font-size: small
   a
@@ -220,11 +221,12 @@ footer
     @include single-text-shadow
 
 .tagline 
-  //color: grey
-  font-size: 13px
+  font-size: small
   margin: 0
   line-height: 1.4
   vertical-align: middle
+  a
+    cursor: pointer
 
 .vertical-middle
   vertical-align: middle
@@ -282,9 +284,6 @@ footer
 .comment
   .comment_detail
     vertical-align: text-top
-  .comment_actions
-    a
-      cursor: pointer
   .child
     border-left: 1px dotted LightGray
     margin-top: 5px

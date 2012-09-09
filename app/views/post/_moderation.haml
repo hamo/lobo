@@ -14,7 +14,7 @@
 
       = link_to post.title, ( post.url || post_path(post) ), :title => ( post.url || post.title ), :target => '_blank'
 
-      %span.domain (#{link_to post.domain, domain_path(post)})
+      %span.title_info (#{link_to post.domain, domain_path(post)})
 
     .tagline
       = category_label post.category

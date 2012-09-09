@@ -26,6 +26,50 @@ class Main
       return 0 if unread_replies.empty?
       unread_replies.values.compact.inject(&:+).size
     end
+      
+    # unread comment counters
+    def unread_replies
+      return nil unless logged_in?
+      current_user.unread_replies
+    end
+
+    # unread replies for a specific post
+    def unread_replies_for_post(post)
+      return 0 unless unread_replies
+      unread_replies.select{|k, v| k == post.id || k =~ /\A#{post.id}_/ }.collect(&:last).flatten.size
+    end
+
+    # unread replies for a specific comment
+    def unread_replies_for_comment(comment)
+      return 0 unless unread_replies and unread_replies[comment.id]
+      unread_replies[comment.id].size
+    end
+
+    # a specific user's comments for a specific post
+    # returns an array
+    #
+    # [
+    #   [comment_id,  [sub_comment_id, .... ]],
+    #   ...
+    # ]
+    def user_comments_for_post(user, post)
+      all = user.comments.find(:post_id => post.id)
+      res = {}
+      all.each do |c|
+        next if c.ancestors.any?{|an| all.include? an }
+        res[c.id] = []
+      end
+      all.each do |c|
+        c.ancestors.reverse.each do |an|
+          if all.include? an
+            res[an.id] << c.id
+            break
+          end
+        end
+      end
+      res.sort_by{|a, b| Comment[a].created_at}
+    end
+
   end
 end
 

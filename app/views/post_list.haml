@@ -23,7 +23,7 @@
     - i += 1
     .link
       .rank.hidden-phone= i + (@posts.page - 1) * @posts.per_page
-      = partial 'post/post', :locals => {:post => post}
+      = partial 'post/post', :locals => {:post => post }
       .clearleft
 
   = partial 'post/pagination', :locals => {:items => @posts, :show_detail => false}

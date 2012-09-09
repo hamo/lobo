@@ -45,11 +45,7 @@ class Post < Ohm::Model
   end
 
   def reply_count
-    count = replies.count
-    replies.each do |reply|
-      count += reply.reply_count  if reply.replies
-    end
-    count
+    db.keys("Comment:#{id}_*:_indices").count
   end
 
   def validate

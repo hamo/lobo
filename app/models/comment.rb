@@ -30,6 +30,8 @@ class Comment < Ohm::Model
   counter :downvotes
   counter :karma_modifier
 
+  index   :post_id
+
   def parent=(post_or_comment)
     self.parent_hash = post_or_comment.hash
   end
@@ -49,10 +51,14 @@ class Comment < Ohm::Model
     nil unless ancestor_ids
     ancestor_ids.map{|id| id.include?('_') ? Comment[id] : Post[id] }
   end
+  
+  def post_id
+    parent_hash.sub(/_.*$/,'')
+  end
 
   def post
     return @post if @post
-    @post = Post[parent_hash.sub(/_.*$/,'')]
+    @post = Post[post_id]
   end
 
   def reply_count
