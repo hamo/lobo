@@ -38,16 +38,17 @@
       .action
         = link_to '链接', comment_path(comment), :icon => 'icon-link'
 
-      .action
-        %a{:onclick => "comment_reply(event, '#{comment.hash}');"}
-          %i.icon-comment-alt
-          回复
-
-      - if comment.author == current_user
+      - unless defined?(hide_modifications) and hide_modifications
         .action
-          %a{:onclick => "comment_edit(event, '#{comment.hash}');"}
-            %i.icon-edit
-            编辑
+          %a{:onclick => "comment_reply(event, '#{comment.hash}');"}
+            %i.icon-comment-alt
+            回复
+
+        - if comment.author == current_user
+          .action
+            %a{:onclick => "comment_edit(event, '#{comment.hash}');"}
+              %i.icon-edit
+              编辑
 
     - case comment.author
     - when current_user

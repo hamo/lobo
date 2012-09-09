@@ -27,4 +27,5 @@
 
     - user_comments_for_post(user, post).each do |cid, sub_cids|
 
-      = partial 'comment/comment', :locals => {:comment => Comment[cid], :no_children => true, :show_replies => true}
+      = partial 'comment/comment', 
+        :locals => {:comment => Comment[cid], :no_children => true, :show_replies => true, :hide_modifications => true}
