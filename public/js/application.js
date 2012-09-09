@@ -788,6 +788,9 @@ function expando_child(event) {
 	} else {
 	    var pic = o.parent().find('a').attr('href');
 	    var div = $("<div class='expando_pic'>").append($("<img>").attr('src', pic));
+	    div.on("click", function() {
+		$(this).hide();
+	    });
 	    target.append(div);
 	}
 	break;
