@@ -795,7 +795,9 @@ function expando_child(event) {
 	    var pic = o.parent().find('a').attr('href');
 	    var div = $("<div class='expando_pic'>").append($("<img>").attr('src', pic));
 	    div.on("click", function() {
-		$('html, body').scrollTop(o.offset().top);
+		if (o.offset().top < $(window).scrollTop()) {
+		    $('html, body').scrollTop(o.offset().top);
+		}
 		$(this).hide();
 	    });
 	    target.append(div);
