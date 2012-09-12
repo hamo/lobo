@@ -41,6 +41,16 @@ function pde(e) {//Function to prevent Default Events
         e.returnValue = false;
 }
 
+function click_get_a(o) {
+    if(o.is("a")) {
+	return o;
+    } else if (o.parent().is("a")) {
+	return o.parent();
+    } else {
+	return null;
+    }
+}
+
 function loading_start(button) {
     button.button('loading');
     button.siblings('img.loading').show();
@@ -144,7 +154,8 @@ function comment_modify(json) {
 function comment_reply(event, hash) {
     if (!checklogin(event))
 	return false;
-    var o = $(src(event));
+    var s = $(src(event));
+    var o = click_get_a(s);
     if ($('form.comment-form.id_'+hash).length != 0) {
 	var form = $('form.comment-form.id_'+hash);
 	if(form.attr("action") == "/comment/new/"+hash) {
@@ -183,7 +194,8 @@ function comment_reply(event, hash) {
 }
 
 function comment_edit(event, hash) {
-    var o = $(src(event));
+    var s = $(src(event));
+    var o = click_get_a(s);
     if ($('form.comment-form.id_'+hash).length != 0) {
 	var form = $('form.comment-form.id_'+hash);
 	if(form.attr("action") == "/comment/edit/"+hash) {
@@ -535,11 +547,7 @@ function favourite(event, post) {
     if (!checklogin(event))
 	return false;
     var o = $(src(event));
-    if(!o.is("a")) {
-	var target = o.parent();
-    } else {
-	var target = o;
-    }
+    var target = click_get_a(o);
     var fn = Number(target.find(".favourite-number").html());
     $.post("/do/favourite",
 	   {post: post},
