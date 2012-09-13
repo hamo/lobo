@@ -2,6 +2,7 @@ log
 .sass-cache
 config/redis/*.conf
 config/mail.rb
+config/newrelic.yml
 webrat.log
 art-work
 .bundle
