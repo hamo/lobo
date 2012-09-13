@@ -801,7 +801,7 @@ function expando_child(event) {
 	    target.find(".expando_pic").toggle();
 	} else {
 	    var pic = o.parent().find('a').attr('href');
-	    var div = $("<div class='expando_pic'>").append($("<img>").attr('src', pic));
+	    var div = $("<div class='expando_pic'>").append($("<img>").attr('data-original', pic).attr('src', '/images/loading.gif'));
 	    div.on("click", function() {
 		if (o.offset().top < $(window).scrollTop()) {
 		    $('html, body').scrollTop(o.offset().top);
@@ -809,6 +809,9 @@ function expando_child(event) {
 		$(this).hide();
 	    });
 	    target.append(div);
+	    div.find("img").lazyload({
+		effect : "fadeIn"
+	    });
 	}
 	break;
     case o.hasClass('icon-file'):
