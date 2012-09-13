@@ -57,7 +57,10 @@
       - else
         .md.current_user!= comment.rendered_content
     - when comment.post.author
-      .md.post_author!= comment.rendered_content
+      - if is_new_reply? comment
+        .md.post_author.new_reply!= comment.rendered_content
+      - else
+        .md.post_author!= comment.rendered_content
     - else
       - if is_new_reply? comment
         .md.new_reply!= comment.rendered_content
