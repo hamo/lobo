@@ -282,7 +282,8 @@ $(document).ready(function() {
 		    required: true
 		},
 		title: {
-		    required: true
+		    required: true,
+		    maxlength: 200
 		},
 		url: {
 		    url: function(element) {
@@ -340,7 +341,8 @@ $(document).ready(function() {
 		    required: "亲添个密码吧"
 		},
 		title: {
-		    required: "亲给个标题吧亲"
+		    required: "亲给个标题吧亲",
+		    maxlength: "标题不能超过200个字符"
 		},
 		category: {
 		    required: "亲给个类别吧亲"

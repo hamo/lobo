@@ -51,6 +51,7 @@ class Post < Ohm::Model
   def validate
     assert_present :author
     assert_present :title
+    assert( title.size <= 200 , [:title, :too_long])
     assert( "#{url}#{content}".size > 0 , [:post,:no_body])
     assert_present :category
     # should not allow non-subscribers to post to private category

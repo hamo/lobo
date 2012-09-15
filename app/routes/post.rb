@@ -52,6 +52,7 @@ class Main
       error_messages = parse_errors(post.errors) do |e|
         case e
         when [:title, :not_present];         '英雄，起码留个标题吧～～～'
+        when [:title, :too_long];            '标题不能超过200字符'
         when [:post, :no_body];              '不是这么绝情吧，写点内容啊'
         when [:category, :private_category]; '未订阅用户不能发布分享'
         when [:category, :not_present];      '请输入或选择一个有效类别'
