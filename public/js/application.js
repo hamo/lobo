@@ -835,3 +835,20 @@ function expando_child(event) {
 	//FIXME
     }
 }
+
+function toggle_comment(event) {
+    var o = $(src(event));
+    var comment = o.parent().parent().parent();
+    var comment_children = comment.find(".child > .replies").first();
+    switch(comment_children.is(":hidden")) {
+    case true:
+	comment_children.show();
+	o.text("[-]");
+	break;
+    case false:
+	comment_children.hide();
+	var children_num = comment_children.find(".comment").length;
+	o.text("[+] "+children_num+"个隐藏评论");
+	break;
+    }
+}

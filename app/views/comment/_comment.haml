@@ -13,6 +13,10 @@
   .comment_detail.entry
     .tagline
 
+      - if comment.replies.size != 0
+        %a{:href => "javascript:void(0);", :onclick => "toggle_comment(event)"}
+          [-]
+      
       %strong
         = link_to comment.author.name, user_path(comment.author)
 
