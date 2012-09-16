@@ -1,0 +1,9 @@
+
+- path = current_path
+
+- user = @user || current_user
+%li(class="#{"active" if path == user_path(user)}")= link_to '全部文章', user_path(user), :icon => 'icon-list'
+
+- if logged_in? and @user == current_user
+  %li(class="#{"active" if path == '/favourites'}")= link_to '收藏'    , '/favourites', :icon => 'icon-heart'
+  %li(class="#{"active" if path == '/settings'}"  )= link_to '个人设置', '/settings'  , :icon => 'icon-wrench'

@@ -5,6 +5,8 @@ class Main
   get '/settings' do
     require_login
     @title = '用户设置'
+    @header_nav = :user
+    @user = current_user
     haml :settings
   end
 
@@ -37,6 +39,8 @@ class Main
   get '/favourites' do
     require_login
     @title = '个人收藏'
+    @header_nav = :user
+    @user = current_user
     @posts = paginate_posts(current_user.favourites, :sort_by => :created_at, :order => 'DESC')
     haml :post_list
   end
@@ -45,6 +49,7 @@ class Main
     @title = "#{params[:name]}的帖子"
     @user = User.first :name => params[:name]
     halt 404 unless @user
+    @header_nav = :user
     @posts = paginate_posts(@user.monitored_posts, 
                             :sort_by => :created_at, 
                             :order => 'DESC')

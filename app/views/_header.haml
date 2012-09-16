@@ -32,29 +32,4 @@
 
         .nav-collapse
           %ul.nav
-            %li(class="#{"active" if current_path == '/'}"             )= link_to '热门', '/'
-            %li(class="#{"active" if current_path == '/controversial'}")= link_to '最具争议', '/controversial'
-            %li(class="#{"active" if current_path == '/top'}"          )= link_to '分数最高', '/top'
-            %li(class="#{"active" if current_path == '/latest'}"       )= link_to '最新', '/latest'
-            %li.divider-vertical/
-            - if ['/', '/top', '/controversial'].include? current_path
-              %li.dropdown
-                %a.dropdown-toggle(href='#' data-toggle='dropdown')
-                  %i.icon-time
-                  - case params[:t]
-                  - when 'day';
-                    一天
-                  - when 'week';
-                    一周
-                  - when 'month';
-                    一个月
-                  - when 'all';
-                    全部
-                  - else;
-                    一周
-                  %i.icon-caret-down
-                %ul.dropdown-menu
-                  %li= link_to '一天'   , "#{current_path}?t=day"
-                  %li= link_to '一周'   , "#{current_path}?t=week"
-                  %li= link_to '一个月' , "#{current_path}?t=month"
-                  %li= link_to '所有'   , "#{current_path}?t=all"
+            =partial header_nav

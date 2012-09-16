@@ -72,5 +72,10 @@ class Main
       }.flatten(2)
       errors.collect{|e| yield e}
     end
+
+    # nav items defined for different pages
+    def header_nav
+      @header_nav ? "header_nav_#{@header_nav}" : :header_nav
+    end
   end
 end
