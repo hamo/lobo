@@ -1,4 +1,6 @@
+- no_children = false unless defined? no_children
+
 .replies
   - replies.each do |comment|
-    = partial 'comment/comment', :locals => {:comment =>comment}
+    = partial 'comment/comment', :locals => {:comment =>comment, :no_children => no_children }
     .clearleft

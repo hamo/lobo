@@ -28,4 +28,4 @@
     - user_comments_for_post(user, post).each do |cid, sub_cids|
 
       = partial 'comment/comment', 
-        :locals => {:comment => Comment[cid], :no_children => true, :show_replies => true, :hide_modifications => true}
+        :locals => {:comment => Comment[cid], :children => sub_cids.map{|i| Comment[i]}, :show_replies => true, :hide_modifications => true}
