@@ -878,8 +878,7 @@ function toggle_comment(event) {
 	break;
     case false:
 	comment_children.hide();
-	var children_num = comment_children.find(".comment").length;
-	o.text("[+] "+children_num+"个隐藏评论");
+	o.text("[+]");
 	break;
     }
 }
