@@ -93,6 +93,4 @@
         .md!= comment.rendered_content
 
     - if defined?(children) and not children.empty?
-      .child= partial 'comment/replies', :locals => {:replies => children.sort_by(&:created_at), :no_children => true}
-    - elsif not (defined?(no_children) and no_children)
-      .child= partial 'comment/replies', :locals => {:replies => comment.replies.sort_by(:score, :order => 'desc')}
+      .child= partial 'comment/replies', :locals => {:replies => children.sort_by(&:created_at)}
