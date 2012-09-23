@@ -75,7 +75,7 @@ describe "密码重置" do
     last_request.url.should == 'http://example.org/'
     response.should have_selector("title", :content => '主页')
     last_response.should have_selector("header") do |div|
-      div.should have_selector("a", :content => '退出登录')
+      div.should have_selector("a", :href => '/logout')
       div.should have_selector("a", :content => @u.name)
     end
   end

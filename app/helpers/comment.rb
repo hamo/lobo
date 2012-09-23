@@ -14,7 +14,7 @@ class Main
     # is current comment a new reply for current user?
     def is_new_reply?(comment)
       return false unless unread_replies
-      an = unread_replies.select{|k, v| k == comment.post.id or k =~ /\A#{comment.post.id}_/ }.first
+      an = unread_replies.select{|k, _| k == comment.post.id or k =~ /\A#{comment.post.id}_/ }.first
       return false unless an
       unread_replies[an.first].include? comment.id
     end
@@ -36,7 +36,7 @@ class Main
     # unread replies for a specific post
     def unread_replies_for_post(post)
       return 0 unless unread_replies
-      unread_replies.select{|k, v| k == post.id || k =~ /\A#{post.id}_/ }.collect(&:last).flatten.size
+      unread_replies.select{|k, _| k == post.id || k =~ /\A#{post.id}_/ }.collect(&:last).flatten.size
     end
 
     # unread replies for a specific comment
@@ -67,7 +67,7 @@ class Main
           end
         end
       end
-      res.sort_by{|a, b| Comment[a].created_at}
+      res.sort_by{|a, _| Comment[a].created_at}
     end
 
   end

@@ -28,7 +28,7 @@ describe '登录' do
       u = User.all.first
       get '/', {}, {'rack.session' => {"user" => u.id} }
       last_response.should have_selector("header") do |div|
-        div.should have_selector("a", :content => '退出登录')
+        div.should have_selector("a", :href => '/logout')
         div.should have_selector("a", :content => u.name)
       end
     end
