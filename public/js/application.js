@@ -121,19 +121,24 @@ function comment_show(json, father){
 	var ac_link = $("<div>", {'class': 'action'}).append($("<i>", {'class': 'icon-link'})).append(" ").append($("<a>", {href: "/p/"+comment.hash.replace("_","#"), text: "链接"})).append(" ");
 	var ac_reply = $("<div>", {'class': 'action'}).append($("<a>", {onclick: "comment_reply(event, '"+comment.hash+"');", html: "<i class='icon-comment-alt'></i> 回复 "}));
 	var ac_edit = $("<div>", {'class': 'action'}).append($("<a>", {onclick: "comment_edit(event, '"+comment.hash+"');", html: "<i class='icon-edit'></i> 编辑 "}));
+	var ac_children = $("<div>", {'class': 'action'}).append($("<i>", {'class': 'icon-cut'})).append(" ").append("0个子评论").append(" ");
 
-	detail.append($("<div>", {'class': 'tagline'}).append($("<strong>").append($("<a>", {href: '/u/'+logged, html: logged}))).append(ac_karma).append(ac_time).append(ac_link).append(ac_reply).append(ac_edit));
+	detail.append($("<div>", {'class': 'tagline'}).append($("<a>", {href: "javascript:void(0);", onclick: "hide_comment(event)", html: "[-] "})).append($("<strong>").append($("<a>", {href: '/u/'+logged, html: logged}))).append(ac_karma).append(ac_time).append(ac_link).append(ac_reply).append(ac_edit));
 	detail.append($("<div>", {'class': 'md current_user', html: comment.rendered_content}));
 	detail.append($("<div>", {'class': 'child'}).append($("<div>", {'class': 'replies'})));
 
 	var show = $("<div>", {'class': "comment "+comment.id_hash, id: comment.hash.split('_').pop()});
 	show.append(voting);
 	show.append(detail);
+	
+	var hide = $("<div>", {'class': "comment_hide "+comment.id_hash, style: "display: none"});
+	hide.append($("<a>", {href: 'javascript:void(0);', onclick: 'show_comment(event);', text: '[+] '})).append($("<strong>").append($("<a>", {href: '/u/'+logged, html: logged}))).append(ac_karma).append(ac_time).append(ac_children);
 
 	var clear = $("<div>", {'class': 'clearleft'});
 
 	target.prepend(clear);
 	target.prepend(show);
+	target.prepend(hide);
 	
     } else {
 
@@ -836,19 +841,29 @@ function expando_child(event) {
     }
 }
 
-function toggle_comment(event) {
+function show_comment(event) {
     var o = $(src(event));
     var comment = o.parent().parent().parent();
-    var comment_children = comment.find(".child > .replies").first();
-    switch(comment_children.is(":hidden")) {
-    case true:
-	comment_children.show();
-	o.text("[-]");
-	break;
-    case false:
-	comment_children.hide();
-	var children_num = comment_children.find(".comment").length;
-	o.text("[+] "+children_num+"个隐藏评论");
-	break;
-    }
+    var comment_id;
+    $.each(comment.attr("class").split(" "), function(i, e) {
+	if(e.match("id_.*")) {
+	    comment_id = e;
+	}
+    });
+    $(".comment."+comment_id).show();
+    $(".comment_hide."+comment_id).hide();
 }
+
+function hide_comment(event) {
+    var o = $(src(event));
+    var comment = o.parent().parent().parent();
+    var comment_id;
+    $.each(comment.attr("class").split(" "), function(i, e) {
+	if(e.match("id_.*")) {
+	    comment_id = e;
+	}
+    });
+    $(".comment."+comment_id).hide();
+    $(".comment_hide."+comment_id).show();
+}
+

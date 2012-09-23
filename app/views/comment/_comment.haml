@@ -1,3 +1,25 @@
+%div(class="comment_hide #{comment.id_hash}" style="display: none")
+  .comment_detail.entry
+    .tagline
+
+      %a{:href => "javascript:void(0);", :onclick => "show_comment(event)"}
+        [+]
+
+      %strong
+        = link_to comment.author.name, user_path(comment.author)
+
+      .action
+        %i.icon-arrow-up
+        %span.karma= comment.karma
+
+      .action
+        %i.icon-time 
+        = relative_time(comment.created_at)
+
+      .action
+        %i.icon-cut
+        #{comment.replies.size}条子评论
+
 %div(class="comment #{comment.id_hash}" id="#{comment.hash.split(/_/)[-1]}")
   .voting
     - if logged_in? and current_user.upvoted?(comment)
@@ -13,9 +35,8 @@
   .comment_detail.entry
     .tagline
 
-      - if comment.replies.size != 0
-        %a{:href => "javascript:void(0);", :onclick => "toggle_comment(event)"}
-          [-]
+      %a{:href => "javascript:void(0);", :onclick => "hide_comment(event)"}
+        [-]
       
       %strong
         = link_to comment.author.name, user_path(comment.author)
