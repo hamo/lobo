@@ -54,7 +54,7 @@
         %i.icon-time 
         = relative_time(comment.created_at)
 
-      - if comment_opts.delete(:show_replies)
+      - if comment_opts.delete(:show_replies_count)
         .action
           - if unread_replies_for_comment(comment) > 0
             %a(href="#{comment_path(comment)}" class="trackable")

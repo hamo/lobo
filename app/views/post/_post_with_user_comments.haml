@@ -29,4 +29,4 @@
 
       = partial 'comment/comment', 
         :locals => { :comment => Comment[cid], :children => sub_cids.map{|i| Comment[i]}, 
-        :comment_opts => { :fold => :children, :show_replies => true, :hide_modifications => true } }
+        :comment_opts => { :fold => :children, :show_replies_count => true, :hide_modifications => true, :hide_replies => true } }
