@@ -49,7 +49,7 @@
         %i.icon-time 
         = relative_time(comment.created_at)
 
-      - if defined?(show_replies) and show_replies
+      - if comment_opts.delete(:show_replies)
         .action
           - if unread_replies_for_comment(comment) > 0
             %a(href="#{comment_path(comment)}" class="trackable")
@@ -63,7 +63,7 @@
       .action
         = link_to '链接', comment_path(comment), :icon => 'icon-link'
 
-      - unless defined?(hide_modifications) and hide_modifications
+      - unless comment_opts[:hide_modifications]
         .action
           %a{:onclick => "comment_reply(event, '#{comment.hash}');"}
             %i.icon-comment-alt
@@ -93,4 +93,6 @@
         .md!= comment.rendered_content
 
     - if defined?(children) and not children.empty?
-      .child= partial 'comment/replies', :locals => {:replies => children.sort_by(&:created_at)}
+      .child= partial 'comment/replies', :locals => {:replies => children.sort_by(&:created_at), :comment_opts => comment_opts.merge(:no_children => true)}
+    - elsif not comment_opts[:no_children]
+      .child= partial 'comment/replies', :locals => {:replies => comment.replies.sort_by(:score, :order => 'desc'), :comment_opts => comment_opts}

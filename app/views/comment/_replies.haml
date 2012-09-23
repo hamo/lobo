@@ -1,4 +1,4 @@
 .replies
   - replies.each do |comment|
-    = partial 'comment/comment', :locals => {:comment =>comment}
+    = partial 'comment/comment', :locals => {:comment =>comment, :comment_opts => comment_opts }
     .clearleft

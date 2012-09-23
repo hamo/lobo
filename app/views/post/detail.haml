@@ -11,8 +11,9 @@
   - if logged_in?
 
     %p
+
     = partial 'comment/new', :locals => { :hash => @post.hash }
 
-  %p
+  %p/
 
-  = partial 'comment/replies', :locals => {:replies => @post.replies.sort_by(:score, :order => 'desc')}
+  = partial 'comment/replies', :locals => {:replies => @post.replies.sort_by(:score, :order => 'desc'), :comment_opts => {}}
