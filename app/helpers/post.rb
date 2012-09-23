@@ -113,8 +113,8 @@ class Main
       return res
     end
 
-    # available posts in categories, the posts that are not deleted or otherwise
-    # under karma barrier
+    # available posts in categories, the posts that are not 
+    #   deleted
     #
     def available_posts_in_categories(category_set)
       post_set = category_set.first.posts

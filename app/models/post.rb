@@ -114,16 +114,16 @@ class Post < Ohm::Model
   # user => User    can a specific user see this post?
   #
   def visible?(user=nil)
-    return false unless available?
     return false unless category.allow_viewing? user
+    return false unless available?
     true
   end
 
-  # Is the post still available (not deleted or hidden because of low karma)
+  # Is the post still available (not deleted)
   #
   def available?
     return false if deleted?
-    return false if karma < app_settings(:post_karma_barrier)
+    #return false if karma < app_settings(:post_karma_barrier)
     true
   end
 
