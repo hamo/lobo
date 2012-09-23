@@ -14,6 +14,12 @@ $arrow_width: 20px
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: antialiased
 
+@mixin big-cursor
+  cursor: url(/images/big.cur), auto!important
+  
+@mixin small-cursor
+  cursor: url(/images/small.cur), auto!important
+
 *  
   //@include box-sizing(border-box)
   padding: 0 
@@ -118,7 +124,7 @@ aside
   display: inline-block
 
 .expando_pic
-  cursor: crosshair
+  @include small-cursor
 
 //for inline displaying
 .display-inline
@@ -203,7 +209,7 @@ footer
   i:hover 
     color: $grayDarker
   i.icon-picture, i.icon-file
-    cursor: pointer
+    @include big-cursor
 
 .title_info 
   margin-left: 1ex
