@@ -804,9 +804,14 @@ function expando_child(event) {
     case o.hasClass('icon-picture'):
 	if (target.find(".expando_pic").length != 0) {
 	    target.find(".expando_pic").toggle();
+	    if(target.find(".expando_pic").is(":hidden")) {
+		o.removeClass("small-cursor").addClass("big-cursor");
+	    } else {
+		o.removeClass("big-cursor").addClass("small-cursor");
+	    }
 	} else {
 	    var pic = o.parent().find('a').attr('href');
-	    var div = $("<div class='expando_pic'>").append($("<img>").attr('src', pic));
+	    var div = $("<div class='expando_pic small-cursor'>").append($("<img>").attr('src', pic));
 	    div.on("click", function() {
 		if (o.offset().top < $(window).scrollTop()) {
 		    $('html, body').scrollTop(o.offset().top);
@@ -814,11 +819,17 @@ function expando_child(event) {
 		$(this).hide();
 	    });
 	    target.append(div);
+	    o.removeClass("big-cursor").addClass("small-cursor");
 	}
 	break;
     case o.hasClass('icon-file'):
 	if (target.find(".expando_text").length != 0) {
 	    target.find(".expando_text").toggle();
+	    if(target.find(".expando_text").is(":hidden")) {
+		o.removeClass("small-cursor").addClass("big-cursor");
+	    } else {
+		o.removeClass("big-cursor").addClass("small-cursor");
+	    }
 	} else {
 	    var hash = o.parent().find('a').attr('href').split("/").pop();
 	    $.getJSON('/post/get/' + hash,
@@ -826,6 +837,7 @@ function expando_child(event) {
 			  if (data.success) {
 			      var div = $("<div class='expando_text'>").append($("<pre class='md'>").append(data.rendered_content));
 			      target.append(div);
+			      o.removeClass("big-cursor").addClass("small-cursor");
 			  } else {
 			      // FIXME
 			  }

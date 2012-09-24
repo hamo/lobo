@@ -14,12 +14,6 @@ $arrow_width: 20px
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: antialiased
 
-@mixin big-cursor
-  cursor: url(/images/big.cur), auto!important
-  
-@mixin small-cursor
-  cursor: url(/images/small.cur), auto!important
-
 *  
   //@include box-sizing(border-box)
   padding: 0 
@@ -123,9 +117,6 @@ aside
   width: 0.5em
   display: inline-block
 
-.expando_pic
-  @include small-cursor
-
 //for inline displaying
 .display-inline
   float: left
@@ -208,8 +199,6 @@ footer
     display: inline-block
   i:hover 
     color: $grayDarker
-  i.icon-picture, i.icon-file
-    @include big-cursor
 
 .title_info 
   margin-left: 1ex
@@ -305,6 +294,12 @@ footer
 
 .align-center
   text-align: center
+
+.big-cursor
+  cursor: url(/images/big.cur), auto!important
+  
+.small-cursor
+  cursor: url(/images/small.cur), auto!important
 
 .new_comment
   overflow: hidden
