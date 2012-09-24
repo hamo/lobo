@@ -697,12 +697,10 @@ $(document).ready(function () {
     var category_members = $('.typeahead.category_members');
     
     if (category.length != 0) {
-	category.parent().parent().parent().find("button[type='submit']").attr("disabled", true);
 	$.get("/category/get",
 	      function(data) {
 		  if(data.success) {
 		      category.typeahead({source: data.names});
-		      category.parent().parent().parent().find("button[type='submit']").removeAttr("disabled");
 		  } else {
 		      //FIXME
 		  }
