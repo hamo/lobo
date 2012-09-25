@@ -132,7 +132,7 @@ function comment_show(json, father){
 	show.append(detail);
 	
 	var hide = $("<div>", {'class': "comment_hide "+comment.id_hash, style: "display: none"});
-	hide.append($("<a>", {href: 'javascript:void(0);', onclick: 'show_comment(event);', text: '[+] '})).append($("<strong>").append($("<a>", {href: '/u/'+logged, html: logged}))).append(ac_karma).append(ac_time).append(ac_children);
+	hide.append($("<a>", {href: 'javascript:void(0);', onclick: 'show_comment(event);', text: '[+] '})).append($("<strong>").append($("<a>", {href: '/u/'+logged, html: logged}))).append(ac_karma.clone()).append(ac_time.clone()).append(ac_children);
 
 	var clear = $("<div>", {'class': 'clearleft'});
 
