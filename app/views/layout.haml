@@ -6,6 +6,9 @@
     -#for bootstrap's response page to display correctly
     %meta{:name => 'viewport', :content => "width=device-width, initial-scale=1.0"}
     %meta{:name => 'robots', :content => 'all'}
+    - if current_path == '/'
+      %meta{:name => 'keywords', :content => 'reddit reddit中文 图片 视频 分享 圈子'}
+      %meta{:name => 'description', :content => '分享你觉得有意思的图片、视频、文章或者言论，团聚有共同爱好的朋友'}
 
     :javascript
       var logged="#{current_user.name if logged_in?}";
