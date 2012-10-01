@@ -28,10 +28,13 @@
             %textarea.validate-input.span5(name='content' id='content' rows='5' style='display:none' placeholder='请输入文字内容')
 
         .control-group
-          %label.control-label(for='category') 类别
+          %label.control-label(for='category') 圈子
           .controls
             %input.validate-input.span5.typeahead.category(type='text' name='category' id='category' data-provide='typeahead' autocomplete='off' value="#{ @category ? @category.display_name : ''}")
-            %p
+
+        .control-group
+          %label.control-label(for='hot-category') 热门圈子
+          .controls
             - hot_categories.each do |c|
               %label.inline-block
                 %span(class="#{category_label_class c}")
