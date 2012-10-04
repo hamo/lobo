@@ -23,6 +23,7 @@ gem 'bootstrap-sass'
 gem 'pagination'           , :ref => 'a0cb3', :git => 'git://github.com/roylez/pagination.git'
 
 gem 'redcarpet'
+gem 'pygments.rb'
 
 gem 'haml'                 , '3.1.7'
 gem 'sass'                 , '3.2.1', :require => 'sass/plugin'

@@ -49,6 +49,10 @@ GEM
     ohm-contrib (1.2)
       ohm (~> 1.2)
     polyglot (0.3.3)
+    posix-spawn (0.3.6)
+    pygments.rb (0.3.1)
+      posix-spawn (~> 0.3.6)
+      yajl-ruby (~> 1.1.0)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
@@ -93,6 +97,7 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
+    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
@@ -112,6 +117,7 @@ DEPENDENCIES
   ohm (= 1.2.0)
   ohm-contrib (= 1.2.0)
   pagination!
+  pygments.rb
   rack (= 1.4.1)
   rack-protection (= 1.2)
   rack-test (= 0.6.1)

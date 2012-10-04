@@ -2,12 +2,15 @@
 # coding: utf-8
 #Description: Markdown renderer for Redcarpet
 #
+require 'pygments'
 
 # a Markdown renderer with some limitations
 class HTMLStripped < Redcarpet::Render::HTML
-  #def block_code(code, language)
-    #Albino.safe_colorize(code, language)
-  #end
+  def block_code(code, language)
+    Pygments.highlight(code, :lexer => language.to_sym, :options => {
+      :encoding => 'utf-8'
+    })
+  end
 
   def header(text, level)
     "<strong>#{'#'* level} #{text} #{'#' * level}</strong>"
@@ -27,5 +30,12 @@ MARKDOWN ||= Redcarpet::Markdown.new(
     :no_images => true,
     :filter_html => true,
     :no_styles => true,
-  )
+  ),
+  :fenced_code_blocks => true,
+  :autolink => true,
+  :superscript => true,
+  :no_intra_emphasis => true,
+  :lax_html_blocks => true,
+  :tables => true,
+  :strikethrough => true
 )
