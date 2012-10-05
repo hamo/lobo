@@ -77,5 +77,17 @@ class Main
     def header_nav
       @header_nav ? "header_nav_#{@header_nav}" : :header_nav
     end
+
+    def random_tips(user = nil)
+      unless session[:info] or session[:success] or session[:error]
+        num = 100 * app_settings(:tips).size
+        r = rand(num)
+        c = r / 100
+        p = r % 100
+        if p < 100 * app_settings(:tips_probability)
+          session[:info] = "Tips: #{app_settings(:tips)[c]}"
+        end
+      end
+    end
   end
 end
