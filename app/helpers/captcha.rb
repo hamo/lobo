@@ -20,7 +20,7 @@ class Sinatra::Base
 
     def captcha_image_tag
       "<input name=\"captcha_session\" type=\"hidden\" value=\"#{captcha_session}\"/>\n" +
-      "<a href=\"javascript:void(0);\" onclick=\"change_captcha(event);\"><img id=\"captcha-image\" src=\"http://captchator.com/captcha/image/#{captcha_session}\"/ title=\"点击更换验证码\"></a>"
+      "<a href=\"javascript:void(0);\" onclick=\"change_captcha(event);\"><img id=\"captcha-image\" src=\"//captchator.com/captcha/image/#{captcha_session}\"/ title=\"点击更换验证码\"></a>"
     end
   end
 
