@@ -1,4 +1,4 @@
-- history.each do |hash|
+- history.reverse.each do |hash|
   - post = Post[hash]
   - next unless post and post.visible? current_user
   .link

@@ -9,7 +9,7 @@ class Main
       unless session[:history].include? post.hash
         session[:history].push( post.hash )
       end
-      session[:history].shift while session[:history].length > 6
+      session[:history].shift while session[:history].length > 5
     end
 
     # create a new post from submitted information
