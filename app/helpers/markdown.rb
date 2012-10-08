@@ -7,8 +7,12 @@ require 'pygments'
 # a Markdown renderer with some limitations
 class HTMLStripped < Redcarpet::Render::HTML
   def block_code(code, language)
-    Pygments.highlight(code, :lexer => language.to_sym, :options => {
-      :encoding => 'utf-8'
+    @language = Pygments::Lexer.find(language)
+    @language = Pygments::Lexer.find(Pygments.lexer_name_for(code)) unless @language
+    @language = Pygments::Lexer.find("text") unless @language
+    @language.highlight(code, :options => {
+      :encoding => 'utf-8',
+      :linenos  => 'inline'
     })
   end
 
