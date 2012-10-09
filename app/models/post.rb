@@ -99,7 +99,7 @@ class Post < Ohm::Model
 
   def update_score
     self.karma = upvotes - downvotes + karma_modifier
-    self.score = post_hot_score(upvotes, downvotes, created_at)
+    self.score = post_hot_score(upvotes + reply_count / 3.0, downvotes, created_at)
     self.controversy = post_controversial_score(upvotes, downvotes, created_at)
     save
   end

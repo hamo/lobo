@@ -105,6 +105,7 @@ class Comment < Ohm::Model
     link_parent
     add_author_monitor
     notify_new_replies
+    post.update_score
   end
 
   # for each ancestor, notify its author that there is a new reply
