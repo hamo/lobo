@@ -10,9 +10,8 @@
 $aside_width: 350px
 $arrow_width: 20px
 
-@mixin improve-text-rendering 
-  text-rendering: optimizeLegibility
-  -webkit-font-smoothing: antialiased
+.inline-block
+  display: inline-block
 
 *  
   //@include box-sizing(border-box)
@@ -84,9 +83,6 @@ aside
 .side-ruler
   border-top: 2px solid rgba($grayLight, 0.1)
 
-.inline-block
-  display: inline-block
-
 #post_vote_detail
   background: rgba($blue,0.2)
   
@@ -117,11 +113,11 @@ aside
 
 .hspace
   width: 1em
-  display: inline-block
+  @extend .inline-block
 
 .half-hspace
   width: 0.5em
-  display: inline-block
+  @extend .inline-block
 
 //for inline displaying
 .display-inline
@@ -194,12 +190,12 @@ footer
   
 .title 
   font-size: 23px
-  display: inline-block
+  @extend .inline-block
   i
     color: $grayLight
     text-align: center
     width: 20px
-    display: inline-block
+    @extend .inline-block
   i:hover 
     color: $grayDarker
 
@@ -212,7 +208,7 @@ footer
     text-decoration: underline
 
 .action
-  display: inline-block
+  @extend .inline-block
   text-align: center
   margin-left: 0.65em
   color: $grayLight

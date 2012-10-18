@@ -19,8 +19,11 @@
           = link_to post.title, ( post.url || post_path(post) ), :title => ( post.url || post.title ), :target => '_blank'
 
         .tagline
-          %span.karma= post.karma
-          点功德
-          |
-          = link_to "#{post.reply_count}条评论", post_path(post)
+
+          .action
+            %i.icon-circle-arrow-up
+            = post.karma
+
+          .action
+            = link_to post.reply_count, post_path(post), :icon => "icon-comments"
     .clearleft
