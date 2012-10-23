@@ -1,6 +1,8 @@
 $: << File.expand_path(File.dirname(__FILE__))
 STDOUT.sync=true
 
+require 'init'
+
 desc 'Default task: run all tests'
 task :default => [:test]
 
@@ -23,13 +25,52 @@ task :sprite do
                     )
 end
 
+#require "redis-search"
+namespace :redis_search do
+  desc "Redis-Search index data to Redis"
+  task :index do
+    tm = Time.now
+    count = 0
+    puts "redis-search index".upcase.rjust(120)
+    puts "-"*120
+    puts "Now indexing search to Redis...".rjust(120)
+    puts ""
+    Redis::Search.indexed_models.each do |klass|
+      print "[#{klass.to_s}]"
+      if klass.superclass.to_s == "ActiveRecord::Base"
+        klass.find_in_batches(:batch_size => 1000) do |items|
+          items.each do |item|
+            item.redis_search_index_create
+            item = nil
+            count += 1
+            print "."
+          end
+        end
+      elsif klass.included_modules.map(&:to_s).include?("Mongoid::Document") or klass.ancestors.include?(Ohm::Model)
+        klass.all.each do |item|
+          item.redis_search_index_create
+          item = nil
+          count += 1
+          print "."
+        end
+      else
+        puts "skiped, not support this ORM in current."
+      end
+      puts ""
+    end
+    puts ""
+    puts "-"*120
+    puts "Indexed #{count} rows | Time spend: #{(Time.now - tm)}s".rjust(120)
+    puts "Rebuild Index done.".rjust(120)
+  end
+end
+
 desc "Bootstrap project, initialize databases"
 task :bootstrap do
   Rake::Task['db:clean'].invoke
   puts "Bootstrapping database...."
   system 'scripts/bootstrap.rb'
 
-  require 'init'
   require 'spec/factory'
   puts "Putting default stuff in DB #{monk_settings(:redis)[:db]}"
 
@@ -49,7 +90,6 @@ namespace :db do
       puts 'Abort.'
       exit
     end
-    require 'init'
     puts "Removing everything in DB #{monk_settings(:redis)[:db]}"
     Ohm.flush
   end
@@ -68,7 +108,6 @@ namespace :db do
 
   desc 'Remake indexes after changing models'
   task :migrate do
-    require 'init'
     [Post, Comment, User, Category, Moderation, Subscription].each do |c|
       c.all.each(&:save)
     end

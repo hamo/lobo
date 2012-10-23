@@ -39,6 +39,12 @@ class Post < Ohm::Model
 
   index     :available?
 
+  include Redis::Search
+
+  redis_search_index(:title_field => :title,
+                     :alias_field => :content,
+                     :score_field => :karma)
+
   def domain
     d = url ? url[/\/\/(?:www.)?([^\/]+)/i,1] : "#{category.display_name}"
     d.downcase
@@ -142,6 +148,7 @@ class Post < Ohm::Model
   end
 
   def before_save
+    super
     category_fallback
     render_content
   end

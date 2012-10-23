@@ -168,10 +168,12 @@ module Ohm
 
     def after_delete
       remove_from_latest
+      super
     end
     
     def after_create
       add_to_latest
+      super
     end
 
     module ClassMethods

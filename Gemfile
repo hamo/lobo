@@ -16,6 +16,12 @@ gem 'maruku'               , '0.6.0'
 gem 'rack'                 , '1.4.1'
 gem 'rack-protection'      , '1.2'
 
+# redis-search related
+gem 'chinese_pinyin'
+gem 'rmmseg-cpp-huacnlee'
+gem 'redis-namespace'
+gem 'redis-search'         , :ref => 'c21e1', :git => 'git://github.com/roylez/redis-search.git'
+
 # compass must be loaded before sinatra!!!
 gem 'compass'
 gem 'bootstrap-sass'
