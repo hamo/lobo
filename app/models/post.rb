@@ -129,7 +129,7 @@ class Post < Ohm::Model
   #
   def available?
     return false if deleted?
-    #return false if karma < app_settings(:post_karma_barrier)
+    return false if karma < app_settings(:post_karma_barrier)
     true
   end
 
