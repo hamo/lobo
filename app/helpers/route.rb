@@ -3,10 +3,8 @@
 #Author: Roy L Zuo (roylzuo at gmail dot com)
 #Description: 
 
-class Main
-  helpers Pagination::Helpers
+module LoboHelpers
 
-  helpers do
     # return path of a Post object
     #
     def post_path(post)
@@ -44,5 +42,4 @@ class Main
     def current_path
       request.path_info
     end
-  end
 end

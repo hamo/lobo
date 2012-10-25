@@ -4,11 +4,7 @@
 #
 #  Application level helpers
 #
-class Main
-  helpers Pagination::Helpers
-
-  helpers do
-
+module LoboHelpers
     # Generate a <img> tag with dynamically selected logo file
     #
     def logo
@@ -89,5 +85,20 @@ class Main
         end
       end
     end 
-  end 
+
+    # link_to from sinatra-static-asset with icon support
+    #
+    def link_to(title, href = title, opts = {})
+      unless opts.key? :icon
+        attributes = opts.collect{|k,v| "#{k}='#{v}'"}.join(" ")
+        return "<a href=\"#{href}\" #{attributes}>#{title}</a>"
+      else
+        icon = opts.delete(:icon)
+        opts = opts.merge(:href => href)
+        return %Q{<a #{opts.collect{|k,v| "#{k}='#{v}'"}.join(" ")}>
+        <i class="#{icon.gsub(".", ' ')}"></i>
+        #{title}
+        </a>}
+      end
+    end
 end

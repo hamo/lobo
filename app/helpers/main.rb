@@ -43,17 +43,9 @@ class Main
     def logger
       $logger
     end
-
-    # link_to from sinatra-static-asset with icon support
-    #
-    def link_to(title, href, opts = {})
-      return super unless opts.key? :icon
-      icon = opts.delete(:icon)
-      opts = opts.merge(:href => href)
-      %Q{<a #{opts.collect{|k,v| "#{k}='#{v}'"}.join(" ")}>
-      <i class="#{icon.gsub(".", ' ')}"></i>
-      #{title}
-      </a>}
-    end
   end
+
+  helpers Pagination::Helpers
+
+  helpers LoboHelpers
 end

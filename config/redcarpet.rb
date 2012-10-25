@@ -6,6 +6,8 @@ require 'pygments'
 
 # a Markdown renderer with some limitations
 class HTMLStripped < Redcarpet::Render::HTML
+  include LoboHelpers
+
   def block_code(code, language)
     @language = Pygments::Lexer.find(language)
     @language = Pygments::Lexer.find(Pygments.lexer_name_for(code)) unless @language
@@ -21,10 +23,8 @@ class HTMLStripped < Redcarpet::Render::HTML
   end
 
   def codespan(code)
-    c = Category.with(:display_name, code)
-    c = Category.with(:name, code) unless c
-    return "" unless c
-    return "<a href='/l/#{c.name}' title='#{c.display_name}'>#{c.display_name}</a>"
+    c = Category.with(:display_name, code) || Category.with(:name, code)
+    c ? category_label(c) : ''
   end
 end
 

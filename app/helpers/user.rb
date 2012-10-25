@@ -1,5 +1,4 @@
-class Main
-  helpers do
+module LoboHelpers
     
     def avatar_for(user, size)
       if user.email
@@ -9,5 +8,4 @@ class Main
         "http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y&s=#{size}"
       end
     end
-  end
 end

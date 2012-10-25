@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'open-uri'
 
-class Sinatra::Base
-  helpers do
+module LoboHelpers
 
     def captcha_pass?
       session = params[:captcha_session].to_i
@@ -22,6 +21,5 @@ class Sinatra::Base
       "<input name=\"captcha_session\" type=\"hidden\" value=\"#{captcha_session}\"/>\n" +
       "<a href=\"javascript:void(0);\" onclick=\"change_captcha(event);\"><img id=\"captcha-image\" src=\"//captchator.com/captcha/image/#{captcha_session}\"/ title=\"点击更换验证码\"></a>"
     end
-  end
 
 end

@@ -1,5 +1,4 @@
-class Main
-  helpers do
+module LoboHelpers
 
     # top10 categories with most posts
     def hot_categories
@@ -61,6 +60,5 @@ class Main
       end
     end
 
-  end
 end
 

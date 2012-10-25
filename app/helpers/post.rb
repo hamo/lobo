@@ -1,5 +1,4 @@
-class Main
-  helpers do
+module LoboHelpers
 
     # Add the post page viewing to history so that the history can
     # be displayed in sidebar. History contains 6 pages, the last is
@@ -135,6 +134,5 @@ class Main
       result = Redis::Search.query('Post', query, options)
       result.empty? ? [ ] : result.map{|po| Post[po['id']]}.select{|po| po.visible?(current_user)}
     end
-  end
 end
 

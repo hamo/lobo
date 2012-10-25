@@ -1,5 +1,4 @@
-class Main
-  helpers do
+module LoboHelpers
 
     # Use user feeded user name and password to login
     def authenticate(params)
@@ -51,5 +50,4 @@ class Main
       hex = user.create_password_reset_hash
       "/reset_password/#{user.id}/#{hex}"
     end
-  end
 end

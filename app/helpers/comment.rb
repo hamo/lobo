@@ -1,5 +1,4 @@
-class Main
-  helpers do
+module LoboHelpers
 
     # create a new post from submitted information
     #
@@ -70,6 +69,5 @@ class Main
       res.sort_by{|a, _| Comment[a].created_at}
     end
 
-  end
 end
 

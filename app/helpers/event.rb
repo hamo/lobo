@@ -2,8 +2,7 @@
 # coding: utf-8
 #Description: 
 
-class Main
-  helpers do
+module LoboHelpers
     def events
       admin_events.empty? ? commercial_events : admin_events
     end
@@ -33,5 +32,4 @@ class Main
         Subscription.find(:category_id => c.id).to_a
       }.flatten
     end
-  end
 end
