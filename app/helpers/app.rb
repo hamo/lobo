@@ -88,6 +88,6 @@ class Main
           session[:info] = "Tips: #{app_settings(:tips)[c]}"
         end
       end
-    end
-  end
+    end 
+  end 
 end

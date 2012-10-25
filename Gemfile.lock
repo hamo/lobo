@@ -7,8 +7,8 @@ GIT
 
 GIT
   remote: git://github.com/roylez/pagination.git
-  revision: a0cb30c31a13134ce0f5b68717aabb69b87c2a97
-  ref: a0cb3
+  revision: c1193c08e9079b6018155b49107bd5c508abe44f
+  ref: c1193
   specs:
     pagination (0.3.3)
 

@@ -11,6 +11,9 @@
   /controversial  按最具争议排列的post列表
   /top            按karma值排序的post列表
 
+  /search         搜索Redis::Search检索记录
+    q=xxx         搜索关键字
+
   /p/:hash  post地址
   /l/:name  分类地址
   /u/:name  用户地址

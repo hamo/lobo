@@ -44,4 +44,21 @@ class Main
     @title = "请升级您的浏览器"
     haml :browser, :layout => false, :format => :xhtml
   end
+
+  get '/search' do
+    query = params[:q]
+    unless query
+      session[:error] = '搜索关键字不能为空'
+      redirect_back_or '/'
+    end
+    result = search_posts(query)
+    if result.empty?
+      session[:info] = '抱歉，没有搜索到任何结果'
+      redirect_back_or '/'
+    else
+      @title = '搜索结果'
+      @posts = paginate_posts(result, :sort_by => :karma, :order => 'DESC')
+      haml :post_list
+    end
+  end
 end

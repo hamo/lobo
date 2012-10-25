@@ -26,7 +26,7 @@ gem 'redis-search'         , :ref => 'c21e1', :git => 'git://github.com/roylez/r
 gem 'compass'
 gem 'bootstrap-sass'
 
-gem 'pagination'           , :ref => 'a0cb3', :git => 'git://github.com/roylez/pagination.git'
+gem 'pagination'           , :ref => 'c1193', :git => 'git://github.com/roylez/pagination.git'
 
 gem 'redcarpet'
 gem 'pygments.rb'

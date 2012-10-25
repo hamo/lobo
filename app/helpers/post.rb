@@ -127,6 +127,14 @@ class Main
       url_pattern = /\A(http|https):\/\/([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}|(25[0-5]|2[0-4]\d|[0-1]?\d?\d)(\.(25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}|localhost)(:[0-9]{1,5})?(\/.*)?\z/ix
       return url.match(url_pattern)
     end
+
+    # Wrapper to do Redis::Search post search, and convert redis search result
+    # to an Array of post objects
+    #
+    def search_posts(query, options = {}) 
+      result = Redis::Search.query('Post', query, options)
+      result.empty? ? [ ] : result.map{|po| Post[po['id']]}
+    end
   end
 end
 
