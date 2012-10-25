@@ -133,7 +133,7 @@ class Main
     #
     def search_posts(query, options = {}) 
       result = Redis::Search.query('Post', query, options)
-      result.empty? ? [ ] : result.map{|po| Post[po['id']]}
+      result.empty? ? [ ] : result.map{|po| Post[po['id']]}.select{|po| po.visible?(current_user)}
     end
   end
 end
