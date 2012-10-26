@@ -56,7 +56,7 @@ class Category < Ohm::Model
   include Redis::Search
 
   redis_search_index(:title_field => :display_name,
-                     :alias_field => [:name, :note],
+                     :alias_field => :note,
                      :score_field => :size)
 
   def validate
@@ -182,6 +182,7 @@ class Category < Ohm::Model
   def before_save
     set_fallback_display_name
     render_notes
+    super
   end
   
   def set_fallback_display_name
