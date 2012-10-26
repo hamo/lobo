@@ -51,7 +51,14 @@ class Main
       session[:error] = '搜索关键字不能为空'
       redirect_back_or '/'
     end
-    result = search_posts(query)
+
+    author = params[:u] ? User.with(:name, params[:u]) : nil
+    category = params[:c] ? Category.with(:name, params[:c]) : nil
+    conditions = {}
+    conditions.merge!(:author_id => author.id)   if author
+    conditions.merge!(:category_id => category.id)   if category
+
+    result = search_posts(query, {:conditions => conditions})
     if result.empty?
       session[:info] = '抱歉，没有搜索到任何结果'
       redirect_back_or '/'

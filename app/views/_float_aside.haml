@@ -71,10 +71,21 @@
     .side-ruler
 
   .side-box
-    %form.aside_search(action='/search' method='GET')
-      %div
-        %input.search-query(type='text' name='q' placeholder='搜搜看吧')
-        %button.btn(type='submit') 搜索
+    - if defined? user
+      %form.aside_search(action="/search?u=#{user.name}" method='GET')
+        %div
+          %input.search-query(type='text' name='q' placeholder='搜用户帖子')
+          %button.btn(type='submit') 搜索
+    - elsif defined? category
+      %form.aside_search(action="/search?c=#{category.name}" method='GET')
+        %div
+          %input.search-query(type='text' name='q' placeholder='搜当前圈子')
+          %button.btn(type='submit') 搜索
+    - else
+      %form.aside_search(action='/search' method='GET')
+        %div
+          %input.search-query(type='text' name='q' placeholder='搜搜看吧')
+          %button.btn(type='submit') 搜索
 
   .side-ruler
 

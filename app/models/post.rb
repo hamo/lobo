@@ -43,6 +43,7 @@ class Post < Ohm::Model
 
   redis_search_index(:title_field => :title,
                      :alias_field => :content,
+                     :condition_fields => [:author_id, :category_id], 
                      :score_field => :karma)
 
   def domain

@@ -13,6 +13,8 @@
 
   /search         搜索Redis::Search检索记录
     q=xxx         搜索关键字
+    u=hamo        限定用户名
+    c=pic         限定类别
 
   /p/:hash  post地址
   /l/:name  分类地址
