@@ -57,6 +57,10 @@ class Main
     conditions = {}
     conditions.merge!(:author_id => author.id)   if author
     conditions.merge!(:category_id => category.id)   if category
+    search_type = case params[:t]
+                  when /\Ac\Z|\Acategory\Z/i; 'categories'
+                  else; 'posts'
+                  end
 
     result = search_posts(query, {:conditions => conditions})
     if result.empty?

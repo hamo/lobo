@@ -53,6 +53,12 @@ class Category < Ohm::Model
 
   index     :size
 
+  include Redis::Search
+
+  redis_search_index(:title_field => :display_name,
+                     :alias_field => [:name, :note],
+                     :score_field => :size)
+
   def validate
     assert_present :name
     assert_format :name        , /\A[\w_.]{2,30}\Z/
