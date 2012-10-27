@@ -10,9 +10,9 @@ gem 'bundler'
 gem 'monk-glue'            , :ref => '8a59f', :require => 'monk/glue', :git => 'git://github.com/monkrb/glue.git'
 gem 'ohm'                  , '1.2.0'
 gem "hiredis"              , "0.4.5"
-gem 'redis'                , '3.0.1', :require => ["redis/connection/hiredis", "redis"]
+gem 'redis'                , '3.0.2', :require => ["redis/connection/hiredis", "redis"]
 gem 'ohm-contrib'          , '1.2.0', :require => 'ohm/contrib'
-gem 'maruku'               , '0.6.0'
+#gem 'maruku'               , '0.6.0'
 gem 'rack'                 , '1.4.1'
 gem 'rack-protection'      , '1.2'
 
@@ -45,7 +45,7 @@ gem 'mail'                 , '2.4.4'
 group :production do
   # newrelic.yml need to be put in "config" subdirectory
   gem 'newrelic_rpm'
-  gem "unicorn", "~> 4.3.1"
+  gem "unicorn", "~> 4.4.0"
 end
 
 group :development do
