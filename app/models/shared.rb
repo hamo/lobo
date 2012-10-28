@@ -65,79 +65,6 @@ module Ohm
     end
   end
 
-  # PlainSet is deprecated in favor of ohm-contrib implementions
-  #class PlainSet < ::Set
-    #def each
-      #to_a.each {|i| yield i}
-    #end
-
-    #def key
-      #@key
-    #end
-
-    #def db
-      #@db
-    #end
-
-    ## get all data in one go with SMEMBERS
-    #def to_a
-      #db.smembers(key)
-    #end
-
-    ## add a member with SADD
-    #def add(o)
-      #db.sadd(key, o.to_s)
-    #end
-    #alias_method :<<, :add
-
-    ## remove a member with SREM
-    #def delete(item)
-      #db.srem(key, item.to_s)
-    #end
-
-    ## query existence of member with SISMEMBER
-    #def include?(item)
-      #db.sismember(key, item.to_s)
-    #end
-
-    #def initialize(key, db)
-      #@key = key
-      #@db = db
-    #end
-  #end
-
-  # make attributes expirable
-  #
-  module ExpiringKey
-    def self.included(base)
-      base.include InstanceMethods
-      base.extend ClassMethods
-    end
-
-    module InstanceMethods
-    end
-
-    module ClassMethods
-      def expire(attr, ttl)
-        @@expire ||= {}
-        attr = attr.to_sym
-        @@expire[attr] = ttl.to_i
-        index   attr
-      end
-
-      def create(*args)
-        object = super(*args)
-        if !object.new? and not @@expire.empty?
-          @@expire.each do |attr, ttl|
-            Ohm.redis.expire(object.key[attr], ttl)
-          end
-          #Ohm.redis.expire("#{object.key}:_indices", @@expire)
-        end
-        object
-      end
-    end
-  end
-
   # add ability to show models created within a number of seconds
   #
   #   to use this module, remember to add 
@@ -235,11 +162,6 @@ module Ohm
       nil
     end
 
-    def self.plain_set(name)
-      define_method name do
-        Ohm::PlainSet.new(self.key[name], self.db)
-      end
-    end
   end
 end
 
