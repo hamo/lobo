@@ -86,30 +86,26 @@ module LoboHelpers
       #   viewable_<period>             for general public
       #
       k = ( (opts[:user] ? "#{opts[:user].id}_" : "") + "viewable_#{opts[:time]}" ).to_sym
-      return Ohm::Set.new(Post.key[k], Post.key, Post)   if Post.key[k].exists
       key = Post.key[k]
+      Post.expire(k, opts[:timeout]) do
+        # all public viewable posts
+        posts = Post.seek_public
+        # all subscribed posts
+        opts[:user].subscriptions.each {|c| posts.union :category_id => c.id }   if opts[:user]
+        # except deleted ones
+        posts = posts.except(:available? => false)
 
-      # all public viewable posts
-      posts = Post.seek_public
-      # all subscribed posts
-      opts[:user].subscriptions.each {|c| posts.union :category_id => c.id }   if opts[:user]
-      # except deleted ones
-      posts = posts.except(:available? => false)
+        # return all if period is 0
+        key0 = key.sub(opts[:time].to_s, '0')
+        res0 = posts.save(key0)
+        break   if opts[:time].zero?
 
-      # return all if period is 0
-      key0 = key.sub(opts[:time].to_s, '0')
-      res0 = posts.save(key0)
-      Post.db.expire(key0, opts[:timeout])
-      return res0     if opts[:time].zero?
-
-      # filter out posts within selected period, and store result in a temp key
-      # which expires in :timeout seconds
-      latest_posts = Post.latest_within(opts[:time], opts[:timeout])
-      Post.db.sinterstore(key, key0, latest_posts.key)
-      res = Ohm::Set.new(key, Post.key, Post)
-      Post.db.expire(key, opts[:timeout])
-
-      return res
+        # filter out posts within selected period, and store result in a temp key
+        # which expires in :timeout seconds
+        latest_posts = Post.latest_within(opts[:time], opts[:timeout])
+        Post.db.sinterstore(key, key0, latest_posts.key)
+      end
+      Ohm::Set.new(key, Post.key, Post)
     end
 
     # available posts in categories, the posts that are not 

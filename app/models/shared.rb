@@ -111,7 +111,7 @@ module Ohm
 
       def latest_within(seconds, timeout = 300)
         k = "latest_#{seconds}".to_sym
-        unless key[k].exists
+        expire(k, timeout) do 
           zk = ('z_' + k.to_s).to_sym
           key[zk].zunionstore([key[:latest]])
           key[zk].zremrangebyscore(0,Time.now.to_i - seconds)
@@ -123,7 +123,6 @@ module Ohm
           db.multi do
             ids.each { |id| key[k].sadd id }
           end
-          key[k].expire(timeout)    # in 5 minutes by default
         end
         Set.new(key[k], key, self)
       end
@@ -159,6 +158,21 @@ module Ohm
         all.find(hash).first
       end
     rescue
+      nil
+    end
+
+    # do something in case a key expires, returns nil if the key exists
+    #
+    #   Post.expire(:latest, 300) do |k|
+    #     ....
+    #   end
+    #
+    def self.expire(k, ttl = 60)
+      k = k.to_sym
+      unless key[k].exists and !block_given?
+        yield
+        key[k].expire(ttl)
+      end
       nil
     end
 

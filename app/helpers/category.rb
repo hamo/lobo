@@ -5,16 +5,13 @@ module LoboHelpers
       return @hot_categories  if @hot_categories
       k = :hot_categories
       key = Category.key[k]
-      if key.exists
-        @hot_categories = Ohm::List.new(key, Category.key, Category).to_a
-        return @hot_categories
+      Category.expire(k, app_settings(:hot_categories_cache_time)) do
+        hot = Category.all.to_a.sort_by(&:size).reverse[0...9]
+        Category.db.multi do
+          hot.each { |c| Category.db.rpush(key, c.id) }
+        end
       end
-
-      @hot_categories = Category.all.to_a.sort_by(&:size).reverse[0...9]
-      Category.db.multi do
-        @hot_categories.each { |c| Category.db.rpush(key, c.id) }
-        Category.db.expire(key, app_settings(:hot_categories_cache_time))
-      end
+      @hot_categories = Ohm::List.new(key, Category.key, Category).to_a
       return @hot_categories
     end
 
