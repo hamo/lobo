@@ -169,7 +169,7 @@ module Ohm
     #
     def self.expire(k, ttl = 60)
       k = k.to_sym
-      unless key[k].exists and !block_given?
+      unless key[k].exists or !block_given?
         yield
         key[k].expire(ttl)
       end
