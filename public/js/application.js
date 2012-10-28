@@ -354,7 +354,8 @@ $(document).ready(function() {
 		    maxlength: "标题不能超过200个字符"
 		},
 		category: {
-		    required: "亲给个类别吧亲"
+		    required: "亲给个类别吧亲",
+		    remote: "分类不存在哟亲"
 		}
 	    },
 	    errorElement: "span",

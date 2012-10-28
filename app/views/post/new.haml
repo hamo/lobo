@@ -38,7 +38,7 @@
             - hot_categories.each do |c|
               %label.inline-block
                 %span(class="#{category_label_class c}")
-                  %a( href='javascript:void(0);' onclick="$('#category').val('#{c.display_name}');" )= c.display_name
+                  %a( href='javascript:void(0);' onclick="$('#category').val('#{c.display_name}'); $('.validate-form').validate().form();" )= c.display_name
               .half-hspace
 
         .form-actions
