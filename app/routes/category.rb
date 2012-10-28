@@ -93,12 +93,6 @@ class Main
     end
   end
 
-  # enquire categories with a :keyword in either name or display_name
-  # TODO
-  get '/q/category/:keyword' do
-
-  end
-
   # new category page
   get '/category/new' do
     require_login
@@ -142,6 +136,15 @@ class Main
   get '/category/get/:name' do
     return stamp_json(false) unless logged_in? and category = Category.first(:name => params[:name])
     return stamp_json(true, category.to_hash)
+  end
+
+  # check category by params
+  post '/category/check' do
+    return "false" unless logged_in?
+    if (params[:category] and Category.first(:display_name => params[:category]))
+      return "true"
+    end
+    return "false"
   end
 
   # subscribe a :Category or unsubscribe if already subscribed

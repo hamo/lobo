@@ -304,7 +304,11 @@ $(document).ready(function() {
 		    }
 		},
 		category: {
-		    required: true
+		    required: true,
+		    remote: {
+			url: "/category/check",
+			type: "post"
+		    }
 		},
 		present_password: {
 		    required: true
