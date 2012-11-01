@@ -13,8 +13,9 @@ class HTMLStripped < Redcarpet::Render::HTML
     @language = Pygments::Lexer.find(Pygments.lexer_name_for(code)) unless @language
     @language = Pygments::Lexer.find("text") unless @language
     @language.highlight(code, :options => {
-      :encoding => 'utf-8',
-      :linenos  => 'inline'
+      :encoding => 'utf-8'
+#      :encoding => 'utf-8',
+#      :linenos  => 'inline'
     })
   end
 
