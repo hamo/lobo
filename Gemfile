@@ -53,6 +53,12 @@ group :development do
   gem 'fabrication', '1.3.1'
   gem 'faker', '0.3.1'
   gem 'sprite-factory'
+  gem 'rb-inotify', :require => false
+  gem 'guard-rspec'
+  gem 'guard-livereload'
+  gem 'rack-livereload'
+  gem 'guard-compass'
+  gem 'guard-coffeescript'
 end
 
 group :test do
