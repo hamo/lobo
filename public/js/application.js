@@ -613,8 +613,12 @@ function authorize_subscription(event, user, category) {
 
 function md_preview(event) {
     var o = $(src(event));
-    var loading = o.parent().find(".comment_loading");
+    // This markdown is a comment
     var md = o.parent().parent().find("textarea.md_preview").val();
+    if (typeof md === "undefined") {
+	// This markdown is a post
+	var md = o.parent().parent().find("textarea#content").val();
+    }
     if (typeof md === "undefined" || md == "")
 	return false;
     loading_start(o);
