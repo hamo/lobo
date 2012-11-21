@@ -26,7 +26,8 @@ GEM
   remote: http://ruby.taobao.org/
   specs:
     addressable (2.3.2)
-    bootstrap-sass (2.1.1.0)
+    bootstrap-sass (2.2.1.1)
+      sass (~> 3.2)
     chinese_pinyin (0.4.1)
     chunky_png (1.2.6)
     coderay (1.0.8)
@@ -157,7 +158,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass
+  bootstrap-sass (~> 2.2.1.1)
   bundler
   chinese_pinyin
   compass

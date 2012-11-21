@@ -1,29 +1,20 @@
-- if defined? @user
-  = partial :float_aside, :locals => { :user => @user }
-- elsif defined? @category
-  = partial :float_aside, :locals => { :category => @category }
-- else
-  = partial :float_aside
+- if event = events.sample
+  .link.event-link
+    - case event
+    - when Moderation
+      .rank= '处罚'
+      = partial 'post/moderation', :locals => {:event => event}
+    - when Subscription
+      .rank= '订阅'
+      = partial 'category/subscription', :locals => {:event => event}
+    .clearleft
 
-#content
+- i = 0
+- @posts.each do |post|
+  - i += 1
+  .link
+    .rank.hidden-phone= i + (@posts.page - 1) * @posts.per_page
+    = partial 'post/post', :locals => {:post => post }
+    .clearleft
 
-  - if event = events.sample
-    .link.event-link
-      - case event
-      - when Moderation
-        .rank= '处罚'
-        = partial 'post/moderation', :locals => {:event => event}
-      - when Subscription
-        .rank= '订阅'
-        = partial 'category/subscription', :locals => {:event => event}
-      .clearleft
-
-  - i = 0
-  - @posts.each do |post|
-    - i += 1
-    .link
-      .rank.hidden-phone= i + (@posts.page - 1) * @posts.per_page
-      = partial 'post/post', :locals => {:post => post }
-      .clearleft
-
-  = partial 'post/pagination', :locals => {:items => @posts, :show_detail => false}
+= partial 'post/pagination', :locals => {:items => @posts, :show_detail => false}

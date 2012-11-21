@@ -7,11 +7,13 @@
  */
 @import 'base'
 
-$aside_width: 350px
 $arrow_width: 20px
 
 .inline-block
   display: inline-block
+
+.align-center
+  text-align: center
 
 @mixin improve-text-rendering 
   text-rendering: optimizeLegibility
@@ -58,26 +60,12 @@ header
   margin-bottom: 12px
 
 aside 
-  float: right
-  width: $aside_width
   margin: 0 0 10px 10px
   border: 3px solid rgba($grayLight, 0.1)
   @include border-radius(6px)
 
-  form.aside_login
-    margin: 0
-
-    input[type='text'], input[type='password']
-      //border: 1px solid $color9
-      background: none repeat scroll 0 0 #EEEEEE
-      height: 17px
-      margin: 5px
-      top: 5px
-      width: ( $aside_width - 100px )* 0.45
-
-  form.aside_search
-    margin: 0
-    text-align: center
+  form
+    @extend .align-center
 
 .side-box
   padding: 4px 5px
@@ -142,9 +130,9 @@ aside .entry
   margin-left: 30px
 
 .aside_button_note
-  width: $aside_width - 150px
   padding-left: 5px
   vertical-align: middle
+  width: 200px
 
 footer 
   border-top: 1px solid #E5E5E5
@@ -295,9 +283,6 @@ footer
   .entry
     background: none
     padding: 0 3px 0
-
-.align-center
-  text-align: center
 
 .big-cursor
   cursor: url(/images/big.cur), auto!important

@@ -37,11 +37,21 @@
     .container-fluid
       = partial :header
 
-      = partial :notice
+      .row-fluid
+        #content.span8
+          = partial :notice
 
-      != yield
+          != yield
 
-      = partial :footer
+          = partial :footer
+
+        .span4
+          - if defined? @user
+            = partial :float_aside, :locals => { :user => @user }
+          - elsif defined? @category
+            = partial :float_aside, :locals => { :category => @category }
+          - else
+            = partial :float_aside
 
       - if ENV['RACK_ENV'] == 'development'
         %p= "params: #{params.inspect}"

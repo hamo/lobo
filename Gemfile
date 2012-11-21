@@ -24,7 +24,7 @@ gem 'redis-search'         , :ref => 'c21e1', :git => 'git://github.com/roylez/r
 
 # compass must be loaded before sinatra!!!
 gem 'compass'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass'       , '~> 2.2.1.1'
 
 gem 'pagination'           , :ref => 'c1193', :git => 'git://github.com/roylez/pagination.git'
 
