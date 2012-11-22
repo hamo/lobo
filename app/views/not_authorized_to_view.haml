@@ -1,11 +1,2 @@
-- if defined? @user
-  = partial :float_aside, :locals => { :user => @user }
-- elsif defined? @category
-  = partial :float_aside, :locals => { :category => @category }
-- else
-  = partial :float_aside
-
-#content
-
-  %p
-    这是一个私密圈子，只有被授权的订阅者才能查看
+%p
+  这是一个私密圈子，只有被授权的订阅者才能查看

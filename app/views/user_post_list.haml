@@ -1,20 +1,11 @@
-- if defined? @user
-  = partial :float_aside, :locals => { :user => @user }
-- elsif defined? @category
-  = partial :float_aside, :locals => { :category => @category }
-- else
-  = partial :float_aside
+- @posts.each do |post|
+  .link
 
-#content
+    - if post.author == @user
+      = partial 'post/post', :locals => {:post => post }
+    - else
+      = partial 'post/post_with_user_comments', :locals => { :post => post, :user => @user }
 
-  - @posts.each do |post|
-    .link
+    .clearleft
 
-      - if post.author == @user
-        = partial 'post/post', :locals => {:post => post }
-      - else
-        = partial 'post/post_with_user_comments', :locals => { :post => post, :user => @user }
-
-      .clearleft
-
-  = partial 'post/pagination', :locals => {:items => @posts, :show_detail => false}
+= partial 'post/pagination', :locals => {:items => @posts, :show_detail => false}
