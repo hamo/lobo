@@ -99,27 +99,28 @@
 
     %p
 
-    - if category_subscribe? category
-      %a.btn.btn-large.btn-inverse.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
-        %i.icon-minus.icon-white
-        离开本圈子
-      .aside_button_note.inline-block
-        关注这个圈子并添加到快速导航栏
-    - elsif category_pending_subscribe? category
-      %a.btn.btn-large.inline-block{:href => 'javascript:void(0);'}
-        %i.icon-time
-        请求已发送
-      .aside_button_note.inline-block
-        关注这个圈子并添加到快速导航栏
-    - elsif current_user and category.user_blacklist.include? current_user
+    - if defined? category
+      - if category_subscribe? category
+        %a.btn.btn-large.btn-inverse.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
+          %i.icon-minus.icon-white
+          离开本圈子
+        .aside_button_note.inline-block
+          关注这个圈子并添加到快速导航栏
+      - elsif category_pending_subscribe? category
+        %a.btn.btn-large.inline-block{:href => 'javascript:void(0);'}
+          %i.icon-time
+          请求已发送
+        .aside_button_note.inline-block
+          关注这个圈子并添加到快速导航栏
+      - elsif current_user and category.user_blacklist.include? current_user
 
-    - else
-      %a.btn.btn-large.btn-danger.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
-        %i.icon-plus.icon-white
-        加入本圈子
-      .aside_button_note.inline-block
-        关注这个圈子并添加到快速导航栏
-    .clearfix
+      - else
+        %a.btn.btn-large.btn-danger.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
+          %i.icon-plus.icon-white
+          加入本圈子
+        .aside_button_note.inline-block
+          关注这个圈子并添加到快速导航栏
+      .clearfix
 
   - if defined? category
     - if current_user and (current_user.tagged?('admin') or category.admins.include?(current_user))
