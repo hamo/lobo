@@ -52,7 +52,8 @@
           - else
             = partial :float_aside
 
-      = partial :footer
+      .row-fluid
+        = partial :footer
 
       - if ENV['RACK_ENV'] == 'development'
         %p= "params: #{params.inspect}"
