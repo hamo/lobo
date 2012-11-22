@@ -13,3 +13,4 @@ unicorn.conf.rb
 config/secret.txt
 app/views/css/_sprite.sass
 .rake_tasks
+vendor
