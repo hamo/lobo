@@ -18,6 +18,12 @@ $arrow_width: 20px
 .no-margin
   margin: 0
 
+.box
+  padding: 10px 5px
+  border: 1px solid #D4D4CB
+  @include box-shadow(rgba(black, 0.1) 2px 0 4px 0)
+  @include border-radius(1px)
+
 @mixin improve-text-rendering 
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: antialiased
@@ -30,8 +36,8 @@ a,a:hover
   text-decoration: none 
 
 body 
-  //background: url("/images/background-texture.jpg") repeat scroll 0 0 #999
-  background: none repeat scroll 0 0 #EEEEEE
+  background: url("/images/background-texture.jpg") repeat scroll 0 0 #999
+  //background: none repeat scroll 0 0 #EEEEEE
   font-size: 13px
   //letter-spacing: 0.3px
   line-height: 1.2
@@ -59,17 +65,21 @@ header
 .navbar
   margin-bottom: 12px
 
+//override default margin for alert
+.alert
+  margin-bottom: 12px
+
 aside 
   margin: 0 0 10px 10px
-  border: 3px solid rgba($grayLight, 0.1)
-  @include border-radius(6px)
 
   form
     @extend .no-margin
     @extend .align-center
 
 .side-box
-  padding: 4px 5px
+  @extend .well
+  @extend .well-small
+  margin-bottom: 15px
 
 .side-ruler
   border-top: 2px solid rgba($grayLight, 0.1)
@@ -118,9 +128,6 @@ aside
   word-wrap: break-word
   overflow: hidden
 
-.clearleft
-  clear: left
-
 .entry
   margin-left: 8px
   padding: 0 3px
@@ -153,6 +160,8 @@ footer
 //content area
 #content 
   min-height: 300px
+  @extend .box
+  background: rgba(white,0.4)
 
 .link 
   margin: 0 0 10px
@@ -337,7 +346,7 @@ li .label
 
 .pager
   font-weight: bold
-  margin-top: 20px
+  margin: 20px 0 0 0
 
 header .navbar .nav > li > a
   padding: 10px

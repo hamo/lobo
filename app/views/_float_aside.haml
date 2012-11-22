@@ -6,8 +6,6 @@
         %input.input-small(type="password" name="login_password" placeholder="密码" id="login_password")/
         %button.btn.btn-small(type="submit") 登录
 
-    .side-ruler
-  
   - if defined? post
 
     .side-box#post_vote_detail
@@ -26,8 +24,6 @@
         %i.icon-arrow-down
         %span= post.downvotes
         %p
-
-    .side-ruler
 
   - if defined? user
 
@@ -52,8 +48,6 @@
       
       %p
 
-    .side-ruler
-
   - if defined? category
 
     .side-box#category_subscription_detail
@@ -68,8 +62,6 @@
 
       %p
 
-    .side-ruler
-
   .side-box
     - if defined? user
       %form.form-search.aside_search(action="/search?u=#{user.name}" method='GET')
@@ -80,8 +72,6 @@
     - else
       %form.form-search.aside-search(action='/search' method='GET')
         %input.input-block-level.search-query(type='text' name='q' placeholder='搜搜看吧')
-
-  .side-ruler
 
   .side-box.align-center
     - if defined? category
@@ -96,18 +86,42 @@
         发表新分享
       .aside_button_note.inline-block
         分享你觉得有意思的图片、视频、文章或者言论
-  .clearleft
+    .clearfix
 
-  .side-box.align-center
+    %p
+
     %a.btn.btn-large.btn-warning.inline-block(href='/category/new')
       %i.icon-th-list.icon-white
       建立新圈子
     .aside_button_note.inline-block
       建立新的圈子，团聚有共同爱好的朋友
-  .clearleft
+    .clearfix
+
+    %p
+
+    - if category_subscribe? category
+      %a.btn.btn-large.btn-inverse.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
+        %i.icon-minus.icon-white
+        离开本圈子
+      .aside_button_note.inline-block
+        关注这个圈子并添加到快速导航栏
+    - elsif category_pending_subscribe? category
+      %a.btn.btn-large.inline-block{:href => 'javascript:void(0);'}
+        %i.icon-time
+        请求已发送
+      .aside_button_note.inline-block
+        关注这个圈子并添加到快速导航栏
+    - elsif current_user and category.user_blacklist.include? current_user
+
+    - else
+      %a.btn.btn-large.btn-danger.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
+        %i.icon-plus.icon-white
+        加入本圈子
+      .aside_button_note.inline-block
+        关注这个圈子并添加到快速导航栏
+    .clearfix
 
   - if defined? category
-    .side-ruler
     - if current_user and (current_user.tagged?('admin') or category.admins.include?(current_user))
       .side-box.align-center
         %a.btn.btn-large.btn-success.inline-block{:href => "#{category_path(category)}/settings"}
@@ -115,39 +129,14 @@
           管理本圈子
         .aside_button_note.inline-block
           修改圈子的设置
-      .clearleft
+      .clearfix
 
-    .side-box.align-center
-      - if category_subscribe? category
-        %a.btn.btn-large.btn-inverse.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
-          %i.icon-minus.icon-white
-          离开本圈子
-        .aside_button_note.inline-block
-          关注这个圈子并添加到快速导航栏
-      - elsif category_pending_subscribe? category
-        %a.btn.btn-large.inline-block{:href => 'javascript:void(0);'}
-          %i.icon-time
-          请求已发送
-        .aside_button_note.inline-block
-          关注这个圈子并添加到快速导航栏
-      - elsif current_user and category.user_blacklist.include? current_user
-
-      - else
-        %a.btn.btn-large.btn-danger.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
-          %i.icon-plus.icon-white
-          加入本圈子
-        .aside_button_note.inline-block
-          关注这个圈子并添加到快速导航栏
-    .clearleft
-
-    .side-ruler
     - if not category.rendered_sidebar.to_s.empty? 
       .side-box.md!= category.rendered_sidebar
     - else
       .side-box.md.align-center
         %strong 本版面暂无任何描述
 
-    .side-ruler
     - if category.admins.empty?
       .side-box.align-center
         %strong 本圈子暂无管理员
@@ -159,7 +148,6 @@
           #{link_to admin.name, user_path(admin)}
 
   - if session[:history] and !session[:history].empty?
-    .side-ruler
 
     .side-box
       =partial 'post/history', :locals => session

@@ -38,10 +38,11 @@
       = partial :header
 
       .row-fluid
-        #content.span8
+        .span8
           = partial :notice
+          #content.box
 
-          != yield
+            != yield
 
         .span4
           - if defined? @user

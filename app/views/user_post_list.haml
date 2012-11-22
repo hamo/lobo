@@ -6,6 +6,6 @@
     - else
       = partial 'post/post_with_user_comments', :locals => { :post => post, :user => @user }
 
-    .clearleft
+    .clearfix
 
 = partial 'post/pagination', :locals => {:items => @posts, :show_detail => false}

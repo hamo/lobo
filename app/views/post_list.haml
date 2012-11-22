@@ -7,7 +7,7 @@
     - when Subscription
       .rank= '订阅'
       = partial 'category/subscription', :locals => {:event => event}
-    .clearleft
+    .clearfix
 
 - i = 0
 - @posts.each do |post|
@@ -15,6 +15,6 @@
   .link
     .rank.hidden-phone= i + (@posts.page - 1) * @posts.per_page
     = partial 'post/post', :locals => {:post => post }
-    .clearleft
+    .clearfix
 
 = partial 'post/pagination', :locals => {:items => @posts, :show_detail => false}
