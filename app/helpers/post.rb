@@ -20,9 +20,9 @@ module LoboHelpers
                     :category => Category.with(:display_name, params[:category]) ,
                     :author => current_user
                    )
-      when 'content'
+      when 'post_content'
         Post.new(:title => params[:title], 
-                    :content => params[:content],
+                    :content => params[:post_content],
                     :category => Category.with(:display_name, params[:category]) ,
                     :author => current_user
                    )

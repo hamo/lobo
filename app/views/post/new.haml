@@ -15,14 +15,14 @@
             %input#radio_url(type='radio' name='type' value='url' checked)/
             网址
           %label.radio.inline
-            %input#radio_content(type='radio' name='type' value='content')/
+            %input#radio_content(type='radio' name='type' value='post_content')/
             文字内容
           %p
           - if defined? @url and @url
             %input.validate-input.input-xxlarge(type='url' name='url' id='url' value="#{@url}")/
           - else
             %input.validate-input.input-xxlarge(type='url' name='url' id='url' placeholder='请输入来源网址')/
-          %textarea.validate-input.input-xxlarge(name='content' id='content' rows='5' style='display:none' placeholder='请输入文字内容')
+          %textarea.validate-input.input-xxlarge(name='post_content' id='post_content' rows='5' style='display:none' placeholder='请输入文字内容')
 
       .control-group
         %label.control-label(for='category') 圈子
@@ -57,7 +57,7 @@
       var unchecked = $("input[name='type']:radio:unchecked").val();
       $("#"+unchecked).hide();
       $("#"+checked).show();
-      if (checked == "content") {
+      if (checked == "post_content") {
         $("#content_preview").show();
       } else {
         $("#content_preview").hide();

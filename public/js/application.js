@@ -298,9 +298,9 @@ $(document).ready(function() {
 			return $("input[name='type']:radio:checked").val() == "url";
 		    }
 		},
-		content: {
+		post_content: {
 		    required: function(element) {
-			return $("input[name='type']:radio:checked").val() == "content";
+			return $("input[name='type']:radio:checked").val() == "post_content";
 		    }
 		},
 		category: {
