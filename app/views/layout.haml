@@ -43,8 +43,6 @@
 
           != yield
 
-          = partial :footer
-
         .span4
           - if defined? @user
             = partial :float_aside, :locals => { :user => @user }
@@ -52,6 +50,8 @@
             = partial :float_aside, :locals => { :category => @category }
           - else
             = partial :float_aside
+
+      = partial :footer
 
       - if ENV['RACK_ENV'] == 'development'
         %p= "params: #{params.inspect}"
