@@ -59,6 +59,7 @@ group :development do
   gem 'rack-livereload'
   gem 'guard-compass'
   gem 'guard-coffeescript'
+  gem 'therubyracer'
 end
 
 group :test do

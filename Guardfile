@@ -1,8 +1,6 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-#guard 'coffeescript', :input => 'app/assets/javascripts'
-
 guard 'livereload' do
   watch(%r{app/views/.+\.(erb|haml|slim)$})
   watch(%r{app/helpers/.+\.rb})
@@ -36,3 +34,5 @@ end
 guard 'compass' do
   watch(%r{^app/views/css/(.*)\.s[ac]ss})
 end
+
+guard 'coffeescript', :input => 'app/views/js', :output => 'public/js', :bare => true
