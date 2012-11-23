@@ -46,11 +46,11 @@
 
         .span4
           - if defined? @user
-            = partial :float_aside, :locals => { :user => @user }
+            = partial :aside, :locals => { :user => @user }
           - elsif defined? @category
-            = partial :float_aside, :locals => { :category => @category }
+            = partial :aside, :locals => { :category => @category }
           - else
-            = partial :float_aside
+            = partial :aside
 
       .row-fluid
         = partial :footer

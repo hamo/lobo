@@ -122,10 +122,10 @@
         %strong 本圈子暂无管理员
     - else
       .side-box
-      - category.admins.each do |admin|
-        %p
-          %i.icon-user
-          #{link_to admin.name, user_path(admin)}
+        - category.admins.each do |admin|
+          .action
+            %i.icon-user
+            #{link_to admin.name, user_path(admin)}
 
   - if session[:history] and !session[:history].empty?
 
