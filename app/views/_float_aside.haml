@@ -97,9 +97,9 @@
       建立新的圈子，团聚有共同爱好的朋友
     .clearfix
 
-    %p
-
     - if defined? category
+      %p
+
       - if category_subscribe? category
         %a.btn.btn-large.btn-inverse.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
           %i.icon-minus.icon-white
