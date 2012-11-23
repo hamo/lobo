@@ -38,13 +38,13 @@
       = partial :header
 
       .row-fluid
-        .span9
+        .span8
           = partial :notice
           #content.box
 
             != yield
 
-        .span3
+        .span4
           - if defined? @user
             = partial :float_aside, :locals => { :user => @user }
           - elsif defined? @category
