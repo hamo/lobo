@@ -75,62 +75,41 @@
 
   .side-box.align-center
     - if defined? category
-      %a.btn.btn-large.btn-info.inline-block(href="/post/new?category=#{category.name}")
+      %a.side-action.btn.btn-info.inline-block(href="/post/new?category=#{category.name}")
         %i.icon-comment.icon-white
         发表新分享
-      .aside_button_note.inline-block
-        分享你觉得有意思的图片、视频、文章或者言论
     - else
-      %a.btn.btn-large.btn-info.inline-block(href="/post/new")
+      %a.side-action.btn.btn-info.inline-block(href="/post/new")
         %i.icon-comment.icon-white
         发表新分享
-      .aside_button_note.inline-block
-        分享你觉得有意思的图片、视频、文章或者言论
-    .clearfix
 
-    %p
-
-    %a.btn.btn-large.btn-warning.inline-block(href='/category/new')
+    %a.side-action.btn.btn-warning.inline-block(href='/category/new')
       %i.icon-th-list.icon-white
       建立新圈子
-    .aside_button_note.inline-block
-      建立新的圈子，团聚有共同爱好的朋友
-    .clearfix
 
     - if defined? category
-      %p
 
       - if category_subscribe? category
-        %a.btn.btn-large.btn-inverse.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
+        %a.side-action.btn.btn-inverse.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
           %i.icon-minus.icon-white
           离开本圈子
-        .aside_button_note.inline-block
-          关注这个圈子并添加到快速导航栏
       - elsif category_pending_subscribe? category
-        %a.btn.btn-large.inline-block{:href => 'javascript:void(0);'}
+        %a.side-action.btn.inline-block{:href => 'javascript:void(0);'}
           %i.icon-time
-          请求已发送
-        .aside_button_note.inline-block
-          关注这个圈子并添加到快速导航栏
+          已申请加入
       - elsif current_user and category.user_blacklist.include? current_user
 
       - else
-        %a.btn.btn-large.btn-danger.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
+        %a.side-action.btn.btn-danger.inline-block{:href => 'javascript:void(0);', :onclick => "category_subscribe(event, '#{category.name}');"}
           %i.icon-plus.icon-white
           加入本圈子
-        .aside_button_note.inline-block
-          关注这个圈子并添加到快速导航栏
-      .clearfix
 
   - if defined? category
     - if current_user and (current_user.tagged?('admin') or category.admins.include?(current_user))
       .side-box.align-center
-        %a.btn.btn-large.btn-success.inline-block{:href => "#{category_path(category)}/settings"}
+        %a.side-action.btn.btn-success.inline-block{:href => "#{category_path(category)}/settings"}
           %i.icon-cog.icon-white
           管理本圈子
-        .aside_button_note.inline-block
-          修改圈子的设置
-      .clearfix
 
     - if not category.rendered_sidebar.to_s.empty? 
       .side-box.md!= category.rendered_sidebar
