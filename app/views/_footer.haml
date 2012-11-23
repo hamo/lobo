@@ -1,27 +1,3 @@
-.bottom-nav
-  .btn-group.dropup
-    %button.btn.btn-inverse.primary.dropdown-toggle(data-toggle='dropdown')
-      圈子
-    %ul.dropdown-menu.pull-right
-      - if logged_in? and not current_user.subscriptions.empty?
-        - subs = current_user.subscriptions.to_a
-        - n_sub = subs.size
-        - if n_sub >= 10
-          - subs[0..9].each do |s|
-            %li= category_label(s)
-        - else
-          - subs.each do |s|
-            %li= category_label(s)
-        .clearfix
-        %li.divider
-        - hot_categories[0..(10 - n_sub - 1)].each do |c|
-          - next if subs.include? c
-          %li= category_label(c)
-
-      - else
-        - hot_categories.each do |c|
-          %li= category_label(c)
-
 %footer
   %div{:class => "row-fluid"}
   .row-fluid
