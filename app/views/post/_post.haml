@@ -44,7 +44,7 @@
               = surround '(', ')' do
                 %strong.color-orange +#{unread_replies_for_post(post)}
         - else
-          = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments'}
+          = link_to post.reply_count, post_path(post), {:class => 'trackable', :icon => 'icon-comments trackable'}
 
       .action
         %a{:onclick => "favourite(event, '#{post.hash}');", :href => 'javascript:void(0);'}
