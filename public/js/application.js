@@ -630,7 +630,7 @@ function md_preview(event) {
 	       var r = $.parseJSON(data);
 	       if (r.success) {
 		   loading_finish(o);
-		   var pre = $("<pre class='md'>"+r.rendered_content+"</pre>");
+		   var pre = $("<pre class='md' style='height: "+target.height()+"px; width: "+target.width()+"px;'>"+r.rendered_content+"</pre>");
 		   pre.insertAfter(target);
 		   target.hide();
 
