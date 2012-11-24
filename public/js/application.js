@@ -614,10 +614,12 @@ function authorize_subscription(event, user, category) {
 function md_preview(event) {
     var o = $(src(event));
     // This markdown is a comment
-    var md = o.parent().parent().find("textarea.md_preview").val();
+    var target = o.parent().parent().find("textarea.md_preview");
+    var md = target.val();
     if (typeof md === "undefined") {
 	// This markdown is a post
-	var md = o.parent().parent().find("textarea#post_content").val();
+	target = o.parent().parent().find("textarea#post_content");
+	md = target.val();
     }
     if (typeof md === "undefined" || md == "")
 	return false;
@@ -628,16 +630,50 @@ function md_preview(event) {
 	       var r = $.parseJSON(data);
 	       if (r.success) {
 		   loading_finish(o);
-		   var preview = modal.clone();
-		   preview.find(".modal-header").append("<h3>预览</h3>");
-		   preview.find(".modal-body").append("<div class='md'>"+r.rendered_content+"</div>");
-		   preview.find(".modal-footer").remove();
-		   preview.modal();
+		   var pre = $("<pre class='md'>"+r.rendered_content+"</pre>");
+		   pre.insertAfter(target);
+		   target.hide();
+
+		   if (o.children().size() == 0){
+		       // preview button without icon
+		       o.text("取消预览");
+		   } else {
+		       // preview button with icon
+		       var icon = o.children().first().clone();
+		       o.text(" 取消预览");
+		       o.prepend(icon);
+		   }
+
+		   o.removeAttr("onclick");
+		   o.prop("onclick", null); // For IE 6,7,8
+
+		   o.off("click");
+		   o.on("click", {target: target}, md_preview_back);
 	       } else {
 		   // FIXME
 	       }
 	   }
 	  );
+}
+
+function md_preview_back(event) {
+    var o = $(src(event));
+    var target = event.data.target;
+    target.siblings("pre.md").remove();
+    target.show();
+
+    if (o.children().size() == 0){
+	o.text("预览");
+    } else {
+	// preview button with icon
+	var icon = o.children().first().clone();
+	o.text(" 预览");
+	o.prepend(icon);
+    }
+
+    o.off("click");
+    //o.on("click", md_preview);
+    o.attr("onclick", "md_preview(event);");
 }
 
 function post_edit(event, hash) {
