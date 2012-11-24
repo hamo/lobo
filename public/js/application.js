@@ -617,7 +617,7 @@ function md_preview(event) {
     var md = o.parent().parent().find("textarea.md_preview").val();
     if (typeof md === "undefined") {
 	// This markdown is a post
-	var md = o.parent().parent().find("textarea#content").val();
+	var md = o.parent().parent().find("textarea#post_content").val();
     }
     if (typeof md === "undefined" || md == "")
 	return false;
