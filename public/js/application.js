@@ -630,7 +630,9 @@ function md_preview(event) {
 	       var r = $.parseJSON(data);
 	       if (r.success) {
 		   loading_finish(o);
-		   var pre = $("<div class='well md' style='height: "+target.height()+"px; width: "+target.width()+"px;'>"+r.rendered_content+"</div>");
+		   var pre = $("<div class='well md' style='height: "+
+			       (target.prop('scrollHeight')*0.8)  // 0.8 is for font-size adjust
+			       +"px; width: "+target.width()+"px;'>"+r.rendered_content+"</div>");
 		   pre.insertAfter(target);
 		   target.hide();
 
