@@ -44,7 +44,7 @@
     - subs = current_user.subscriptions.to_a
     - n_sub = subs.size
     - if n_sub >= 10
-      - subs[0..9].each do |s|
+      - subs.first(10).each do |s|
         = category_label(s)
         .half-hspace
     - else
@@ -56,12 +56,12 @@
 
       .half-hspace
 
-      - hot_categories[0..(10 - n_sub - 1)].each do |c|
+      - hot_categories.first(10 - n_sub).each do |c|
         - next if subs.include? c
         = category_label(c)
         .half-hspace
 
   - else
-    - hot_categories.each do |c|
+    - hot_categories.first(10).each do |c|
       = category_label(c)
       .half-hspace

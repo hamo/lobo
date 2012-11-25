@@ -31,11 +31,13 @@
 
       .control-group
         %label.control-label(for='hot-category') 热门圈子
-        .controls
-          - hot_categories.each do |c|
+        .controls.input-xxlarge
+          - categories = logged_in? ? (current_user.subscriptions.to_a + hot_categories.to_a).uniq : hot_categories.to_a
+          - categories.first(20).each do |c|
             %label.inline-block
               %span(class="#{category_label_class c}")
-                %a( href='javascript:void(0);' onclick="$('#category').val('#{c.display_name}'); $('.validate-form').validate().form();" )= c.display_name
+                %a( href='javascript:void(0);' onclick="$('#category').val('#{c.display_name}'); $('.validate-form').validate().form();" ) 
+                  = c.display_name
             .half-hspace
 
       .form-actions

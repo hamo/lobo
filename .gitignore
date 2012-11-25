@@ -1,6 +1,7 @@
 log
 .sass-cache
 config/redis/*.conf
+config/app_settings.yml
 config/mail.rb
 config/newrelic.yml
 webrat.log

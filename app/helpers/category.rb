@@ -1,12 +1,12 @@
 module LoboHelpers
 
-    # top10 categories with most posts
+    # top20 categories with most posts
     def hot_categories
       return @hot_categories  if @hot_categories
       k = :hot_categories
       key = Category.key[k]
       Category.expire(k, app_settings(:hot_categories_cache_time)) do
-        hot = Category.all.to_a.sort_by(&:size).reverse[0...9]
+        hot = Category.all.to_a.sort_by(&:size).reverse[0...19]
         Category.db.multi do
           hot.each { |c| Category.db.rpush(key, c.id) }
         end
