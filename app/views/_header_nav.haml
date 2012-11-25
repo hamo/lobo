@@ -3,10 +3,6 @@
 %li(class="#{"active" if current_path == '/top'}"          )= link_to '分数最高', '/top'
 %li(class="#{"active" if current_path == '/latest'}"       )= link_to '最新', '/latest'
 
-- if logged_in?
-  %li(class="#{"active" if current_path == '/l/mine'}"  )= link_to '我的圈子', '/l/mine', :icon => 'icon-bookmark color-blue'
-%li= link_to '随便转转', '/l/random', :icon => 'icon-random color-yellow'
-
 %li.divider-vertical/
 - if ['/', '/top', '/controversial'].include? current_path
   %li.dropdown

@@ -29,6 +29,17 @@
             =partial header_nav
 
 .hot_bar
+
+  - if logged_in?
+    %span.label.label-important= link_to '我的圈子', '/l/mine'
+    .half-hspace
+
+  %span.label.label-inverse= link_to '随便转转', '/l/random'
+
+  .half-hspace
+  |
+  .half-hspace
+
   - if logged_in? and not current_user.subscriptions.empty?
     - subs = current_user.subscriptions.to_a
     - n_sub = subs.size
@@ -41,13 +52,14 @@
         = category_label(s)
         .half-hspace
 
-    |
-    .half-hspace
+      |
 
-    - hot_categories[0..(10 - n_sub - 1)].each do |c|
-      - next if subs.include? c
-      = category_label(c)
       .half-hspace
+
+      - hot_categories[0..(10 - n_sub - 1)].each do |c|
+        - next if subs.include? c
+        = category_label(c)
+        .half-hspace
 
   - else
     - hot_categories.each do |c|
