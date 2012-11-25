@@ -47,7 +47,7 @@ class Main
 
   get '/categories' do
     @title = '圈子列表'
-    @categories = paginate_categories(Category.all, :sort_by => :size, :order => 'DESC')
+    @categories = paginate_categories(Category.all.to_a.sort_by{|c| c.size}.reverse)
     haml :category_list
   end
 

@@ -61,7 +61,7 @@ module LoboHelpers
     #
     #   :opts   options to pass on to pagination
     #
-    def paginate_categories(categories, opts)
+    def paginate_categories(categories, opts = {})
       paginate(categories, {:page => params[:p], :per_page => 25}.merge(opts))
     end
 
