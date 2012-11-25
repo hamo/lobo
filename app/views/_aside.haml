@@ -63,12 +63,16 @@
       %p
 
   .side-box
-    - if defined? user
+    - case current_path
+    - when %r{/u/.*}
       %form.form-search.aside_search(action="/search?u=#{user.name}" method='GET')
         %input.input-block-level.search-query(type='text' name='q' placeholder='搜用户帖子')
-    - elsif defined? category
+    - when %r{/l/.*}
       %form.form-search.aside_search(action="/search?c=#{category.name}" method='GET')
         %input.input-block-level.search-query(type='text' name='q' placeholder='搜当前圈子')
+    - when %r{/categories}
+      %form.form-search.aside_search(action="/search?t=categories" method='GET')
+        %input.input-block-level.search-query(type='text' name='q' placeholder='搜索圈子')
     - else
       %form.form-search.aside-search(action='/search' method='GET')
         %input.input-block-level.search-query(type='text' name='q' placeholder='搜搜看吧')

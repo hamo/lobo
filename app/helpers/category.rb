@@ -57,5 +57,20 @@ module LoboHelpers
       end
     end
 
+    # paginate categories
+    #
+    #   :opts   options to pass on to pagination
+    #
+    def paginate_categories(categories, opts)
+      paginate(categories, {:page => params[:p], :per_page => 25}.merge(opts))
+    end
+
+    # Wrapper to do Redis::Search category search, and convert redis search result
+    # to an Array of category objects
+    #
+    def search_categories(query, options = {}) 
+      result = Redis::Search.query('Category', query, options)
+      result.empty? ? [ ] : result.map{|cat| Category[cat['id']]}
+    end
 end
 

@@ -1,0 +1,22 @@
+%table.table.table-hover.category_list
+  %thead
+    %tr
+      %th 圈子
+      %th 帖子数
+      %th 收藏人数
+      %th 管理员
+      %th 圈子描述
+  %tbody
+    - @categories.each do |cat|
+      %tr
+        %td= category_label(cat)
+        %td= cat.size
+        %td= cat.subscribers.size
+        %td
+          - cat.admins.each do |adm|
+            .action
+              %i.icon-user
+              #{link_to adm.name, user_path(adm)}
+        %td= cat.rendered_note
+
+= partial 'post/pagination', :locals => {:items => @categories}

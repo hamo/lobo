@@ -4,6 +4,10 @@
 %li(class="#{"active" if current_path == '/latest'}"       )= link_to '最新', '/latest'
 
 %li.divider-vertical/
+
+%li(class="#{"active" if current_path == '/categories'}"   )= link_to '圈子列表', '/categories'
+
+%li.divider-vertical/
 - if ['/', '/top', '/controversial'].include? current_path
   %li.dropdown
     %a.dropdown-toggle(href='#' data-toggle='dropdown')

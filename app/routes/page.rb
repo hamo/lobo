@@ -45,6 +45,12 @@ class Main
     haml :browser, :layout => false, :format => :xhtml
   end
 
+  get '/categories' do
+    @title = '圈子列表'
+    @categories = paginate_categories(Category.all, :sort_by => :size, :order => 'DESC')
+    haml :category_list
+  end
+
   get '/search' do
     query = params[:q]
     unless query
@@ -62,14 +68,27 @@ class Main
                   else; 'posts'
                   end
 
-    result = search_posts(query, {:conditions => conditions})
-    if result.empty?
-      session[:info] = '抱歉，没有搜索到任何结果'
-      redirect_back_or '/'
-    else
-      @title = '搜索结果'
-      @posts = paginate_posts(result, :sort_by => :karma, :order => 'DESC')
-      haml :post_list
+    case search_type
+    when 'categories'
+      result = search_categories(query, {:conditions => conditions})
+      if result.empty?
+        session[:info] = '抱歉，没有搜索到任何结果'
+        redirect_back_or '/'
+      else
+        @title = '搜索结果'
+        @posts = paginate_categories(result, :sort_by => :size, :order => 'DESC')
+        haml :category_list
+      end
+    when 'posts'
+      result = search_posts(query, {:conditions => conditions})
+      if result.empty?
+        session[:info] = '抱歉，没有搜索到任何结果'
+        redirect_back_or '/'
+      else
+        @title = '搜索结果'
+        @posts = paginate_posts(result, :sort_by => :karma, :order => 'DESC')
+        haml :post_list
+      end
     end
   end
 end
