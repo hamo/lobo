@@ -1,7 +1,7 @@
 %form.form-horizontal.comment-form.cloneable(action="/comment/new/#{hash}" method='post' autocomplete='off')
   .field-set.new_comment
     %textarea.span5.md_preview(name='comment_content' rows='4' style='width: 500px;' placeholder='请输入文字内容')
-    %br
+    %p
     .comment_buttons
       %p
       %button.comment_submit.btn.btn-mini(type='submit') 发表回复

@@ -630,7 +630,7 @@ function md_preview(event) {
 	       var r = $.parseJSON(data);
 	       if (r.success) {
 		   loading_finish(o);
-		   var pre = $("<pre class='md' style='height: "+target.height()+"px; width: "+target.width()+"px;'>"+r.rendered_content+"</pre>");
+		   var pre = $("<div class='well md' style='height: "+target.height()+"px; width: "+target.width()+"px;'>"+r.rendered_content+"</div>");
 		   pre.insertAfter(target);
 		   target.hide();
 
@@ -659,7 +659,7 @@ function md_preview(event) {
 function md_preview_back(event) {
     var o = $(src(event));
     var target = event.data.target;
-    target.siblings("pre.md").remove();
+    target.siblings(".well.md").remove();
     target.show();
 
     if (o.children().size() == 0){

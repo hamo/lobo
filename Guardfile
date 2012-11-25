@@ -35,4 +35,4 @@ guard 'compass' do
   watch(%r{^app/views/css/(.*)\.s[ac]ss})
 end
 
-guard 'coffeescript', :input => 'app/views/js', :output => 'public/js', :bare => true
+guard 'coffeescript', :input => 'app/views/js', :output => 'public/js', :bare => true, :all_on_start => true

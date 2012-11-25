@@ -87,7 +87,7 @@
               举报
     
     - if defined?(show_detail) and show_detail and post.has_content?
-      %pre.md!= post.rendered_content
+      .well.md!= post.rendered_content
 
     - if logged_in? and post.author == current_user and post.content
       %form.form-horizontal.post-form(class="#{post.id_hash}" action="/post/edit/#{post.hash}" method='post' style='display:none' autocomplete='off')
