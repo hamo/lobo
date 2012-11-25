@@ -21,7 +21,9 @@
         .tagline
 
           .action
-            = "功德 #{post.karma}"
+            功德
+            %span.karma
+              #{post.karma}
 
           .action
             = link_to "评论人数 #{post.reply_count}", post_path(post)
