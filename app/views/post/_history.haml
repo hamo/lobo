@@ -21,9 +21,8 @@
         .tagline
 
           .action
-            %i.icon-circle-arrow-up
-            = post.karma
+            = "功德 #{post.karma}"
 
           .action
-            = link_to post.reply_count, post_path(post), :icon => "icon-comments"
+            = link_to "评论人数 #{post.reply_count}", post_path(post)
     .clearfix
