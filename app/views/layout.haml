@@ -45,9 +45,9 @@
             != yield
 
         .span4
-          - if defined? @user
+          - if defined? @user and @user
             = partial :aside, :locals => { :user => @user }
-          - elsif defined? @category
+          - elsif defined? @category and @category
             = partial :aside, :locals => { :category => @category }
           - else
             = partial :aside
