@@ -15,4 +15,4 @@ config/secret.txt
 app/views/css/_sprite.sass
 .rake_tasks
 vendor
-public/js/application.js
+public/js/app.js
