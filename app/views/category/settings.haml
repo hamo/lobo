@@ -1,47 +1,40 @@
-%h2
-  圈子设置
+%ul.nav.nav-tabs
+  %li.active
+    %a(href='#notes_form' data-toggle='tab') 修改描述
+  %li
+    %a(href='#members' data-toggle='tab') 添加／删除管理员
 
-%hr
+.tab-content
+  .tab-pane.active#notes_form
+    %form.form-horizontal.validate-form(action="/l/#{@category.name}/settings" method='post')
+      .fieldset
+        .control-group
+          %label.control-label(for='note') 简单描述
+          .controls
+            %textarea.input-xxlarge(name='note' id='note' rows='2')
+              #{@category.note}
+            .md-helper
+              %a.pull-right(href='javascript:void(0);' onclick='format_help(event);') 格式说明
+      
+        .control-group
+          %label.control-label(for='sidebar') 侧边栏
+          .controls
+            %textarea.input-xxlarge(name='sidebar' id='sidebar' rows='5')
+              #{@category.sidebar}
+            .md-helper
+              %a.pull-right(href='javascript:void(0);' onclick='format_help(event);') 格式说明
 
-.tabbable.tabs-left
+        %input(type='hidden' name='operation' value='notes')
 
-  %ul.nav.nav-tabs
-    %li.active
-      %a(href='#notes_form' data-toggle='tab') 描述
-    %li
-      %a(href='#members' data-toggle='tab') 成员
-
-  .tab-content
-    .tab-pane.active#notes_form
-      %form.form-horizontal.validate-form(action="/l/#{@category.name}/settings" method='post')
-        .fieldset
-          .control-group
-            %label.control-label(for='note') 简单描述
-            .controls
-              %textarea.span5(name='note' id='note' rows='2')
-                #{@category.note}
-              .md-helper
-                %a.pull-right(href='javascript:void(0);' onclick='format_help(event);') 格式说明
-        
-          .control-group
-            %label.control-label(for='sidebar') 侧边栏
-            .controls
-              %textarea.span5(name='sidebar' id='sidebar' rows='5')
-                #{@category.sidebar}
-              .md-helper
-                %a.pull-right(href='javascript:void(0);' onclick='format_help(event);') 格式说明
-
-          %input(type='hidden' name='operation' value='notes')
-
-          .form-actions
-            %button.btn.btn-danger.btn-large#notes_button(type="submit") 
-              %i.icon-exclamation-sign
-              修改
-    .tab-pane#members
-      %form.well.form-inline(action="/l/#{@category.name}/settings" method='post')
-        %label
-          添加管理员
-        %input.typeahead.category_members(type="text" class="name_#{@category.name}" name="user")
-        %input(type="hidden" name='operation' value='add_admin')
-        %button.btn(type="submit")
-          添加
+        .form-actions
+          %button.btn.btn-danger.btn-large#notes_button(type="submit") 
+            %i.icon-exclamation-sign
+            修改
+  .tab-pane#members
+    %form.well.align-center.form-inline(action="/l/#{@category.name}/settings" method='post')
+      %label
+        添加管理员
+      %input.typeahead.category_members(type="text" class="name_#{@category.name}" name="user")
+      %input(type="hidden" name='operation' value='add_admin')
+      %button.btn(type="submit")
+        添加

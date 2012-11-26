@@ -292,6 +292,10 @@ class User < Ohm::Model
     end
   end
 
+  def to_s
+    name
+  end
+
   private
 
   def before_save
