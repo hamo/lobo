@@ -1,40 +1,6 @@
-# vim: ft=coffee
-#
-# *
-# * Application-related Javascript code
-# * This file is just for development
-# * On production, This file should be compiled 
-# * and renamed to application.min.js
-# *
-# 
-
-#
-# *
-# * var define
-# *
-# 
-minKarma = -10
-modal = $("<div class='modal'><div class='modal-header'><button class='close' data-dismiss='modal'>×</button></div><div class='modal-body'></div><div class='modal-footer'></div></div>")
-
-# Generate login modal
-login = modal.clone()
-login.find(".modal-header").append "<h3>登录</h3>"
-login.find(".modal-body").append "<form action='/login' class='form-horizontal validate-form' method='post'><div class='fieldset'><div class='control-group'><label class='control-label' for='login_name'>用户名</label><div class='controls'><input class='input-large' name='login_name' type='text' value=''></div></div><div class='control-group'><label class='control-label' for='login_password'>密码</label><div class='controls'><input class='input-large' name='login_password' type='password'></div></div><div class='form-actions'><button class='btn btn-large' id='login_button' type='submit'><i class='icon-ok-sign'></i>登录</button><div class='hspace'></div><div class='hspace'></div><div class='hspace'></div><a class='btn btn-primary btn-large' href='/register'><i class='icon-white icon-user'></i>注册</a></div></div></form>"
-login.find(".modal-footer").remove()
-
-# Generate markdown syntax table
-format_table = $("<div class='format_help'><table class='table table-bordered table-striped'><colgroup><col class='span4'><col class='span4'></colgroup><thead><tr><th>You Type</th><th>You See</th></tr></thead><tbody><tr><td><code>_italics_</code></td><td><em>italics</em></td></tr><tr><td><code>**bold**</code></td><td><strong>bold</strong></td></tr><tr><td><code># title #</code></td><td><strong># title #</strong></td></tr><tr><td><code>[google](http://www.google.com)</code></td><td><a href='http://www.google.com'>google</a></td></tr><tr><td><code>`未分类`</code></td><td><a href='/l/uncategoried' title='未分类'>未分类</a></td></tr><tr><td><code>``` c</code><br><code>#include &lt;stdio.h&gt;</code><br><code>int main(void) {</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;printf(\"Hello World!\");</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;return 0;</code><br><code>}</code><br><code>```</code></td><td><div class='highlight'><pre><span class='cp'>#include &lt;stdio.h&gt;</span><br><span class='kt'>int</span> <span class='nf'>main</span><span class='p'>(</span><span class='kt'>void</span><span class='p'>)</span> <span class='p'>{</span><br><span class='n'>    printf</span><span class='p'>(</span><span class='s'>\"Hello World!\"</span><span class='p'>);</span><br><span class='k'>    return</span> <span class='mi'>0</span><span class='p'>;</span><br><span class='p'>}</span></pre></div></td></tr></tbody></table></div>")
-
-
-
-#
-# *
-# * Base functions
-# *
-# 
 src = (e) ->
   e.srcElement or e.target
-pde = (e) -> #Function to prevent Default Events
+pde = (e) ->
   if e.preventDefault
     e.preventDefault()
   else
@@ -57,12 +23,6 @@ checklogin = (event) ->
     pde event
     login.modal()
     false
-
-#
-# *
-# * Comment-related javascript functions
-# *
-# 
 comment_show = (json, father) ->
   comment = $.parseJSON(json)
   if comment.success
@@ -170,12 +130,8 @@ comment_modify = (json) ->
   comment = $.parseJSON(json)
   if comment.success
     show = $(".comment.id_" + comment.hash + ":first")
-    
-    #	show.find('.tagline').html("").append($("<strong>").append($("<a>", {href: '/#', html: logged}))).append(" 发表于"+comment.updated_at+" | ").append($("<span>", {'class': 'karma', html: comment.karma})).append(" 点人品");
     show.find(".md:first").html comment.rendered_content
   else
-
-#FIXME
 comment_reply = (event, hash) ->
   return false  unless checklogin(event)
   s = $(src(event))
@@ -238,8 +194,6 @@ comment_edit = (event, hash) ->
       form.find("textarea[name='comment_content']:first").val comment.content
       loading_finish form.find(".comment_submit:first")
     else
-      
-      # FIXME
       false
 
   form.ajaxForm
@@ -257,18 +211,6 @@ comment_edit = (event, hash) ->
 
   o.parent().parent().parent().find(".md:first").after form
   form.find("textarea").focus()
-
-#
-# *
-# * Validate Form
-# *
-# 
-
-#
-# *
-# * others functions
-# *
-# 
 vote = (event, hash) ->
   return false  unless checklogin(event)
   o = $(src(event))
@@ -383,8 +325,6 @@ sanction = (event, hash) ->
       o.parent().remove()
     else
 
-
-#FIXME
 report = (event, hash) ->
   o = $(src(event))
   report = modal.clone()
@@ -442,8 +382,6 @@ favourite = (event, post) ->
           target.find(".favourite-number").html fn - 1
         else
     else
-  
-  #FIXME
   ), "json"
 authorize_subscription = (event, user, category) ->
   o = $(src(event))
@@ -468,13 +406,9 @@ authorize_subscription = (event, user, category) ->
     false
 md_preview = (event) ->
   o = $(src(event))
-  
-  # This markdown is a comment
   target = o.parent().parent().find("textarea.md_preview")
   md = target.val()
   if typeof md is "undefined"
-    
-    # This markdown is a post
     target = o.parent().parent().find("textarea#post_content")
     md = target.val()
   return false  if typeof md is "undefined" or md is ""
@@ -485,30 +419,23 @@ md_preview = (event) ->
     r = $.parseJSON(data)
     if r.success
       loading_finish o
-      # 0.8 is for font-size adjust
       pre = $("<div class='well md' style='height: " + (target.prop("scrollHeight") * 0.8) + "px; width: " + target.width() + "px;'>" + r.rendered_content + "</div>")
       pre.insertAfter target
       target.hide()
       if o.children().size() is 0
-        
-        # preview button without icon
         o.text "取消预览"
       else
-        
-        # preview button with icon
         icon = o.children().first().clone()
         o.text " 取消预览"
         o.prepend icon
       o.removeAttr "onclick"
-      o.prop "onclick", null # For IE 6,7,8
+      o.prop "onclick", null
       o.off "click"
       o.on "click",
         target: target
       , md_preview_back
     else
 
-
-# FIXME
 md_preview_back = (event) ->
   o = $(src(event))
   target = event.data.target
@@ -517,14 +444,10 @@ md_preview_back = (event) ->
   if o.children().size() is 0
     o.text "预览"
   else
-    
-    # preview button with icon
     icon = o.children().first().clone()
     o.text " 预览"
     o.prepend icon
   o.off "click"
-  
-  #o.on("click", md_preview);
   o.attr "onclick", "md_preview(event);"
 post_edit = (event, hash) ->
   o = $(src(event))
@@ -556,8 +479,6 @@ post_modify = (json) ->
     show = $(".post_detail." + post.id_hash)
     show.find(".md").html post.rendered_content
   else
-
-#FIXME
 post_delete = (event, hash) ->
   answer = confirm("R U sure?")
   return false  unless answer
@@ -565,31 +486,7 @@ post_delete = (event, hash) ->
     if data.success
       $(".post_detail.id_" + hash).parent().remove()
     else
-  
-  #FIXME
   ), "json"
-
-#
-# *
-# * typeahead
-# *
-# 
-
-#FIXME
-
-#FIXME
-
-#
-# *
-# * tooltip
-# *
-# 
-
-#
-# *
-# * Category functions
-# *
-# 
 category_subscribe = (event, category) ->
   return false  unless checklogin(event)
   button = $(src(event))
@@ -609,8 +506,6 @@ category_subscribe = (event, category) ->
           button.removeClass("btn-inverse").addClass "btn-danger"
           button.html "<i class='icon-plus icon-white'></i> 加入本圈子"
     else
-  
-  #FIXME
   ), "json"
 expando_child = (event) ->
   o = $(src(event))
@@ -648,12 +543,8 @@ expando_child = (event) ->
             o.removeClass("big-cursor").addClass "small-cursor"
           else
 
-    
-    # FIXME
     else
       return false
-
-#FIXME
 show_comment = (event) ->
   o = $(src(event))
   comment = o.parent().parent().parent()
@@ -683,6 +574,13 @@ toggle_comment = (event) ->
     when false
       comment_children.hide()
       o.text "[+]"
+minKarma = -10
+modal = $("<div class='modal'><div class='modal-header'><button class='close' data-dismiss='modal'>×</button></div><div class='modal-body'></div><div class='modal-footer'></div></div>")
+login = modal.clone()
+login.find(".modal-header").append "<h3>登录</h3>"
+login.find(".modal-body").append "<form action='/login' class='form-horizontal validate-form' method='post'><div class='fieldset'><div class='control-group'><label class='control-label' for='login_name'>用户名</label><div class='controls'><input class='input-large' name='login_name' type='text' value=''></div></div><div class='control-group'><label class='control-label' for='login_password'>密码</label><div class='controls'><input class='input-large' name='login_password' type='password'></div></div><div class='form-actions'><button class='btn btn-large' id='login_button' type='submit'><i class='icon-ok-sign'></i>登录</button><div class='hspace'></div><div class='hspace'></div><div class='hspace'></div><a class='btn btn-primary btn-large' href='/register'><i class='icon-white icon-user'></i>注册</a></div></div></form>"
+login.find(".modal-footer").remove()
+format_table = $("<div class='format_help'><table class='table table-bordered table-striped'><colgroup><col class='span4'><col class='span4'></colgroup><thead><tr><th>You Type</th><th>You See</th></tr></thead><tbody><tr><td><code>_italics_</code></td><td><em>italics</em></td></tr><tr><td><code>**bold**</code></td><td><strong>bold</strong></td></tr><tr><td><code># title #</code></td><td><strong># title #</strong></td></tr><tr><td><code>[google](http://www.google.com)</code></td><td><a href='http://www.google.com'>google</a></td></tr><tr><td><code>`未分类`</code></td><td><a href='/l/uncategoried' title='未分类'>未分类</a></td></tr><tr><td><code>``` c</code><br><code>#include &lt;stdio.h&gt;</code><br><code>int main(void) {</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;printf(\"Hello World!\");</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;return 0;</code><br><code>}</code><br><code>```</code></td><td><div class='highlight'><pre><span class='cp'>#include &lt;stdio.h&gt;</span><br><span class='kt'>int</span> <span class='nf'>main</span><span class='p'>(</span><span class='kt'>void</span><span class='p'>)</span> <span class='p'>{</span><br><span class='n'>    printf</span><span class='p'>(</span><span class='s'>\"Hello World!\"</span><span class='p'>);</span><br><span class='k'>    return</span> <span class='mi'>0</span><span class='p'>;</span><br><span class='p'>}</span></pre></div></td></tr></tbody></table></div>")
 $(document).ready ->
   $.ajaxSetup cache: false
   i = 0
