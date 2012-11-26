@@ -49,6 +49,7 @@ class Main
     @title = "#{params[:name]}的帖子"
     @user = User.first :name => params[:name]
     halt 404 unless @user
+    @brand = "@#{@user.name}"
     @header_nav = :user
     @posts = paginate_posts(@user.monitored_posts, 
                             :sort_by => :created_at, 

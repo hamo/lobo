@@ -46,6 +46,13 @@ module LoboHelpers
       brands.collect{|b| app_settings(:brand_icons)[b]}
     end
 
+    # dynamic brand title in navigation bar
+    #
+    def brand_title
+      brand = @brand || @title || '嘟噜'
+      link_to brand, current_path
+    end
+
     # format time to a pretty chinese format
     #
     def pretty_format_time(seconds)

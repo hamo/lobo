@@ -42,6 +42,7 @@ class Main
       halt 404
     when 1      # only one category
       @title = categories.first.display_name
+      @brand = "{#{@title}}"
       @category = categories.first
       if @category.allow_viewing? current_user
         post_set = available_posts_in_categories(categories)
