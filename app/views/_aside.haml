@@ -64,13 +64,16 @@
 
   .side-box
     - if defined? user
-      %form.form-search.aside_search(action="/search?u=#{user.name}" method='GET')
+      %form.form-search.aside_search(action="/search" method='GET')
+        %input(type='hidden' name='u' value="#{user.name}")
         %input.input-block-level.search-query(type='text' name='q' placeholder='搜用户帖子')
     - elsif defined? category
-      %form.form-search.aside_search(action="/search?c=#{category.name}" method='GET')
+      %form.form-search.aside_search(action="/search" method='GET')
+        %input(type='hidden' name='c' value="#{category.name}")
         %input.input-block-level.search-query(type='text' name='q' placeholder='搜当前圈子')
     - elsif current_path =~ %r{^/categories}
-      %form.form-search.aside_search(action="/search?t=categories" method='GET')
+      %form.form-search.aside_search(action="/search" method='GET')
+        %input(type='hidden' name='t' value="categories")
         %input.input-block-level.search-query(type='text' name='q' placeholder='搜索圈子')
     - else
       %form.form-search.aside-search(action='/search' method='GET')
