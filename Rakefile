@@ -25,6 +25,17 @@ task :sprite do
                     )
 end
 
+desc 'compile js'
+task :js do
+  require 'coffee-script'
+  Dir["app/views/js/*.coffee"].each {|f|
+    out = "public/js/" + File.basename(f).sub(/\.coffee\Z/, '.js')
+    js = CoffeeScript.compile File.read(f)
+    puts "\e[33m#{f}\e[m compiled to \e[32m#{out}\e[m"
+    File.open(out, 'w'){|f| f.puts js}
+  }
+end
+
 #require "redis-search"
 namespace :redis_search do
   desc "Redis-Search index data to Redis"
