@@ -40,7 +40,6 @@ body
   //background: none repeat scroll 0 0 #EEEEEE
   font-size: 13px
   //letter-spacing: 0.3px
-  line-height: 1.2
   font-family: 'cabin',"Microsoft YaHei",simsun,sans-serif
 
 header 
@@ -64,6 +63,24 @@ header
 
 .navbar
   margin-bottom: 2px
+
+  .divider-vertical
+    @extend .no-margin
+
+  .brand
+    font-size: 30px
+    font-weight: 500
+    padding: 10px 15px
+    
+    a
+      color: #E0E8B5
+      @include improve-text-rendering 
+    a:hover
+      @include text-shadow(0px 0px 2px white)
+
+header .navbar .nav > li > a
+  padding: 10px
+  font-size: 14px
 
 //override default margin for alert
 .alert
@@ -348,12 +365,6 @@ li .label
 .pager
   font-weight: bold
   margin: 20px 0 0 0
-
-header .navbar .nav > li > a
-  padding: 10px
-
-.navbar .divider-vertical
-  margin: 0 4px
 
 .form-actions
   > *
