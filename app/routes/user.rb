@@ -51,9 +51,10 @@ class Main
     halt 404 unless @user
     @brand = "@#{@user.name}"
     @header_nav = :user
-    @posts = paginate_posts(@user.monitored_posts, 
-                            :sort_by => :created_at, 
-                            :order => 'DESC')
+    @posts = paginate_posts(@user.monitored_posts.to_a.
+                              select{|i| i.visible?(current_user) }.
+                              sort_by{|i| i.created_at}.
+                              reverse)
     haml :user_post_list
   end
 end
