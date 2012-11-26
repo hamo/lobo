@@ -882,7 +882,7 @@ function expando_child(event) {
 	    $.getJSON('/post/get/' + hash,
 		      function(data) {
 			  if (data.success) {
-			      var div = $("<div class='expando_text'>").append($("<pre class='md'>").append(data.rendered_content));
+			      var div = $("<div class='expando_text'>").append($("<div class='well md'>").append(data.rendered_content));
 			      target.append(div);
 			      o.removeClass("big-cursor").addClass("small-cursor");
 			  } else {
