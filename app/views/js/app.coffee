@@ -23,6 +23,7 @@ checklogin = (event) ->
     pde event
     login.modal()
     false
+  true
 comment_show = (json, father) ->
   comment = $.parseJSON(json)
   if comment.success
@@ -132,7 +133,7 @@ comment_modify = (json) ->
     show = $(".comment.id_" + comment.hash + ":first")
     show.find(".md:first").html comment.rendered_content
   else
-comment_reply = (event, hash) ->
+@comment_reply = (event, hash) ->
   return false  unless checklogin(event)
   s = $(src(event))
   o = click_get_a(s)
@@ -167,7 +168,7 @@ comment_reply = (event, hash) ->
 
   o.parent().parent().parent().find(".md:first").after form
   form.find("textarea").focus()
-comment_edit = (event, hash) ->
+@comment_edit = (event, hash) ->
   s = $(src(event))
   o = click_get_a(s)
   unless $("form.comment-form.id_" + hash).length is 0
@@ -211,7 +212,7 @@ comment_edit = (event, hash) ->
 
   o.parent().parent().parent().find(".md:first").after form
   form.find("textarea").focus()
-vote = (event, hash) ->
+@vote = (event, hash) ->
   return false  unless checklogin(event)
   o = $(src(event))
   type = undefined
@@ -281,7 +282,7 @@ vote = (event, hash) ->
     k.html nk
     $(Element).parent().remove()  if nk < minKarma
 
-read = (event, hash) ->
+@read = (event, hash) ->
   o = $(src(event))
   if logged and o.hasClass("trackable")
     $.ajax
@@ -295,20 +296,20 @@ read = (event, hash) ->
     true
   else
     false
-format_help = (event) ->
+@format_help = (event) ->
   o = $(src(event))
   target = o.parent().parent()
   if target.find(".format_help").length is 0
     target.append format_table
   else
     target.find(".format_help").remove()
-change_captcha = (event) ->
+@change_captcha = (event) ->
   o = $(src(event))
   form = o.parent().parent().parent().parent()
   new_session = Math.floor(Math.random() * 9000) + 1000
   form.find("input[name='captcha_session']").val new_session
   form.find("img#captcha-image").attr "src", "//captchator.com/captcha/image/" + new_session
-sanction = (event, hash) ->
+@sanction = (event, hash) ->
   o = $(src(event))
   answer = confirm("R U sure?")
   return false  unless answer
@@ -325,7 +326,7 @@ sanction = (event, hash) ->
       o.parent().remove()
     else
 
-report = (event, hash) ->
+@report = (event, hash) ->
   o = $(src(event))
   report = modal.clone()
   report.find(".modal-header").append "<h3>举报</h3>"
@@ -344,7 +345,7 @@ report = (event, hash) ->
   report.find(".modal-body").append report_form
   report.find(".modal-footer").remove()
   report.modal()
-review = (event, hash) ->
+@review = (event, hash) ->
   o = $(src(event))
   event = o.parent().parent().parent()
   switch true
@@ -364,7 +365,7 @@ review = (event, hash) ->
       ), "json"
     else
       return false
-favourite = (event, post) ->
+@favourite = (event, post) ->
   return false  unless checklogin(event)
   o = $(src(event))
   target = click_get_a(o)
@@ -383,7 +384,7 @@ favourite = (event, post) ->
         else
     else
   ), "json"
-authorize_subscription = (event, user, category) ->
+@authorize_subscription = (event, user, category) ->
   o = $(src(event))
   event = o.parent().parent().parent()
   if o.hasClass("positive")
@@ -404,7 +405,7 @@ authorize_subscription = (event, user, category) ->
     ), "json"
   else
     false
-md_preview = (event) ->
+@md_preview = (event) ->
   o = $(src(event))
   target = o.parent().parent().find("textarea.md_preview")
   md = target.val()
@@ -436,7 +437,7 @@ md_preview = (event) ->
       , md_preview_back
     else
 
-md_preview_back = (event) ->
+@md_preview_back = (event) ->
   o = $(src(event))
   target = event.data.target
   target.siblings(".well.md").remove()
@@ -449,7 +450,7 @@ md_preview_back = (event) ->
     o.prepend icon
   o.off "click"
   o.attr "onclick", "md_preview(event);"
-post_edit = (event, hash) ->
+@post_edit = (event, hash) ->
   o = $(src(event))
   form = $(".post-form.id_" + hash)
   return false  if form.is(":visible")
@@ -479,7 +480,7 @@ post_modify = (json) ->
     show = $(".post_detail." + post.id_hash)
     show.find(".md").html post.rendered_content
   else
-post_delete = (event, hash) ->
+@post_delete = (event, hash) ->
   answer = confirm("R U sure?")
   return false  unless answer
   $.post "/post/delete/" + hash, ((data) ->
@@ -487,7 +488,7 @@ post_delete = (event, hash) ->
       $(".post_detail.id_" + hash).parent().remove()
     else
   ), "json"
-category_subscribe = (event, category) ->
+@category_subscribe = (event, category) ->
   return false  unless checklogin(event)
   button = $(src(event))
   $.post "/category/subscribe/" + category, ((data) ->
@@ -507,7 +508,7 @@ category_subscribe = (event, category) ->
           button.html "<i class='icon-plus icon-white'></i> 加入本圈子"
     else
   ), "json"
-expando_child = (event) ->
+@expando_child = (event) ->
   o = $(src(event))
   target = o.parent().parent()
   switch true
@@ -545,7 +546,7 @@ expando_child = (event) ->
 
     else
       return false
-show_comment = (event) ->
+@show_comment = (event) ->
   o = $(src(event))
   comment = o.parent().parent().parent()
   comment_id = undefined
@@ -554,7 +555,7 @@ show_comment = (event) ->
 
   $(".comment." + comment_id).show()
   $(".comment_hide." + comment_id).hide()
-hide_comment = (event) ->
+@hide_comment = (event) ->
   o = $(src(event))
   comment = o.parent().parent().parent()
   comment_id = undefined
@@ -563,7 +564,7 @@ hide_comment = (event) ->
 
   $(".comment." + comment_id).hide()
   $(".comment_hide." + comment_id).show()
-toggle_comment = (event) ->
+@toggle_comment = (event) ->
   o = $(src(event))
   comment = o.parent().parent().parent()
   comment_children = comment.find(".child > .replies").first()
