@@ -7,7 +7,7 @@ class Main
     @title = '用户设置'
     @header_nav = :user
     @user = current_user
-    haml :settings
+    haml :'user/settings'
   end
 
   post '/settings' do

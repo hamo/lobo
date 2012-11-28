@@ -1,0 +1,27 @@
+%form.form-horizontal.validate-form(action='/settings' method='post')
+  .control-group
+    %label.control-label(for="present_password") 当前密码
+    .controls
+      %input.input-large(type="password" name="present_password")/
+
+  .control-group
+    %label.control-label(for="new_password") 新密码
+    .controls
+      %input.input-large(type="password" name="new_password")/
+
+  .control-group
+    %label.control-label(for="new_password_confirm") 确认新密码
+    .controls
+      %input.input-large(type="password" name="new_password_confirm")/
+
+  .control-group
+    %label.control-label(for="email") 电子邮箱
+    .controls
+      %input.input-large(type="email" id='email' name="email" )/
+
+  %input(type='hidden' name='operation' value='pass_email')
+
+  .form-actions
+    %button.btn.btn-danger.btn-large#reset_passwd_button(type="submit") 
+      %i.icon-exclamation-sign
+      修改密码
