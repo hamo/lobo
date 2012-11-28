@@ -60,6 +60,8 @@ group :development do
   gem 'guard-compass'
   gem 'guard-coffeescript'
   gem 'therubyracer'
+  gem 'jammit'
+  gem 'yuicompressor'
 end
 
 group :test do
