@@ -6,7 +6,7 @@ compress_assets: on # (on, off)
 gzip_assets: on # (on, off)
 template_function: _.template # (defaults to the built-in micro-templating)
 package_path: assets # (defaults to assets)
-javascript_compressor: closure # (yui, closure)
+javascript_compressor: yui # (yui, closure)
 
 base_url: http://dooloo.info/
 
@@ -18,6 +18,8 @@ base_url: http://dooloo.info/
 
 javascripts:
   workspace:
+    - public/js/lib/jquery-1.8.3.js
+    - public/js/lib/*.js
     - public/js/*.js
     #- app/views/jst/workspace/*.jst
 
