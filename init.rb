@@ -28,7 +28,7 @@ class Main < Monk::Glue
     enable :logging, :dump_errors
 
     #set :haml, {:format => :html5, :escape_html => true}
-    set :haml, {:format => :html5}
+    set :haml, {:format => :html5, :ugly => true}
     set :scss, {:style => :compact, :debug_info => false}
     Compass.add_project_configuration(File.join(Main.root, 'config', 'compass.rb'))
 
