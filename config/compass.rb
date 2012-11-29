@@ -17,7 +17,7 @@ end
 
 # This is common configuration
 http_path = "/"
-output_style = :compressed
+output_style = :expanded
 
 # Directory containing the SASS source files
 sass_dir = "app/views/css"

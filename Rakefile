@@ -11,13 +11,14 @@ task :test do
   exec "thor monk:test"
 end
 
-desc 'regenerate sprites'
+#desc 'regenerate sprites'
 task :sprite do
   require 'sprite_factory'
   SpriteFactory.run!('app/views/css/sprite', 
                      :layout => :packed, 
                      :library => :chunkypng,
                      :style => :sass,
+                     :pngcrush => false,
                      :selector => '.sprite.',
                      :csspath => '/images',
                      :output_image => 'public/images/sprite.png',

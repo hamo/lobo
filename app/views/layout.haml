@@ -13,17 +13,18 @@
     :javascript
       var logged="#{current_user.name if logged_in?}";
 
-    != stylesheet_link_tag '/css/main.css', :media => 'screen'
+    != stylesheet_link_tag '/assets/common-datauri.css', :media => 'screen'
 
     /[if lte IE 8]
-      != javascript_script_tag '/js/html5shiv-3.6.1.js'
+      != javascript_script_tag '/assets/html5shiv-3.6.1.js'
 
-    != javascript_script_tag '/js/jquery-1.8.2.min.js'
-    - if ENV['RACK_ENV'] != 'production'
-      != javascript_script_tag '/js/libs.min.js'
-      != javascript_script_tag '/js/application.js'
-    - else
-      != javascript_script_tag '/js/application.min.js'
+    -#!= javascript_script_tag '/asset/jquery-1.8.2.min.js'
+    -#- if ENV['RACK_ENV'] != 'production'
+      -#!= javascript_script_tag '/js/libs.min.js'
+      -#!= javascript_script_tag '/js/application.js'
+    -#- else
+      -#!= javascript_script_tag '/js/application.min.js'
+    != javascript_script_tag '/assets/workspace.js'
 
     /[if lte IE 7]
       :javascript
