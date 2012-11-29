@@ -66,6 +66,9 @@ GEM
     guard-compass (0.0.6)
       compass (>= 0.10.5)
       guard (>= 0.2.1)
+    guard-jammit (1.0.1)
+      guard (>= 1.1.0)
+      jammit
     guard-livereload (1.1.0)
       em-websocket (>= 0.2.0)
       guard (>= 1.5.0)
@@ -179,6 +182,7 @@ DEPENDENCIES
   faker (= 0.3.1)
   guard-coffeescript
   guard-compass
+  guard-jammit
   guard-livereload
   guard-rspec
   haml (= 3.1.7)

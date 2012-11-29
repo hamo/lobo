@@ -36,3 +36,8 @@ guard 'compass' do
 end
 
 guard 'coffeescript', :input => 'app/views/js', :output => 'public/js', :bare => true, :all_on_start => true
+
+guard :jammit do
+  watch(%r{^public/js/(.*)\.js$})
+  watch(%r{^public/css/(.*)\.css$})
+end

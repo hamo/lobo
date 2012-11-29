@@ -56,6 +56,7 @@ group :development do
   gem 'rb-inotify', :require => false
   gem 'guard-rspec'
   gem 'guard-livereload'
+  gem 'guard-jammit'
   gem 'rack-livereload'
   gem 'guard-compass'
   gem 'guard-coffeescript'
