@@ -13,7 +13,7 @@
       %span.karma= post.karma
       .arrow.sprite.down{:onclick => "vote(event, '#{post.hash}');"}
 
-  .entry
+  .entry(class = "#{'new' unless new_post_read?(post, current_user)}")
 
     .title
       - brand_icons(post).each do |icon|

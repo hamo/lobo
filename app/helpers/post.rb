@@ -7,6 +7,7 @@ module LoboHelpers
       session[:history] ||= []
       unless session[:history].include? post.hash
         session[:history].push( post.hash )
+        add_to_new_post_readers(post, current_user) if new_post?(post)
       end
       session[:history].shift while session[:history].length > 5
     end
@@ -106,6 +107,23 @@ module LoboHelpers
         Post.db.sinterstore(key, key0, latest_posts.key)
       end
       Ohm::Set.new(key, Post.key, Post)
+    end
+
+    # if a post is read by a user within new_post_timeout
+    #
+    def new_post_read?(post, user)
+      return true   unless new_post?(post) and user
+      post.key[:new_post_readers].sismember(user.id)
+    end
+
+    def new_post?(post)
+      (Time.now.to_i - post.created_at.to_i) < app_settings(:new_post_timeout)
+    end
+
+    # add an user to reader list of new post
+    #
+    def add_to_new_post_readers(post, user)
+      post.key[:new_post_readers].sadd(user.id) 
     end
 
     # available posts in categories, the posts that are not 

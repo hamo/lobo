@@ -146,6 +146,7 @@ class Post < Ohm::Model
     super
     author_upvote
     add_author_monitor
+    add_author_to_new_post_reader
   end
 
   def before_save
@@ -156,6 +157,11 @@ class Post < Ohm::Model
 
   def add_author_monitor
     author.monitored_posts.add self
+  end
+
+  def add_author_to_new_post_reader
+    key[:new_post_readers].sadd(author.id)
+    key[:new_post_readers].expire(86400)
   end
 
   def author_upvote
