@@ -108,4 +108,10 @@ module LoboHelpers
         </a>}
       end
     end
+
+    # hide on specific pages
+    #
+    def hide_on(pattern) 
+      current_path =~ pattern ? nil : yield
+    end
 end

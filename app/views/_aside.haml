@@ -1,10 +1,11 @@
 %aside.hidden-phone
-  - unless logged_in?
-    .side-box
-      %form.form-inline(action='/login' method='post')
-        %input.input-small(type="text" name="login_name" id="login_name" placeholder="用户名" value="#{params[:login_name]}")/
-        %input.input-small(type="password" name="login_password" placeholder="密码" id="login_password")/
-        %button.btn.btn-small(type="submit") 登录
+  - hide_on(%r{/login}) do 
+    - unless logged_in?
+      .side-box
+        %form.form-inline(action='/login' method='post')
+          %input.input-small(type="text" name="login_name" id="login_name" placeholder="用户名" value="#{params[:login_name]}")/
+          %input.input-small(type="password" name="login_password" placeholder="密码" id="login_password")/
+          %button.btn.btn-small(type="submit") 登录
 
   - if defined? post
 
