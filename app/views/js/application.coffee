@@ -308,7 +308,8 @@ comment_modify = (json) ->
   form = o.parent().parent().parent().parent()
   new_session = Math.floor(Math.random() * 9000) + 1000
   form.find("input[name='captcha_session']").val new_session
-  form.find("img#captcha-image").attr "src", "//captchator.com/captcha/image/" + new_session
+  #form.find("img#captcha-image").attr "src", "//captchator.com/captcha/image/" + new_session
+  form.find("img#captcha-image").attr "src", "//www.opencaptcha.com/img/" + new_session + ".jpg"
 @sanction = (event, hash) ->
   o = $(src(event))
   answer = confirm("R U sure?")
