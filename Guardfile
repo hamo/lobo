@@ -39,5 +39,6 @@ guard 'coffeescript', :input => 'app/views/js', :output => 'public/js', :bare =>
 
 guard :jammit do
   watch(%r{^public/js/(.*)\.js$})
+  watch(%r{^app/views/js/jst/(.*)\.jst})
   watch(%r{^public/css/(.*)\.css$})
 end

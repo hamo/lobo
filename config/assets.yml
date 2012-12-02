@@ -4,7 +4,7 @@ package_assets: on # (on, off, always)
 embed_assets: datauri # (on, off, datauri)
 compress_assets: on # (on, off)
 gzip_assets: on # (on, off)
-template_function: _.template # (defaults to the built-in micro-templating)
+#template_function: _.template # (defaults to the built-in micro-templating)
 package_path: assets # (defaults to assets)
 javascript_compressor: yui # (yui, closure)
 
@@ -21,7 +21,7 @@ javascripts:
     - public/js/lib/jquery-1.8.3.js
     - public/js/lib/*.js
     - public/js/*.js
-    #- app/views/jst/workspace/*.jst
+    - app/views/js/jst/*.jst
 
 stylesheets:
   common:
