@@ -521,8 +521,7 @@ post_modify = (json) ->
         else
           o.removeClass("big-cursor").addClass "small-cursor"
       else
-        pic = o.parent().find("a").attr("href")
-        div = $("<div class='expando_pic small-cursor'>").append($("<img>").attr("src", pic))
+        div = JST.expando_pic({pic: o.parent().find("a").attr("href")})
         div.on "click", ->
           $("html, body").scrollTop o.offset().top  if o.offset().top < $(window).scrollTop()
           $(this).hide()
