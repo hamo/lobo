@@ -518,23 +518,28 @@ post_modify = (json) ->
         target.find(".expando_pic").toggle()
         if target.find(".expando_pic").is(":hidden")
           o.removeClass("small-cursor").addClass "big-cursor"
+          o.addClass "trackable"
         else
           o.removeClass("big-cursor").addClass "small-cursor"
+          o.removeClass "trackable"
       else
-        div = JST.expando_pic({pic: o.parent().find("a").attr("href")})
+        div = $(JST.expando_pic({pic: o.parent().find("a").attr("href")}))
         div.on "click", ->
           $("html, body").scrollTop o.offset().top  if o.offset().top < $(window).scrollTop()
           $(this).hide()
 
         target.append div
         o.removeClass("big-cursor").addClass "small-cursor"
+        o.removeClass "trackable"
     when o.hasClass("icon-file")
       unless target.find(".expando_text").length is 0
         target.find(".expando_text").toggle()
         if target.find(".expando_text").is(":hidden")
           o.removeClass("small-cursor").addClass "big-cursor"
+          o.addClass "trackable"
         else
           o.removeClass("big-cursor").addClass "small-cursor"
+          o.removeClass "trackable"
       else
         hash = o.parent().find("a").attr("href").split("/").pop()
         $.getJSON "/post/get/" + hash, (data) ->
@@ -542,6 +547,7 @@ post_modify = (json) ->
             div = $("<div class='expando_text'>").append($("<div class='well md'>").append(data.rendered_content))
             target.append div
             o.removeClass("big-cursor").addClass "small-cursor"
+            o.removeClass "trackable"
           else
 
     else
