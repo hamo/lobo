@@ -121,6 +121,7 @@ class Post < Ohm::Model
   # user => User    can a specific user see this post?
   #
   def visible?(user=nil)
+    return true  if author == user and not deleted?
     return false unless category.allow_viewing? user
     return false unless available?
     true
