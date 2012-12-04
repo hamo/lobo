@@ -190,6 +190,8 @@ footer
   min-height: 300px
   @extend .box
   background: rgba(white,0.4)
+  position: relative
+  z-index: 0
 
 .link 
   margin: 0 0 10px
@@ -372,6 +374,15 @@ li .label
 .form-actions
   > *
     margin-right: 20px
+
+.expando_pic
+  z-index: 2
+  display: table
+  max-width: inherit
+  @include box-shadow(inset 0px 0px 30px rgba(0,0,20,1))
+  img
+    position: relative
+    z-index: -1
 
 //------MEDIA QUERIES--------
 
