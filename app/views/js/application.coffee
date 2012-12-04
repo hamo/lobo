@@ -293,6 +293,9 @@ comment_modify = (json) ->
       async: false
       url: "/session/add_history"
 
+    post_entry = $(".post_detail.id_"+hash).children(".entry")
+    if post_entry.hasClass("new")
+      post_entry.removeClass "new"
     true
   else
     false
