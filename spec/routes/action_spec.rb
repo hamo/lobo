@@ -149,3 +149,28 @@ describe '帖子收藏' do
     @po.favourite_count.should == 0
   end
 end
+
+describe '未读回复数目' do
+  before :each do
+    @po = Fabricate(:post)
+    @u = Fabricate(:user)
+  end
+
+  it '用户应该在右上角看到未读回复数' do
+    test_login(@u.name, 'foobar')
+    c = Fabricate(:comment, :parent => @po, :author => @u)
+    c1 = Fabricate(:comment, :parent => c)
+    get '/'
+    response.should have_selector('span.badge-important', :content => '1')
+  end
+
+  it '用户应该在看不到已经删掉的帖子的未读回复数' do
+    test_login(@u.name, 'foobar')
+    c = Fabricate(:comment, :parent => @po, :author => @u)
+    c1 = Fabricate(:comment, :parent => c)
+    @po.add_tag 'deleted'
+
+    get '/'
+    response.should_not have_selector('span.badge-important', :content => '1')
+  end
+end

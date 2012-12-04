@@ -28,8 +28,13 @@ module LoboHelpers
       
     # unread comment counters
     def unread_replies
-      return nil unless logged_in?
-      current_user.unread_replies
+      return nil unless logged_in? and current_user.unread_replies
+      current_user.unread_replies.select{|id, _|
+        (Post[id] ? 
+         Post[id].visible?(current_user): 
+         (Comment[id] ? Comment[id].post.visible?(current_user) : nil) 
+        )
+      }
     end
 
     # unread replies for a specific post
