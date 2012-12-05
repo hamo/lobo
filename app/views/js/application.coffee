@@ -424,7 +424,7 @@ comment_modify = (json) ->
     r = $.parseJSON(data)
     if r.success
       loading_finish o
-      pre = $("<div class='well md' style='height: " + target.prop("scrollHeight") + "px; width: " + target.width() + "px;'>" + r.rendered_content + "</div>")
+      pre = $(JST.md_preview({height: target.prop("scrollHeight"), width: target.width(), content: r.rendered_content}))
       pre.insertAfter target
       target.hide()
       if o.children().size() is 0
