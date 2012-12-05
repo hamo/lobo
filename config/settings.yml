@@ -11,7 +11,7 @@ defaults: &defaults
   :log_level: debug
 
 :test:
-  :search_db: 13
+  :search_db: 14
   :redis:
     :host: 127.0.0.1
     :port: 6379

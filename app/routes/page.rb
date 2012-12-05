@@ -69,7 +69,7 @@ class Main
     conditions.merge!(:author_id => author.id)   if author
     conditions.merge!(:category_id => category.id)   if category
     search_type = case params[:t]
-                  when /\Ac\Z|\Acategory\Z/i; 'categories'
+                  when /\Ac\Z|\Acategor(y|ies)*\Z/i; 'categories'
                   else; 'posts'
                   end
 
@@ -81,7 +81,7 @@ class Main
         redirect_back_or '/'
       else
         @title = '搜索结果'
-        @posts = paginate_categories(result, :sort_by => :size, :order => 'DESC')
+        @categories = paginate_categories(result, :sort_by => :size, :order => 'DESC')
         haml :category_list
       end
     when 'posts'
