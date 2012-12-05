@@ -53,8 +53,8 @@ class Main
     @header_nav = :user
     @posts = paginate_posts(@user.monitored_posts.to_a.
                               select{|i| i.visible?(current_user) }.
-                              sort_by{|i| i.created_at}.
-                              reverse)
+                              sort_by(&:created_at).reverse
+                           )
     haml :user_post_list
   end
 end

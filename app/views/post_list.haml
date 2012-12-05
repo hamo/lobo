@@ -17,4 +17,4 @@
     = partial 'post/post', :locals => {:post => post }
     .clearfix
 
-= partial 'pagination', :locals => {:items => @posts, :show_detail => false}
+= partial 'pager', :locals => {:items => @posts, :show_detail => false}

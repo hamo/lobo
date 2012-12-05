@@ -19,4 +19,4 @@
               #{link_to adm.name, user_path(adm)}
         %td= cat.rendered_note
 
-= partial 'pagination', :locals => {:items => @categories}
+= partial 'pager', :locals => {:items => @categories}
