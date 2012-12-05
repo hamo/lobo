@@ -57,6 +57,7 @@ class Main
   end
 
   get '/search' do
+    remember_path back
     query = params[:q]
     unless query
       session[:error] = '搜索关键字不能为空'

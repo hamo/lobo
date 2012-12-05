@@ -30,13 +30,13 @@ module LoboHelpers
     end
 
     # remember current path in session for future
-    def remember_path
-      session[:old_path] = request.fullpath
+    def remember_path(path = nil)
+      session[:old_path] = path || request.fullpath
     end
 
     # redirect back or a default page
-    def redirect_back_or(default = nil)
-      redirect( default || session[:old_path] || back)
+    def redirect_back_or(default = '/')
+      redirect( session[:old_path] || back || default )
     end
 
     # generate a random link to reset password, the link expires in 10 minutes
