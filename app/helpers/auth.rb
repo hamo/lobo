@@ -35,13 +35,8 @@ module LoboHelpers
     end
 
     # redirect back or a default page
-    def redirect_back_or(default)
-      if session[:old_path]
-        path = session.delete(:old_path)
-        redirect path
-      else
-        redirect default
-      end
+    def redirect_back_or(default = nil)
+      redirect( default || session[:old_path] || back)
     end
 
     # generate a random link to reset password, the link expires in 10 minutes
