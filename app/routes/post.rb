@@ -9,7 +9,7 @@ class Main
     @post = Post[params[:hash]]
     halt 404 unless @post and @post.visible? current_user
     @title = @post.title
-    @brand = "{#{@post.category}}"
+    @brand = "{#{@post.category.display_name}}"
     haml(:'post/detail')
   end
 

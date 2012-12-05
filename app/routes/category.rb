@@ -66,7 +66,7 @@ class Main
     @category = Category.with(:name, params[:category])
     halt 404 unless @category
     halt 404 unless current_user.tagged?('admin') or @category.admins.include?(current_user)
-    @brand = "{#{@category}}设置"
+    @brand = "{#{@category.display_name}}设置"
     haml :'category/settings'
   end
 

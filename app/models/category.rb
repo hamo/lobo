@@ -177,10 +177,6 @@ class Category < Ohm::Model
     }
   end
 
-  def to_s
-    display_name
-  end
-
   private
   
   def before_save
