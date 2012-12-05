@@ -32,7 +32,7 @@ module LoboHelpers
       current_user.unread_replies.select{|id, _|
         (Post[id] ? 
          Post[id].visible?(current_user): 
-         (Comment[id] ? Comment[id].post.visible?(current_user) : nil) 
+         (Comment[id] ? Comment[id].visible?(current_user) : nil) 
         )
       }
     end

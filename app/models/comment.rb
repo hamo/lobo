@@ -93,6 +93,15 @@ class Comment < Ohm::Model
     save
   end
 
+  # The visibility of a post to users
+  #
+  # user => nil     can everyone see this post?
+  # user => User    can a specific user see this post?
+  #
+  def visible?(user=nil)
+    post.visible?(user)
+  end
+
   private 
 
   def before_create
