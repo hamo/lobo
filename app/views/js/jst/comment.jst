@@ -1,0 +1,79 @@
+<div class='comment_hide id_<%= hash %>' style='display: none;'>
+  <div class='comment_detail entry'>
+    <div class='tagline'>
+      <a href='javascript:void(0);' onclick='show_comment(event);'>[+]</a>
+      <strong>
+	<a href='/u/<%= logged %>'><%= logged %></a>
+      </strong>
+      <div class='action'>
+	<i class='icon-arrow-up' />
+	<span class='karma'><%= karma %></span>
+      </div>
+      <div class='action'>
+	<i class='icon-time' />
+	<%= created_at %>
+      </div>
+      <div class='action'>
+	<i class='icon-cut' />
+	0个子评论
+      </div>
+    </div>
+  </div>
+</div>
+<div class='comment id_<%= hash %>' id='<%= id %>'>
+  <div class='voting'>
+    <div class='arrow sprite upmod' onclick="vote(event, '<%= hash %>');">
+    </div>
+    <div class='arrow sprite down' onclick="vote(event, '<%= hash %>');">
+    </div>
+  </div>
+  <div class='comment_detail entry'>
+    <div class='tagline'>
+      <a href='javascript:void(0);' onclick='hide_comment(event);'>
+	[-]
+      </a>
+      <strong>
+	<a href='/u/<%= logged %>'>
+	  <%= logged %>
+	</a>
+      </strong>
+      <div class='action'>
+	<i class='icon-arrow-up' />
+	<span class='karma'>
+	  <%= karma %>
+	</span>
+      </div>
+      <div class='action'>
+	<i class='icon-time' />
+	<%= created_at %>
+      </div>
+      <div class='action'>
+	<i class='icon-link' />
+	<a href='/p/<%= href %>'>
+	  链接
+	</a>
+      </div>
+      <div class='action'>
+	<a href='javascript:void(0);' onclick="comment_reply(event, '<%= hash %>');">
+	  <i class='icon-comment-alt'></i>
+	  回复
+	</a>
+      </div>
+      <div class='action'>
+	<a href='javascript:void(0);' onclick="comment_edit(event, '<%= hash %>');">
+	  <i class='icon-edit'></i>
+	  编辑
+	</a>
+      </div>
+    </div>
+    <div class='md current_user'>
+      <%= rendered_content %>
+    </div>
+    <div class='child'>
+      <div class='replies'>
+      </div>
+    </div>
+  </div>
+</div>
+<div class='clearfix'>
+</div>
