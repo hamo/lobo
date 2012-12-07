@@ -1,10 +1,12 @@
 src = (e) ->
   e.srcElement or e.target
+
 pde = (e) ->
   if e.preventDefault
     e.preventDefault()
   else
     e.returnValue = false
+
 click_get_a = (o) ->
   if o.is("a")
     o
@@ -12,18 +14,23 @@ click_get_a = (o) ->
     o.parent()
   else
     null
+
 loading_start = (button) ->
   button.button "loading"
   button.siblings("img.loading").show()
+
 loading_finish = (button) ->
   button.button "reset"
   button.siblings("img.loading").hide()
+
 checklogin = (event) ->
   unless logged
     pde event
     login.modal()
     false
-  true
+  else
+    true
+
 comment_show = (json, father) ->
   comment = $.parseJSON(json)
   if comment.success
@@ -127,12 +134,14 @@ comment_show = (json, father) ->
     target.prepend show
     target.prepend hide
   else
+
 comment_modify = (json) ->
   comment = $.parseJSON(json)
   if comment.success
     show = $(".comment.id_" + comment.hash + ":first")
     show.find(".md:first").html comment.rendered_content
   else
+
 @comment_reply = (event, hash) ->
   return false  unless checklogin(event)
   s = $(src(event))
@@ -168,6 +177,7 @@ comment_modify = (json) ->
 
   o.parent().parent().parent().find(".md:first").after form
   form.find("textarea").focus()
+
 @comment_edit = (event, hash) ->
   s = $(src(event))
   o = click_get_a(s)
@@ -212,6 +222,7 @@ comment_modify = (json) ->
 
   o.parent().parent().parent().find(".md:first").after form
   form.find("textarea").focus()
+
 @vote = (event, hash) ->
   return false  unless checklogin(event)
   o = $(src(event))
@@ -299,6 +310,7 @@ comment_modify = (json) ->
     true
   else
     false
+
 @format_help = (event) ->
   o = $(src(event))
   target = o.parent().parent()
@@ -306,6 +318,7 @@ comment_modify = (json) ->
     target.append format_table
   else
     target.find(".format_help").remove()
+
 @change_captcha = (event) ->
   o = $(src(event))
   form = o.parent().parent().parent().parent()
@@ -313,6 +326,7 @@ comment_modify = (json) ->
   form.find("input[name='captcha_session']").val new_session
   #form.find("img#captcha-image").attr "src", "//captchator.com/captcha/image/" + new_session
   form.find("img#captcha-image").attr "src", "//www.opencaptcha.com/img/" + new_session + ".jpg"
+
 @sanction = (event, hash) ->
   o = $(src(event))
   answer = confirm("R U sure?")
@@ -349,6 +363,7 @@ comment_modify = (json) ->
   report.find(".modal-body").append report_form
   report.find(".modal-footer").remove()
   report.modal()
+
 @review = (event, hash) ->
   o = $(src(event))
   event = o.parent().parent().parent()
@@ -369,6 +384,7 @@ comment_modify = (json) ->
       ), "json"
     else
       return false
+
 @favourite = (event, post) ->
   return false  unless checklogin(event)
   o = $(src(event))
@@ -388,6 +404,7 @@ comment_modify = (json) ->
         else
     else
   ), "json"
+
 @authorize_subscription = (event, user, category) ->
   o = $(src(event))
   event = o.parent().parent().parent()
@@ -409,6 +426,7 @@ comment_modify = (json) ->
     ), "json"
   else
     false
+
 @md_preview = (event) ->
   o = $(src(event))
   target = o.parent().parent().find("textarea.md_preview")
@@ -454,6 +472,7 @@ comment_modify = (json) ->
     o.prepend icon
   o.off "click"
   o.attr "onclick", "md_preview(event);"
+
 @post_edit = (event, hash) ->
   o = $(src(event))
   form = $(".post-form.id_" + hash)
@@ -484,6 +503,7 @@ post_modify = (json) ->
     show = $(".post_detail." + post.id_hash)
     show.find(".md").html post.rendered_content
   else
+
 @post_delete = (event, hash) ->
   answer = confirm("R U sure?")
   return false  unless answer
@@ -492,6 +512,7 @@ post_modify = (json) ->
       $(".post_detail.id_" + hash).parent().remove()
     else
   ), "json"
+
 @category_subscribe = (event, category) ->
   return false  unless checklogin(event)
   button = $(src(event))
@@ -512,6 +533,7 @@ post_modify = (json) ->
           button.html "<i class='icon-plus icon-white'></i> 加入本圈子"
     else
   ), "json"
+
 @expando_child = (event) ->
   o = $(src(event))
   target = o.parent().parent()
@@ -555,6 +577,7 @@ post_modify = (json) ->
 
     else
       return false
+
 @show_comment = (event) ->
   o = $(src(event))
   comment = o.parent().parent().parent()
@@ -564,6 +587,7 @@ post_modify = (json) ->
 
   $(".comment." + comment_id).show()
   $(".comment_hide." + comment_id).hide()
+
 @hide_comment = (event) ->
   o = $(src(event))
   comment = o.parent().parent().parent()
@@ -573,6 +597,7 @@ post_modify = (json) ->
 
   $(".comment." + comment_id).hide()
   $(".comment_hide." + comment_id).show()
+
 @toggle_comment = (event) ->
   o = $(src(event))
   comment = o.parent().parent().parent()
@@ -584,13 +609,21 @@ post_modify = (json) ->
     when false
       comment_children.hide()
       o.text "[+]"
+
 minKarma = -10
+
 modal = $("<div class='modal'><div class='modal-header'><button class='close' data-dismiss='modal'>×</button></div><div class='modal-body'></div><div class='modal-footer'></div></div>")
+
 login = modal.clone()
+
 login.find(".modal-header").append "<h3>登录</h3>"
+
 login.find(".modal-body").append "<form action='/login' class='form-horizontal validate-form' method='post'><div class='fieldset'><div class='control-group'><label class='control-label' for='login_name'>用户名</label><div class='controls'><input class='input-large' name='login_name' type='text' value=''></div></div><div class='control-group'><label class='control-label' for='login_password'>密码</label><div class='controls'><input class='input-large' name='login_password' type='password'></div></div><div class='form-actions'><button class='btn btn-large' id='login_button' type='submit'><i class='icon-ok-sign'></i>登录</button><div class='hspace'></div><div class='hspace'></div><div class='hspace'></div><a class='btn btn-primary btn-large' href='/register'><i class='icon-white icon-user'></i>注册</a></div></div></form>"
+
 login.find(".modal-footer").remove()
+
 format_table = $("<div class='format_help'><table class='table table-bordered table-striped'><colgroup><col class='span4'><col class='span4'></colgroup><thead><tr><th>You Type</th><th>You See</th></tr></thead><tbody><tr><td><code>_italics_</code></td><td><em>italics</em></td></tr><tr><td><code>**bold**</code></td><td><strong>bold</strong></td></tr><tr><td><code># title #</code></td><td><strong># title #</strong></td></tr><tr><td><code>[google](http://www.google.com)</code></td><td><a href='http://www.google.com'>google</a></td></tr><tr><td><code>`未分类`</code></td><td><a href='/l/uncategoried' title='未分类'>未分类</a></td></tr><tr><td><code>``` c</code><br><code>#include &lt;stdio.h&gt;</code><br><code>int main(void) {</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;printf(\"Hello World!\");</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;return 0;</code><br><code>}</code><br><code>```</code></td><td><div class='highlight'><pre><span class='cp'>#include &lt;stdio.h&gt;</span><br><span class='kt'>int</span> <span class='nf'>main</span><span class='p'>(</span><span class='kt'>void</span><span class='p'>)</span> <span class='p'>{</span><br><span class='n'>    printf</span><span class='p'>(</span><span class='s'>\"Hello World!\"</span><span class='p'>);</span><br><span class='k'>    return</span> <span class='mi'>0</span><span class='p'>;</span><br><span class='p'>}</span></pre></div></td></tr></tbody></table></div>")
+
 $(document).ready ->
   $.ajaxSetup cache: false
   i = 0
@@ -611,7 +644,6 @@ $(document).ready ->
     success: (data, status, xhr, form) ->
       loading_finish form.find(".comment_submit:first")
       comment_show data, null
-
 
 $(document).ready ->
   $(".validate-form").each (index, Element) ->
@@ -719,7 +751,6 @@ $(document).ready ->
         $(element).parent().parent().removeClass("error").addClass "success"
     )
 
-
 $(document).ready ->
   category = $(".typeahead.category")
   category_members = $(".typeahead.category_members")
@@ -741,7 +772,6 @@ $(document).ready ->
           $(element).typeahead source: data.subscribers
         else
       ), "json"
-
 
 $(document).ready ->
   tooltip = $(".tooltip-lb")
