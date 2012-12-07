@@ -547,7 +547,7 @@ post_modify = (json) ->
         hash = o.parent().find("a").attr("href").split("/").pop()
         $.getJSON "/post/get/" + hash, (data) ->
           if data.success
-            div = $("<div class='expando_text'>").append($("<div class='well md'>").append(data.rendered_content))
+            div = $(JST.expando_text({text: data.rendered_content}))
             target.append div
             o.removeClass("big-cursor").addClass "small-cursor"
             o.removeClass "trackable"
