@@ -24,15 +24,6 @@ class Main
   # new post page
   get '/post/new' do
     require_login
-    if params[:category]
-      @category = Category.with(:name, params[:category])
-    end
-    if params[:url]
-      @url = url_check(params[:url]) ? params[:url] : nil
-    end
-    if params[:title]
-      @post_title = params[:title]
-    end
     @title = '发表新帖子'
     haml :'post/new'
   end

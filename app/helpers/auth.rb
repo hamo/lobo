@@ -36,7 +36,7 @@ module LoboHelpers
 
     # redirect back or a default page
     def redirect_back_or(default = '/')
-      redirect( session[:old_path] || back || default )
+      redirect( session[:old_path] || default || back)
     end
 
     # generate a random link to reset password, the link expires in 10 minutes
