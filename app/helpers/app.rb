@@ -8,7 +8,7 @@ module LoboHelpers
     # Generate a <img> tag with dynamically selected logo file
     #
     def logo
-      image_tag('images/logo.png', :id => 'logo', :alt => 'logo', :height => 40, :width => 40)
+      image_tag('images/logo.png', :id => 'logo', :alt => 'logo', :style => 'width: 40px; height: 40px;')
     end
 
     # Get a dynamic title based on @title variable
