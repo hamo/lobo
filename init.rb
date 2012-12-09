@@ -12,9 +12,11 @@ RACK_ENV = ENV["RACK_ENV"] ||= "development" unless defined? RACK_ENV
 Bundler.require(:default,RACK_ENV)
 Bundler.setup(:default,RACK_ENV)
 
+require_relative 'lib/glue'
+
 $logger = Logger.new(STDERR)
 
-class Main < Monk::Glue
+class Main < Glue
   register Sinatra::StaticAssets
   #make server more responsive
   #register Sinatra::Synchrony

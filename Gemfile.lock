@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/monkrb/glue.git
-  revision: 8a59f5c27b98399f80e9289530675366ad298b4c
-  ref: 8a59f
-  specs:
-    monk-glue (0.0.1)
-
-GIT
   remote: git://github.com/roylez/pagination.git
   revision: 1901e5125ba35ddad40a41038c4bd617e2c9ae8c
   ref: 1901e
@@ -189,7 +182,6 @@ DEPENDENCIES
   hiredis (= 0.4.5)
   jammit
   mail (= 2.4.4)
-  monk-glue!
   newrelic_rpm
   ohm (= 1.2.0)
   ohm-contrib (= 1.2.0)

@@ -7,7 +7,7 @@ source "http://ruby.taobao.org"
 
 gem 'bundler'
 
-gem 'monk-glue'            , :ref => '8a59f', :require => 'monk/glue', :git => 'git://github.com/monkrb/glue.git'
+#gem 'monk-glue'            , :ref => '8a59f', :require => 'monk/glue', :git => 'git://github.com/monkrb/glue.git'
 gem 'ohm'                  , '1.2.0'
 gem "hiredis"              , "0.4.5"
 gem 'redis'                , '3.0.2', :require => ["redis/connection/hiredis", "redis"]
