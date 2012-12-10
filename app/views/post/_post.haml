@@ -16,9 +16,16 @@
   .entry(class = "#{'new' unless new_post_read?(post, current_user)}")
 
     .title
-      - brand_icons(post).each do |icon|
-        - if defined?(show_detail) and show_detail and icon == "icon-file"
-          %i.vertical-middle(class="#{icon}")
+      - post_brands(post).each do |brand|
+        - icon = brand_icon(brand)
+        - case brand
+        - when :file
+          - if defined?(show_detail) and show_detail
+            %i.vertical-middle(class="#{icon}")
+          - else
+            %i.vertical-middle.trackable(class="#{icon} big-cursor" onclick="expando_child(event);")
+        - when :video
+          %i.vertical-middle.trackable(class="#{icon} big-cursor" data-video-source="#{post.video_source}" data-video-id="#{post.video_id}" onclick="expando_child(event);")
         - else
           %i.vertical-middle.trackable(class="#{icon} big-cursor" onclick="expando_child(event);")
 

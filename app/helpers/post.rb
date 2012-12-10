@@ -36,6 +36,7 @@ module LoboHelpers
     def post_brands(post)
       brands = []
       brands << :picture  if post.url =~ /\.(jpg|png|jpeg|gif)$/i
+      brands << :video    if post.playable?
       brands << :text     if post.type == :content
       brands
     end

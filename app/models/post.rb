@@ -35,7 +35,10 @@ class Post < Ohm::Model
 
   counter   :favourite_count
 
-  index   :domain
+  attribute :video_source, lambda {|x| x.nil? ? x : x.to_sym }
+  attribute :video_id
+
+  index     :domain
 
   index     :available?
 
@@ -135,6 +138,12 @@ class Post < Ohm::Model
     true
   end
 
+  # if this is a video and playable?
+  # 
+  def playable?
+    video_source
+  end
+
   # all visible posts
   def self.seek_public
     all.except(:available? => false)
@@ -148,12 +157,27 @@ class Post < Ohm::Model
     author_upvote
     add_author_monitor
     add_author_to_new_post_reader
+    identify_video_source
   end
 
   def before_save
     super
     category_fallback
     render_content
+  end
+
+  def identify_video_source
+    return nil  unless url
+    source, vid = case url
+                  # http://v.youku.com/v_show/id_XNDQ4NDUzNjgw.html
+                  when %r{http://v.youku.com/v_show/id_(\w+)\.html}; [:youku, $1]
+                  # http://video.sina.com.cn/v/b/22928000-1288113513.html
+                  when %r{http://video.sina.com.cn/v/b/(\d+)-\d+\.html}; [:sina, $1]
+                  else; [nil, nil]
+                  end
+    self.video_source = source  if source
+    self.video_id = vid   if vid
+    save
   end
 
   def add_author_monitor

@@ -41,9 +41,8 @@ module LoboHelpers
 
     # get brand icons from setting mapping, item can be a Post or a Comment, or
     # perhaps a User
-    def brand_icons(item)
-      brands = send((item.class.to_s.downcase + '_brands').to_sym, item)
-      brands.collect{|b| app_settings(:brand_icons)[b]}
+    def brand_icon(brand)
+      app_settings(:brand_icons)[brand]
     end
 
     # dynamic brand title in navigation bar
