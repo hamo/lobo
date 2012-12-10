@@ -18,3 +18,5 @@ vendor
 public/js/app*.js
 public/assets/common*css*
 public/assets/workspace*js*
+public/assets/*swf
+public/assets/conf.xml
