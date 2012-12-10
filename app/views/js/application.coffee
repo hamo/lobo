@@ -203,17 +203,17 @@ comment_modify = (json) ->
 @read = (event, hash) ->
   o = $(src(event))
   if logged and o.hasClass("trackable")
+    post_entry = $(".post_detail.id_"+hash).children(".entry")
+    if post_entry.hasClass("new")
+      post_entry.removeClass "new"
+
     $.ajax
       type: "POST"
       data:
         hash: hash
-
       async: false
       url: "/session/add_history"
 
-    post_entry = $(".post_detail.id_"+hash).children(".entry")
-    if post_entry.hasClass("new")
-      post_entry.removeClass "new"
     true
   else
     false
