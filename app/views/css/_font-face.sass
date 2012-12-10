@@ -1,9 +1,6 @@
-@font-face 
-  font-family: "cabin"
-  font-style: normal
-  src: url(/fonts/embed/Cabin-Regular.otf) format('truetype')
+@import compass/css3/font-face
 
-@font-face 
-  font-family: "cabin"
-  font-style: italic
-  src: url(/fonts/embed/Cabin-Italic.otf) format('truetype')
++font-face("cabin", font-files("/fonts/embed/Cabin-Regular.woff", woff, "/fonts/cabin/Cabin-Regular.ttf", truetype, "/fonts/cabin/Cabin-Regular.svg", svg), "/fonts/cabin/Cabin-Regular.eot", normal, normal)
+
++font-face("cabin", font-files("/fonts/embed/Cabin-Italic.woff", woff, "/fonts/cabin/Cabin-Italic.ttf", truetype, "/fonts/cabin/Cabin-Italic.svg", svg), "/fonts/cabin/Cabin-Italic.eot", normal, italic)
+
