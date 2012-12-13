@@ -178,6 +178,9 @@ class Post < Ohm::Model
     self.video_source = source  if source
     self.video_id = vid   if vid
     save
+    if source and vid and !FlyingComment["#{source}_#{vid}"]
+      FlyingComment.create(:video_source => source.to_s, :video_id => vid.to_s, :content => '')
+    end
   end
 
   def add_author_monitor

@@ -12,7 +12,7 @@ class FlyingComment < Ohm::Model
   attribute   :video_source
   attribute   :video_id
 
-  attribute   :content
+  attribute   :content, Type::Array
 
   def validate
     assert_present  :video_source

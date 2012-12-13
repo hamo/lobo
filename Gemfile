@@ -31,6 +31,8 @@ gem 'pagination'           , :ref => '1901e', :git => 'git://github.com/roylez/p
 gem 'redcarpet'
 gem 'pygments.rb'
 
+gem 'nokogiri'
+
 gem 'haml'                 , '3.1.7'
 gem 'sass'                 , '3.2.3', :require => 'sass/plugin'
 
