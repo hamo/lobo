@@ -481,7 +481,19 @@ post_modify = (json) ->
             o.removeClass("big-cursor").addClass "small-cursor"
             o.removeClass "trackable"
           else
-
+    when o.hasClass("icon-facetime-video")
+      if target.find(".expando_video").length is 0
+        video_type = o.attr("data-video-source")
+        video_id = o.attr("data-video-id")
+        # FIXME: add support for non-mukio player
+        div = $(JST.expando_mukio_video({vtype: video_type, vid: video_id}))
+        target.append div
+        o.removeClass("big-cursor").addClass "small-cursor"
+        o.removeClass "trackable"
+      else
+        target.find(".expando_video").remove()
+        o.removeClass("small-cursor").addClass "big-cursor"
+        o.addClass "trackable"
     else
       return false
 
