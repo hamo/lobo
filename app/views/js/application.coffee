@@ -444,6 +444,7 @@ post_modify = (json) ->
 @expando_child = (event) ->
   o = $(src(event))
   target = o.parent().parent()
+  target_width = target.width() - 50
   switch true
     when o.hasClass("icon-picture")
       unless target.find(".expando_pic").length is 0
@@ -486,7 +487,7 @@ post_modify = (json) ->
         video_type = o.attr("data-video-source")
         video_id = o.attr("data-video-id")
         # FIXME: add support for non-mukio player
-        div = $(JST.expando_mukio_video({vtype: video_type, vid: video_id}))
+        div = $(JST.expando_mukio_video({vtype: video_type, vid: video_id, width: target_width}))
         target.append div
         o.removeClass("big-cursor").addClass "small-cursor"
         o.removeClass "trackable"
