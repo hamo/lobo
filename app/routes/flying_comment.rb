@@ -20,7 +20,7 @@ class Main
             xml.times msg['date']
             xml.user user_name
           end
-        end
+        end if fc.content
       end
     end
   end
