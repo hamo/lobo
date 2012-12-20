@@ -1,5 +1,9 @@
 # coding: utf-8
 class Main
+  before do
+    logger.info params.inspect  if RACK_ENV == 'development' && request.request_method == 'POST'
+  end
+
   not_found do
     haml(:'404')
   end
