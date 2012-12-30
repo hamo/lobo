@@ -46,15 +46,26 @@ class Main
   end
 
   get '/u/:name' do
+    @header_nav = :user
     @title = "#{params[:name]}的帖子"
     @user = User.first :name => params[:name]
     halt 404 unless @user
     @brand = "@#{@user.name}"
-    @header_nav = :user
     @posts = paginate_posts(@user.monitored_posts.to_a.
                               select{|i| i.visible?(current_user) }.
                               sort_by(&:created_at).reverse
                            )
+    haml :user_post_list
+  end
+
+  get '/new_replies' do
+    require_login
+    @header_nav = :user
+    @title = "有新回复的帖子"
+    @user  = current_user
+    @brand = "@#{@user.name}"
+    posts = unread_replies.keys.map{|k| Post[k]}.sort_by(&:created_at).reverse
+    @posts = paginate_posts( posts )
     haml :user_post_list
   end
 end

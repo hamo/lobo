@@ -13,10 +13,11 @@
             %a.btn.btn-success(href='/login') 登录
             %a.btn.btn-warning(href='/register') 注册
           - else
-            %a.btn.btn-info{:href => user_path(current_user) }
+            - unread = total_unread
+            %a.btn.btn-info{:href => unread.zero? ? user_path(current_user) : '/new_replies' }
               = current_user.name
-              - if total_unread > 0
-                %span.badge.badge-important= total_unread
+              - if unread > 0
+                %span.badge.badge-important= unread
             %a.btn.btn-inverse(href='/logout')
               %i.icon-signout
 

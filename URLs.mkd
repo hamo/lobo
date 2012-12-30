@@ -1,4 +1,5 @@
 1. 用户可访问的URL
+
   /login  登录界面
   /register 注册页面
   /logout 登出界面
@@ -16,6 +17,10 @@
     q=xxx         搜索关键字
     u=hamo        限定用户名
     c=pic         限定类别
+
+  /settings       用户设置
+  /favourites     用户收藏的帖子
+  /new_replies    用户有新回复的帖子
 
   /p/:hash  post地址
   /l/:name  分类地址
