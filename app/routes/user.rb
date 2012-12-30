@@ -64,7 +64,7 @@ class Main
     @title = "有新回复的帖子"
     @user  = current_user
     @brand = "@#{@user.name}"
-    posts = unread_replies.keys.map{|k| Post[k]}.sort_by(&:created_at).reverse
+    posts = unread_replies.keys.map{|k| Post[k] || (Comment[k] ? Comment[k].post : nil)}.compact.sort_by(&:created_at).reverse
     @posts = paginate_posts( posts )
     haml :user_post_list
   end
