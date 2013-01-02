@@ -152,10 +152,10 @@ module Ohm
     # return nil when not found or exceptions raised on none unique field
     #
     def self.first(hash)
-      if hash.size == 1
+      if hash.size == 1 and key[:uniques][hash.keys.first].exists
         with(hash.keys.first, hash.values.first)
       else
-        all.find(hash).first
+        find(hash).first
       end
     rescue
       nil

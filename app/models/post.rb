@@ -16,6 +16,8 @@ class Post < Ohm::Model
   attribute :content
   attribute :rendered_content
 
+  index     :url
+
   reference :author  , :User
   reference :category, :Category
   reference :sanctioned_by , :User
@@ -35,7 +37,7 @@ class Post < Ohm::Model
 
   counter   :favourite_count
 
-  index   :domain
+  index     :domain
 
   index     :available?
 
