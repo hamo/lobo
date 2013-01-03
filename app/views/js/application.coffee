@@ -487,6 +487,7 @@ post_modify = (json) ->
         video_type = o.attr("data-video-source")
         video_id = o.attr("data-video-id")
         # FIXME: add support for non-mukio player
+        # FIXME: pass on post_id as cid for children
         div = $(JST.expando_mukio_video({vtype: video_type, vid: video_id, width: target_width}))
         target.append div
         o.removeClass("big-cursor").addClass "small-cursor"

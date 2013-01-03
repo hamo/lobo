@@ -6,9 +6,9 @@ class Main
   
   # get flying comment for a video
   #
-  get %r{/f/(\w+)_(\w+)} do |video_source, video_id|
+  get %r{/f/([^&]*)(&r=.*)?} do |cid, _|
     content_type 'text/xml'
-    fc = FlyingComment[video_source + '_' + video_id]
+    fc = FlyingComment[cid]
     halt 404  unless fc
     user_name = logged_in? ? current_user.name : '匿名'
     nokogiri do |xml|
@@ -27,10 +27,11 @@ class Main
 
   # send flying comment for a video
   #
-  post %r{/f/(\w+)_(\w+)} do |video_source, video_id|
-    fc = FlyingComment[video_source + '_' + video_id]
+  post '/f/:cid' do
+    fc = FlyingComment[params[:cid]]
     halt 404  unless fc
     data = params.reject{|k, _| k == 'splat' || k == 'captures'}
+    data['message'] = data['message'].chomp
     fc.content = (fc.content ? (fc.content << data) : [data])
     fc.save
   end

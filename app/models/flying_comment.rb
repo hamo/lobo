@@ -9,19 +9,17 @@ require_relative 'shared'
 class FlyingComment < Ohm::Model
   include Ohm::DataTypes
 
-  attribute   :video_source
-  attribute   :video_id
+  reference   :post, Post
 
   attribute   :content, Type::Array
 
   def validate
-    assert_present  :video_source
-    assert_present  :video_id
+    assert_present  :post_id
   end
 
   private
 
   def _initialize_id
-    @id = video_source.to_s + '_' + video_id.to_s
+    @id = post_id
   end
 end
