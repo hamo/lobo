@@ -12,10 +12,8 @@ module LoboHelpers
 
     # is current comment a new reply for current user?
     def is_new_reply?(comment)
-      return false unless unread_replies
-      an = unread_replies.select{|k, _| k == comment.post.id or k =~ /\A#{comment.post.id}_/ }.first
-      return false unless an
-      unread_replies[an.first].include? comment.id
+      return false unless @unread_in_thread or @unread_in_thread.empty?
+      @unread_in_thread.collect(&:last).flatten.include? comment.id
     end
 
     # total new replies number for current user
@@ -40,7 +38,7 @@ module LoboHelpers
     # unread replies for a specific post
     def unread_replies_for_post(post)
       return 0 unless unread_replies
-      unread_replies.select{|k, _| k == post.id || k =~ /\A#{post.id}_/ }.collect(&:last).flatten.size
+      unread_replies.select{|k, _| post.thread_contains? k }.collect(&:last).flatten.size
     end
 
     # unread replies for a specific comment

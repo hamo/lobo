@@ -142,6 +142,11 @@ class Post < Ohm::Model
     all.except(:available? => false)
   end
 
+  # if an id refers to a comment/post in current thread
+  def thread_contains?(cid)
+    id == cid or cid =~ /\A#{id}_/
+  end
+
   private 
 
   def after_create

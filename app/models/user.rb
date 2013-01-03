@@ -105,11 +105,13 @@ class User < Ohm::Model
   def clear_unread_replies(post)
     return unless unread_replies
     unread = unread_replies
+    deleted = {}
     unread.each_key do |k|
-      unread.delete(k)  if k == post.id or k =~ /\A#{post.id}_/
+      deleted[k] =  unread.delete(k)  if post.thread_contains?(k)
     end
     self.unread_replies = unread
     save
+    deleted
   end
 
   # vote something, up or down

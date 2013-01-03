@@ -14,10 +14,10 @@ class Main
   end
 
   # clear unread counter after visiting a post page
-  after '/p/:hash' do
+  before '/p/:hash' do
     @post = Post[params[:hash]]
     if logged_in?
-      current_user.clear_unread_replies(@post)
+      @unread_in_thread = current_user.clear_unread_replies(@post)
     end
   end
 
