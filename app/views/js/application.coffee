@@ -487,7 +487,7 @@ post_modify = (json) ->
         video_type = o.attr("data-video-source")
         video_id = o.attr("data-video-id")
         video_post_id = null
-        target.attr("class").split(" "), (i, e) ->
+        $.each target.attr("class").split(" "), (i, e) ->
           video_post_id = e.slice(3)  if e.match("id_.*")
         # FIXME: add support for non-mukio player
         div = $(JST.expando_mukio_video({vtype: video_type, vid: video_id, width: target_width, cid: video_post_id}))
