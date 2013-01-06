@@ -486,9 +486,11 @@ post_modify = (json) ->
       if target.find(".expando_video").length is 0
         video_type = o.attr("data-video-source")
         video_id = o.attr("data-video-id")
+        video_post_id = null
+        target.attr("class").split(" "), (i, e) ->
+          video_post_id = e.slice(3)  if e.match("id_.*")
         # FIXME: add support for non-mukio player
-        # FIXME: pass on post_id as cid for children
-        div = $(JST.expando_mukio_video({vtype: video_type, vid: video_id, width: target_width}))
+        div = $(JST.expando_mukio_video({vtype: video_type, vid: video_id, width: target_width, cid: video_post_id}))
         target.append div
         o.removeClass("big-cursor").addClass "small-cursor"
         o.removeClass "trackable"
