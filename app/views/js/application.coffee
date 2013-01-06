@@ -483,6 +483,7 @@ post_modify = (json) ->
             o.removeClass "trackable"
           else
     when o.hasClass("icon-facetime-video")
+      target = target.parentsUntil(".link").parent()
       if target.find(".expando_video").length is 0
         video_type = o.attr("data-video-source")
         video_id = o.attr("data-video-id")
