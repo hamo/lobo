@@ -483,7 +483,7 @@ post_modify = (json) ->
           else
     when o.hasClass("icon-facetime-video")
       video_target = target.parentsUntil(".link").parent()
-      video_target_width = video_target.width() - 50
+      video_target_width = video_target.width()
       if video_target.find(".expando_video").length is 0
         video_type = o.attr("data-video-source")
         video_id = o.attr("data-video-id")
@@ -491,7 +491,7 @@ post_modify = (json) ->
         $.each target.attr("class").split(" "), (i, e) ->
           video_post_id = e.slice(3)  if e.match("id_.*")
         # FIXME: add support for non-mukio player
-        div = $(JST.expando_mukio_video({vtype: video_type, vid: video_id, width: video_target_width, cid: video_post_id}))
+        div = $(JST.expando_mukio_video({vtype: video_type, vid: video_id, height: video_target_width * 0.55, width: video_target_width, cid: video_post_id}))
         video_target.append div
         o.removeClass("big-cursor").addClass "small-cursor"
         o.removeClass "trackable"
