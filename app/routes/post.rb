@@ -33,14 +33,14 @@ class Main
     require_login
     unless current_user.able_to_post?
       session[:error] = '您最近的帖子表现不佳，请休息几天再回来发帖吧'
-      redirect '/post/new'
+      redirect "/"
     end
     # url already in DB
     old = Post.first(:url => params[:url])
     if params[:type] == 'url' and old and params[:force_posting] != '1'
       session[:info] = "这个帖子已经由<em>#{old.author.name}</em>发表过了，地址在<strong>#{link_to post_path(old), post_path(old)}</strong>。如果您还想要发表请<strong>再次提交</strong>。"
       params[:force_posting] = '1'
-      redirect :'post/new'
+      redirect "/post/new?#{URI.encode_www_form(params)}"
     end
     post = new_post(params)
     if post.valid?
