@@ -9,7 +9,8 @@
   .entry
 
     .title
-      - brand_icons(post).each do |icon|
+      - post_brands(post).each do |brand|
+        - icon = brand_icon(brand)
         %i.vertical-middle(class="#{icon}")
 
       = link_to post.title, ( post.url || post_path(post) ), :title => ( post.url || post.title ), :target => '_blank'

@@ -16,11 +16,7 @@
   .entry(class = "#{'new' unless new_post_read?(post, current_user)}")
 
     .title
-      - brand_icons(post).each do |icon|
-        - if defined?(show_detail) and show_detail and icon == "icon-file"
-          %i.vertical-middle(class="#{icon}")
-        - else
-          %i.vertical-middle.trackable(class="#{icon} big-cursor" onclick="expando_child(event);")
+      = partial 'post/brands', :locals => {:post => post}
 
       - if logged_in? and post.type == :url
         = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable', :title => ( post.url || post.title ), :target => '_blank'

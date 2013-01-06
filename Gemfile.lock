@@ -183,6 +183,7 @@ DEPENDENCIES
   jammit
   mail (= 2.4.4)
   newrelic_rpm
+  nokogiri
   ohm (= 1.2.0)
   ohm-contrib (= 1.2.0)
   pagination!

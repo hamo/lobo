@@ -2,16 +2,7 @@
   .entry
 
     .title
-      - brand_icons(post).each do |icon|
-        - if defined?(show_detail) and show_detail and icon == "icon-file"
-          %i.vertical-middle(class="#{icon}")
-        - else
-          %i.vertical-middle(class="#{icon}" onclick="expando_child(event);")
-
-      - if logged_in? and post.type == :url
-        = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable', :title => ( post.url || post.title ), :target => '_blank'
-      - else
-        = link_to post.title, ( post.url || post_path(post) ), :class => 'trackable', :title => ( post.url || post.title )
+      = partial 'post/brands', :locals => {:post => post}
 
     .hspace
 
