@@ -13,7 +13,8 @@ module LoboHelpers
     # is current comment a new reply for current user?
     def is_new_reply?(comment)
       return false unless logged_in?
-      return false unless @unread_in_thread or @unread_in_thread.empty?
+      return false unless @unread_in_thread
+      return false if @unread_in_thread.empty?
       @unread_in_thread.collect(&:last).flatten.include? comment.id
     end
 
