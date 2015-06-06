@@ -20,13 +20,13 @@ gem 'rack-protection'      , '1.2'
 gem 'chinese_pinyin'
 gem 'rmmseg-cpp-huacnlee'
 gem 'redis-namespace'
-gem 'redis-search'         , :ref => 'c21e1', :git => 'git://github.com/roylez/redis-search.git'
+gem 'redis-search'         , :ref => 'c21e1', :git => 'git://github.com/hamo/redis-search.git'
 
 # compass must be loaded before sinatra!!!
 gem 'compass'
 gem 'bootstrap-sass'       , '~> 2.2.1.1'
 
-gem 'pagination'           , :ref => '1901e', :git => 'git://github.com/roylez/pagination.git'
+gem 'pagination'           , :ref => '1901e', :git => 'git://github.com/hamo/pagination.git'
 
 gem 'redcarpet'
 gem 'pygments.rb'

@@ -1,12 +1,12 @@
 GIT
-  remote: git://github.com/roylez/pagination.git
+  remote: git://github.com/hamo/pagination.git
   revision: 1901e5125ba35ddad40a41038c4bd617e2c9ae8c
   ref: 1901e
   specs:
     pagination (0.3.3)
 
 GIT
-  remote: git://github.com/roylez/redis-search.git
+  remote: git://github.com/hamo/redis-search.git
   revision: c21e102833f0548bf88e138cd238b2d6dd986d93
   ref: c21e1
   specs:
